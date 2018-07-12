@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>linux下用sublime写latex | Being...anAsshole</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="昨日的落枕,今日的忧伤.也不能阻挡我扶正脖子配置LaTex  T_T">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="linux下用sublime写latex"/>
+  <meta property="og:site_name" content="Being...anAsshole"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Being...anAsshole</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> linux下用sublime写latex</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> 昨日的落枕,今日的忧伤.也不能阻挡我扶正脖子配置LaTex  T_T
+		 </div> <!-- alert -->
+	  		
+
+	  <h2 id="配置-Tex-Live"><a href="#配置-Tex-Live" class="headerlink" title="配置 Tex Live"></a>配置 Tex Live</h2><h4 id="1-下载-Tex-Live-2017-iso"><a href="#1-下载-Tex-Live-2017-iso" class="headerlink" title="1.下载 Tex Live 2017.iso"></a>1.下载 Tex Live 2017.iso</h4><p>TeX Live 的当前版本是 2017，你可以从官方站点下载它们的安装包。点击下列链接，将会「自动选择」距离你最近的镜像下载.<br><a href="http://mirror.ctan.org/systems/texlive/Images/texlive2017.iso" target="_blank" rel="noopener">http://mirror.ctan.org/systems/texlive/Images/texlive2017.iso</a><br>–蛋酥.如果你身处中国大陆，发现下载速度很慢，可以尝试清华大学和中国科技大学的镜像站.<br><a href="https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2017.iso" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/texlive2017.iso</a><br><a href="https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/texlive2017.iso" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/texlive2017.iso</a><br>选择其一即可,大小3.7G,有点方<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wget</span> https://mirrors.ustc.edu.cn/CTAN/systems/texlive/Images/texlive2017.iso</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-安装-Tex-Live-2017"><a href="#2-安装-Tex-Live-2017" class="headerlink" title="2.安装 Tex Live 2017"></a>2.安装 Tex Live 2017</h4><ul>
+<li><p>安装perl-tk以便启动可视化安装界面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt-get install perl-tk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载安装镜像到/mnt目录:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> mount -t  iso9660 -o loop texlive*.iso /mnt/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入/mnt目录并启动安装程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cd</span> /mnt</span><br><span class="line"><span class="variable">$sudo</span> ./install-tl --gui=perltk</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2017/10/27/UL1WF.png" alt="texlive图形安装界面"></p>
+<ul>
+<li><p>将create symlinks in system directories后面的选项设置为Yes(后面设置环境变量用的)，然后开始安装.<br><img src="https://s1.ax1x.com/2017/10/27/ULQiT.png" alt="2017-08-27 texlive 创建指向系统目录符号连接"></p>
+</li>
+<li><p>结束安装,退出挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> umount /mnt/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="3.配置环境变量"></a>3.配置环境变量</h4><ul>
+<li>当前用户<br>编辑 ~/.bashrc ，在文末加入环境变量：<br>export PATH=/usr/local/texlive/2014/bin/x86_64-linux:$PATH</li>
+</ul>
+<p>之后更新一下 .bashrc：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$source</span> ~/.bashrc</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>全局变量<br>编辑 /etc/envionment，在 “ 前面用 : 分隔，然后加上下面的路径（根据 texlive 版本不同，操作系统的位数不同，路径会不一样）：</li>
+</ul>
+<p>/usr/local/texlive/2017/bin/x86_64-linux/<br>更新后，就可以正常使用了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$source</span> /etc/environment</span><br></pre></td></tr></table></figure></p>
+<p>测试，Tex Live是否安装成功，终端输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$tex</span> -v</span><br></pre></td></tr></table></figure></p>
+<p>成功滴话，会显示当前Ｔｅｘｌｉｖｅ的版本，如果以上步骤没错，当然是Ｏ几把Ｋ的</p>
+<h2 id="配置Sublime-Text3"><a href="#配置Sublime-Text3" class="headerlink" title="配置Sublime Text3"></a>配置Sublime Text3</h2><h4 id="1-安装插件-LaTex-tools"><a href="#1-安装插件-LaTex-tools" class="headerlink" title="1.安装插件 LaTex-tools"></a>1.安装插件 LaTex-tools</h4><ul>
+<li>按快捷键Ctrl+Shift+P启动在对话框输入Install Package回车，然后在插件安装对话框输入latex tools就能看到，选中安装。</li>
+<li>打开Perference-&gt;Package Settings-&gt;LaTexTools-&gt;LaTeXTools.sublime-settings<br>在打开文件的”linux”中配置你的TexLive路径(确定位置:ctrl+f:texpath)<br>“texpath” : “$PATH:/usr/local/texlive/2017/bin/x86_64-linux”</li>
+</ul>
+<h4 id="2-安装dbus-为了编译后能自动打开pdf"><a href="#2-安装dbus-为了编译后能自动打开pdf" class="headerlink" title="2.安装dbus(为了编译后能自动打开pdf)"></a>2.安装dbus(为了编译后能自动打开pdf)</h4><p>网址：　<a href="https://dbus.freedesktop.org/releases/dbus/" target="_blank" rel="noopener">https://dbus.freedesktop.org/releases/dbus/</a>　(默认你的下载目录是下载）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$tar</span> xzvf dbus-python-1.2.4.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>安装dbus依赖<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt-get install libdbus-glib-1-dev</span><br></pre></td></tr></table></figure></p>
+<p>编译运行dbus<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cd</span> dbus-python-1.2.4</span><br><span class="line">$./configure</span><br><span class="line"><span class="variable">$make</span></span><br><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure></p>
+<h2 id="测试sublime下编写LaTex"><a href="#测试sublime下编写LaTex" class="headerlink" title="测试sublime下编写LaTex"></a>测试sublime下编写LaTex</h2><p>按Ctrl+B(第一次运行会提示显示编译环境，通常xelatex对中文支持比较好，选xelatex)就能编译并显示结果了.</p>
+<p><img src="https://s1.ax1x.com/2017/10/27/ULlJU.png" alt="sublime　ＬａＴｅＸ样例"></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>这是本人在网上参考了Hin多博客，再结合国情撰写的．上面那个说xelatex对中文支持比较好，结果就hinhin的打脸了，猝不及防．（￣ε（＃￣）☆╰╮（￣▽￣／／／），输入中文后，输出的ＰＤＦ并没有先输出来，而是空白．心好累．等着，我先找找原因，会持续更新的［认真脸］</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2017/08/31/atom无法安装插件的解决方案/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/08/21/回车-CR-与换行-LF/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-08-28 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/linux/">linux<span>3</span></a></li> <li><a href="/tags/latex/">latex<span>1</span></a></li> <li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#配置-Tex-Live"><span class="toc-article-text">配置 Tex Live</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#1-下载-Tex-Live-2017-iso"><span class="toc-article-text">1.下载 Tex Live 2017.iso</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#2-安装-Tex-Live-2017"><span class="toc-article-text">2.安装 Tex Live 2017</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#3-配置环境变量"><span class="toc-article-text">3.配置环境变量</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#配置Sublime-Text3"><span class="toc-article-text">配置Sublime Text3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#1-安装插件-LaTex-tools"><span class="toc-article-text">1.安装插件 LaTex-tools</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#2-安装dbus-为了编译后能自动打开pdf"><span class="toc-article-text">2.安装dbus(为了编译后能自动打开pdf)</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#测试sublime下编写LaTex"><span class="toc-article-text">测试sublime下编写LaTex</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#问题"><span class="toc-article-text">问题</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>进退两难-用户权限与段错误 | Being...anAsshole</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="本文是本人ubuntu配置hexo,ssh各种入坑的过程">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="进退两难-用户权限与段错误"/>
+  <meta property="og:site_name" content="Being...anAsshole"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Being...anAsshole</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 进退两难-用户权限与段错误</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> 本文是本人ubuntu配置hexo,ssh各种入坑的过程
+		 </div> <!-- alert -->
+	  		
+
+	  <p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>我所使用的操作系统~ubuntu16.04,然鹅这就有问题了,因为涉及到了用户操作权限的问题.我用git克隆下来的hexo的部分文件是只读文件,更过分的是有些文件只有root才有权限访问.这是系统的文件防护机制,当然有其作用.但当我无意识的切换用户时,权限也随之改变,现如今想着可笑,曾经却一无所知.本人当时的骚操作是这样的:</p>
+<h2 id="生成ssh-key以配置和使用-github"><a href="#生成ssh-key以配置和使用-github" class="headerlink" title="生成ssh key以配置和使用 github"></a>生成ssh key以配置和使用 github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"XXXX@gmail.com"</span></span><br></pre></td></tr></table></figure>
+<p>…省略一大堆内容,反正是配置完成了,如下代码检查是否连接成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span> -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>但请注意!:我此时用户是默认的$ , 不是 #(root)</p>
+<h2 id="hexo-的布置"><a href="#hexo-的布置" class="headerlink" title="hexo 的布置"></a>hexo 的布置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/hexo/</span><br><span class="line">$ hexo/ hexo s</span><br><span class="line">$ hexo/ hexo g</span><br><span class="line">$ hexo/ hexo d</span><br></pre></td></tr></table></figure>
+<p>然后就报错了…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ERROR Plugin load failed: hexo-tag-bootstrap</span><br><span class="line">Error: EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/node_modules/hexo-tag-bootstrap/index.js&apos;</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: EACCES: permission denied, unlink &apos;/home/w-xiao/文档/git_repo/hexo/.deploy_git/archives/index.html&apos;</span><br><span class="line">FATAL EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/db.json&apos;</span><br><span class="line">Error: EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/db.json&apos;</span><br></pre></td></tr></table></figure>
+<h1 id="问题解决中…"><a href="#问题解决中…" class="headerlink" title="问题解决中…"></a>问题解决中…</h1><p>意思就是我没权限访问hexo/部分关键文件,hexo deploy 失败…<br>那我想,这还不好办么,使出如下命令符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> su</span><br></pre></td></tr></table></figure>
+<p>然后再来一遍</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo/<span class="comment"># hexo s</span></span><br><span class="line">hexo/<span class="comment"># hexo g</span></span><br><span class="line">hexo/<span class="comment"># hexo d</span></span><br></pre></td></tr></table></figure>
+<p>自信地,嘚瑟滴以为这还难得到我么…结果是出了个自从使用ubuntu以来从未见过的”段错误”,它就直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">段错误</span><br></pre></td></tr></table></figure></p>
+<p>EXM???别的什么都没了,就留下三个  字  吗,才疏学浅的我可不懂这专业术语,尔后我去谷歌了下,寝室QQ群询问了一下,然后…就睡着了[捂脸],炎炎夏日,小睡也是别有风味的,然后一个下午就这么没了…晚上重拾问题 <del>好好撸了一发</del> 咳咳,是好好地认真的查了查资料,一下是baidu百科的回答:</p>
+<blockquote>
+<p>段错误就是指访问的内存超出了系统所给这个程序的内存空间，通常这个值是由gd tr来保存的，他是一个48位的寄存器，其中的32位是保存由它指向的 gdt表，后13位保存 相应于gdt的下标，最后3位包括了程序是否在内存中以及程序的在cpu中的运行级别，指向 的gdt是由以64位为一个单位的表，在这张表中就保存着程序运行的代码段以及数据段的起 始地址以及与此相应的段限和页面交换还有程序运行级别还有内存粒度等等的信息。</p>
+</blockquote>
+<p>瞄了一眼…大概是看不懂了…再想了想,又看了看,原来还有解释:</p>
+<blockquote>
+<p>一旦一个程序发生了越界访问，cpu就会产生相应的保护，于是segmentation fault就出现<br>了通过上面的解释，段错误应该就是访问了不可访问的内存，这个内存区要么是不存在的，<br>要么是受到系统保护的，还有可能是缺少文件或者文件损坏。</p>
+</blockquote>
+<p>清楚明白了.那究竟是什么原因导致root用户发生段错误而默认用户反而没这个问题的呢??答案一定是在上面个的解释中了,具体原因有待进一步调查…反正没有谷歌到,心塞诶.</p>
+<h2 id="关键骚操作"><a href="#关键骚操作" class="headerlink" title="关键骚操作"></a>关键骚操作</h2><p>现在我就陷入了进退两难的地步了  $:没足够的权限;#:段错误.真是苦酒入喉心作痛.<br>关键操作来了:我又换了个root的方法,当时也只是不报希望地瞎搞一通罢了,没想到误打误撞</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> nautilus</span><br></pre></td></tr></table></figure>
+<p>熟悉ubuntu的童鞋一定对以上命令不陌生,它是通过nautilus文件管理器打开文件,权限是root,尔后,打开了hexo/文件夹,在此文件夹中打开终端,输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo</span></span><br></pre></td></tr></table></figure>
+<p>它竟然有用了,真是奇怪哦,我开心高兴又喜出望外的输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo g</span></span><br><span class="line"><span class="comment"># hexo d</span></span><br></pre></td></tr></table></figure></p>
+<p>欧耶!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">位于分支 master</span><br><span class="line">无文件要提交，干净的工作区</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line"></span><br><span class="line">    at ChildProcess.&lt;anonymous&gt; (/home/w-xiao/文档/git_repo/hexo/node_modules/hexo-util/lib/spawn.js:37:17)</span><br><span class="line">    at emitTwo (events.js:125:13)</span><br><span class="line">    at ChildProcess.emit (events.js:213:7)</span><br><span class="line">    at maybeClose (internal/child_process.js:897:16)</span><br><span class="line">    at Process.ChildProcess._handle.onexit (internal/child_process.js:208:5)</span><br></pre></td></tr></table></figure>
+<p>WTF!!!还是依旧清脆的打脸声…瞧了瞧,咦~怎么会是permission denid?我明明就配置过ssh-key,这么短时间应该也没有过期啥的,然后我试了试连接github</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
+<p>果然连接失败了,相比眼光尖锐的童鞋已经发现了猫腻.震惊!ssh连接失败原因竟是这…</p>
+<h2 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h2><p>配置ssh-key时本人用了默认用户而非root,oh no,wtf!<br>然后登录root重新配置ssh-key就行了.生活如此多节,还得一个坑一个坑的踩过之后,慢慢才有了绕坑的能力.</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2017/08/01/php名称解析规则/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/07/12/不为谁而写的博客/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-07-15 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/hexo/">hexo<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/hexo/">hexo<span>3</span></a></li> <li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li> <li><a href="/tags/system/">system<span>3</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#问题"><span class="toc-article-text">问题</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#生成ssh-key以配置和使用-github"><span class="toc-article-text">生成ssh key以配置和使用 github</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#hexo-的布置"><span class="toc-article-text">hexo 的布置</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#问题解决中…"><span class="toc-article-text">问题解决中…</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#关键骚操作"><span class="toc-article-text">关键骚操作</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#The-end"><span class="toc-article-text">The end</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

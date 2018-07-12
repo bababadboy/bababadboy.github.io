@@ -1,0 +1,789 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Being...anAsshole</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="Too lazy to decribe">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Being...anAsshole"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Being...anAsshole</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header logo">
+  <h1>不为谁而写的博客<span class="blink-fast">∎</span></h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="slogan">
+      <i class="fa fa-heart blink-slow"></i>
+      Do it now - sometimes LATER becomes NEVER.
+</div>    
+		<div id="top_search"></div>
+		<div class="mypage">
+		
+		<!-- title and entry -->
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/01/09/sql语言类型/" >sql语言类型</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-01-09  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>学了这么久的数据库了，连DML,DDL,DCL都搞不清楚是不是太不专业了(￣.￣)，今天，就大概的解释一下好了。</p>
+<h1 id="DML-Data-Manipulation-Language"><a href="#DML-Data-Manipulation-Language" class="headerlink" title="DML (Data Manipulation Language)"></a>DML (Data Manipulation Language)</h1><p>它包含了<code>SELECT</code>,<code>UPDATE</code>,<code>INSERT</code>,<code>DELETE</code>,这四种耳熟能详的增删改查de‘操纵数据‘的语句</p>
+<h1 id="DDL-Data-Definition-Language"><a href="#DDL-Data-Definition-Language" class="headerlink" title="DDL (Data Definition Language)"></a>DDL (Data Definition Language)</h1><p>即‘数据定义语句‘，主要有<code>CREATE</code>,<code>ALTER</code>,<code>DROP</code>等主要用于改变表（TABLE）的结构，数据类型，表之间的链接和约束等初始化工作上</p>
+<h1 id="DCL-Data-Control-Language"><a href="#DCL-Data-Control-Language" class="headerlink" title="DCL (Data Control Language)"></a>DCL (Data Control Language)</h1><p>即‘数据控制语句’。是用来设置或更改数据库用户或角色权限的语句，包括（GRANT, DENY, REVOKE等）语句。在默认状态下，只有sysadmin,dbcreator,db_owner或db_securityadmin等人员才有权力执行DCL.<br>:p<br>参考博客：<a href="http://blog.csdn.net/level_level/article/details/4248685" target="_blank" rel="noopener">http://blog.csdn.net/level_level/article/details/4248685</a></p>
+
+	
+	</div>
+  <a type="button" href="/2018/01/09/sql语言类型/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/01/03/assert/" >assert()</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-01-03  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="什么是assert"><a href="#什么是assert" class="headerlink" title="什么是assert()?"></a>什么是assert()?</h1><p>来自百度百科的解释：<br><code>编写代码时，我们总是会做出一些假设，断言就是用于在代码中捕捉这些假设，可以将断言看作是异常处理的一种高级形式。断言表示为一些布尔表达式，程序员相信在程序中的某个特定点该表达式值为真。可以在任何时候启用和禁用断言验证，因此可以在测试时启用断言，而在部署时禁用断言。同样，程序投入运行后，最终用户在遇到问题时可以重新启用断言。</code><br>看完^_^一脸懵逼.jpg<br>其实assert很好理解的，它的作用是：当<code>assert(expression)</code>根据expression判断返回的值为假时，则程序将不会继续执行下去。并且它会打印一条报错信息。这也就是可以作为程序猿调试的方式之一了= =</p>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>频繁的调用会极大的影响程序的性能，增加额外的开销。在调试结束后，可以通过在包含#include &lt;assert.h&gt;的语句之前插入 #define NDEBUG 来禁用assert调用，示例代码如下（c语言的）：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NDEBUG</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<h1 id="用法总结-amp-amp-注意事项"><a href="#用法总结-amp-amp-注意事项" class="headerlink" title="用法总结&amp;&amp;注意事项"></a>用法总结&amp;&amp;注意事项</h1><ol>
+<li>在函数开始处检验传入参数的合法性</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">resetBufferSize</span><span class="params">(<span class="keyword">int</span> nNewSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　　<span class="comment">//功能:改变缓冲区大小,</span></span><br><span class="line">　　<span class="comment">//参数:nNewSize 缓冲区新长度</span></span><br><span class="line">　　<span class="comment">//返回值:缓冲区当前长度 </span></span><br><span class="line">　　<span class="comment">//说明:保持原信息内容不变     nNewSize&lt;=0表示清除缓冲区</span></span><br><span class="line">　　assert(nNewSize &gt;= <span class="number">0</span>);</span><br><span class="line">　　assert(nNewSize &lt;= MAX_BUFFER_SIZE);</span><br><span class="line">　　...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>每个assert()只检验一个条件，因为同时检验多个条件时，如果断言失败，无法直观的判断是哪个条件失败<br>好assert：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert(nOffset &gt;= <span class="number">0</span>);</span><br><span class="line">assert(nOffset+nSize &lt;= m_nInfomationSize);</span><br></pre></td></tr></table></figure>
+<p>坏assert：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(nOffset&gt;=<span class="number">0</span> &amp;&amp; nOffset+nSize&lt;=m_nInfomationSize);</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>assert只在DEBUG中有效，自然是不能改变程序，及不能使用改变环境的语句<br>错误：</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(i++ &lt; <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>正确：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert(i &lt; <span class="number">100</span>);</span><br><span class="line">i ++;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>assert和后面的语句应空一行，以形成逻辑和视觉上的一致感。emmm，这是个好习惯呢</li>
+<li>有的地方，assert不能代替条件过滤。还不是很懂这句花</li>
+</ol>
+<p>####参考博客<a href="https://www.cnblogs.com/ggzss/archive/2011/08/18/2145017.html" target="_blank" rel="noopener">https://www.cnblogs.com/ggzss/archive/2011/08/18/2145017.html</a></p>
+
+	
+	</div>
+  <a type="button" href="/2018/01/03/assert/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/10/18/AES加密hexo文章/" title="若是想用hexo记录一些不想公开的内容，可以用hexo-encrypt对文章进行加密，当然前提是你不是挂载于gitpage上的，否则不是白搭么@灬@">AES加密hexo文章</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-10-18  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><a href="https://github.com/edolphin-ydf/hexo-encrypt" target="_blank" rel="noopener">插件地址</a></p>
+<ol>
+<li><p>使用插件hexo-encrypt进行加密，以下命令在站点文件夹执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install hexo-encrypt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开站点目录下的package.json文件，加入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;hexo-encrypt&quot;: &quot;^0.2.0&quot;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开站点目录下的 _config.yml ，加入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#encrypt</span><br><span class="line">encrypt:</span><br><span class="line">  password: 123456</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在每篇文章的头部加入以下代码就实现了AES算法加密：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">encrypt: true</span><br><span class="line">enc_pwd: 123456</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>大功告成！我只是测验一下，所以挂在github上的Emmmm…</p>
+
+	
+	</div>
+  <a type="button" href="/2017/10/18/AES加密hexo文章/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/10/12/kali-grub修复/" title="电脑的grub经常被自己玩坏~每次都要重复上一遍的操作，却仍旧要查教程，索性自己写一篇得了。">kali grub修复</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-10-12  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><strong>前提准备</strong>：一个kali安装盘<br><strong>问题</strong>：U盘安装kali总会失败，多次停留在grub的update-grub进度条上<br><strong>解决方案</strong>：</p>
+<ul>
+<li>停留在update-grub时强制关机，然后重新用U盘启动，并选择live安装方式。</li>
+<li>进入kali系统，在终端输入如下命令安装grub（千万记住你的kali是在哪个盘的，比如我的是在sda）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">root@kali:/# mount /dev/sda</span><br><span class="line">root@kali:/# mount /dev/sda /mnt/</span><br><span class="line">root@kali:/# mount --bind /dev /mnt/dev/</span><br><span class="line">root@kali:/# mount --bind /dev/pts /mnt/dev/pts</span><br><span class="line">root@kali:/# mount --bind /proc /mnt/proc</span><br><span class="line">root@kali:/# mount --bind /sys /mnt/sys</span><br><span class="line">root@kali:/# chroot  /mnt/</span><br><span class="line">root@kali:/# grub-install /dev/sda</span><br><span class="line">Installation finished. No error reported.  No erroe:表示没错！</span><br><span class="line">root@kali:/# update-grub  更新</span><br><span class="line">Generating grub.cfg ...</span><br><span class="line">Found background image: /usr/share/images/desktop-base/desktop-grub.png</span><br><span class="line">Found linux image: /boot/vmlinuz-3.14-kali1-amd64</span><br><span class="line">Found initrd image: /boot/initrd.img-3.14-kali1-amd64</span><br><span class="line">  No volume groups found</span><br><span class="line">done</span><br><span class="line">root@kali:/# exit</span><br><span class="line">exit</span><br><span class="line">root@kali:/# umount /mnt/dev/pts</span><br><span class="line">root@kali:/# umount /mnt/dev</span><br><span class="line">root@kali:/# umount /mnt/proc</span><br><span class="line">root@kali:/# umount /mnt/sys</span><br><span class="line">root@kali:/# umount /mnt</span><br><span class="line">root@kali:/# reboot</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.codeweblog.com/kali-linux-grub%E4%BF%AE%E5%A4%8D/" target="_blank" rel="noopener">参考博客</a></p>
+
+	
+	</div>
+  <a type="button" href="/2017/10/12/kali-grub修复/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/16/Mac升级vim8-x/" title="mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x">Mac升级vim8.x</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-16  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<ol>
+<li>先去<a href="https://github.com/vim/vim/releases" target="_blank" rel="noopener">GitHub</a>下载源码.</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2017/10/28/UOFTx.png" alt="UOFTx.png"></p>
+<ol start="2">
+<li>将下载好的压缩包解压</li>
+<li><p>进行环境的检测和安装路径的设置（在解压后的文件内使用终端）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$./configure --prefix=/opt/<span class="built_in">local</span> --with-features=huge --<span class="built_in">enable</span>-pythoninterp=yes --<span class="built_in">enable</span>-multibyte --with-vim-name=vim --with-python-config-dir=/usr/lib/python2.7/config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检测是否有出现异常的情况<code>echo $?</code>如果是0表示上一条没有问题，如果其他数字就可能有问题<br><img src="https://s1.ax1x.com/2017/10/28/UOAk6.png" alt="UOAk6.png"></p>
+</li>
+<li>输入<code>make</code> 编译</li>
+<li><p>安装编译软件，使用命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后进行用命令进行链接</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> ln -s /opt/<span class="built_in">local</span>/bin/vim /usr/bin/vim</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+	
+	</div>
+  <a type="button" href="/2017/09/16/Mac升级vim8-x/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/15/hexo迁移/" title="把原先在linux上的部分hexo文件到了我的hackintosh上，这篇文章的目的：如果下次自己还要换系统，换电脑，自己只要看自己这篇博客就够了= =">hexo迁移</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-15  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>参考了知乎的文章<a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">使用hexo,换了电脑怎么怎么更新博客</a>，    </p>
+<h2 id="装nodejs-npm-hexo-unix自带git"><a href="#装nodejs-npm-hexo-unix自带git" class="headerlink" title="装nodejs,npm,hexo(unix自带git)"></a>装nodejs,npm,hexo(unix自带git)</h2><ul>
+<li><p>下载安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a></p>
+</li>
+<li><p>安装hexo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> i -g hexo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在适当文件夹，初始化hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$hexo</span> init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>稍加解释</p>
+<ul>
+<li>node_modules：是依赖包</li>
+<li>public：存放的是生成的页面</li>
+<li>scaffolds：命令生成文章等的模板</li>
+<li>source：用命令创建的各种文章</li>
+<li>themes：主题</li>
+<li>_config.yml：整个博客的配置</li>
+<li>db.json：source解析所得到的</li>
+<li>package.json：项目所需模块项目的配置信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="用ssh连接github"><a href="#用ssh连接github" class="headerlink" title="用ssh连接github"></a>用ssh连接github</h2><ul>
+<li><p>配置github账户信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> config --global user.name <span class="string">"yourName"</span></span><br><span class="line"><span class="variable">$git</span> config --global user.email <span class="string">"yourEmail"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建ssh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"yourEmail@example.com"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把.ssh/id_rsa.pub添加到github</p>
+</li>
+<li>验证ssh是否添加成功<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span> -T git@github.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="替换hexo初始化的文件"><a href="#替换hexo初始化的文件" class="headerlink" title="替换hexo初始化的文件"></a>替换hexo初始化的文件</h2><ul>
+<li>_config.yml</li>
+<li>themes/</li>
+<li>source/</li>
+</ul>
+<h2 id="使用hexo-d"><a href="#使用hexo-d" class="headerlink" title="使用hexo d"></a>使用hexo d</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+	
+	</div>
+  <a type="button" href="/2017/09/15/hexo迁移/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/07/Vim配置及使用/" title="作为一个程序员,vim不会?不存在的.">Vim配置及使用</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>vim作为轻量级的文本编辑器拥有众多特性:</p>
+<ul>
+<li>跨平台及统一环境<br>无论是在<code>windows</code>还是在*nix，vim是一个很完美的跨平台文本编辑器，甚至可以直接在服务器平台CentOS，Ubuntu等直接配置使用，配置文件大同小异，操作习惯基本相同。</li>
+<li>定制化及可扩展性<br>vim提供一个<code>.vimrc</code>的配置文件来配置vim，并且自己可以定制一些插件可实现高效编辑</li>
+<li>高效命令行<br>使用Vim,无需用到鼠标,键盘足矣<h1 id="配置-vimrc"><a href="#配置-vimrc" class="headerlink" title="配置 .vimrc"></a>配置 .vimrc</h1>配置vim,需要在home/目录下新建<code>.vimrc</code>文档,那在这里面什么呢?–外观,插件,缩进,键盘映射等;在这里,你可以先参考我的<a href="https://github.com/bababadboy/.vimrc/blob/master/.vimrc" target="_blank" rel="noopener">配置文件</a>根据注释,也能大概知道是干什么的.<h1 id="安装插件管理工具vundle-vim-bundle"><a href="#安装插件管理工具vundle-vim-bundle" class="headerlink" title="安装插件管理工具vundle [vim bundle]"></a>安装插件管理工具vundle [vim bundle]</h1></li>
+</ul>
+<ol>
+<li><p>下载vundle</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在.vimrc中添加/对vundle的支持</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">filetype</span> off</span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/vundle/</span><br><span class="line"><span class="keyword">call</span> vundle#rc()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="在-vimrc-中安装插件有三种方法"><a href="#在-vimrc-中安装插件有三种方法" class="headerlink" title="在.vimrc 中安装插件有三种方法:"></a>在.vimrc 中安装插件有三种方法:</h2><ul>
+<li>在Github vim-scripts 用户下的repos,只需要写出repos名称</li>
+<li>Github其他用户下的repos, 需要写出”用户名/repos名”(常用)</li>
+<li>不在Github上的插件，需要写出git全路径<h2 id="将安装的插件在-vimrc配置"><a href="#将安装的插件在-vimrc配置" class="headerlink" title="将安装的插件在~/.vimrc配置"></a>将安装的插件在~/.vimrc配置</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Define bundles via Github repos</span></span><br><span class="line">Bundle <span class="string">'christoomey/vim-run-interactive'</span></span><br><span class="line">Bundle <span class="string">'Valloric/YouCompleteMe'</span></span><br><span class="line">Bundle <span class="string">'croaky/vim-colors-github'</span></span><br><span class="line">Bundle <span class="string">'danro/rename.vim'</span></span><br><span class="line">Bundle <span class="string">'majutsushi/tagbar'</span></span><br><span class="line">Bundle <span class="string">'kchmck/vim-coffee-script'</span></span><br><span class="line">Bundle <span class="string">'kien/ctrlp.vim'</span></span><br><span class="line">Bundle <span class="string">'pbrisbin/vim-mkdir'</span></span><br><span class="line">Bundle <span class="string">'scrooloose/syntastic'</span></span><br><span class="line">Bundle <span class="string">'slim-template/vim-slim'</span></span><br><span class="line">Bundle <span class="string">'thoughtbot/vim-rspec'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-bundler'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-endwise'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-fugitive'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-rails'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-surround'</span></span><br><span class="line">Bundle <span class="string">'vim-ruby/vim-ruby'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/ctags.vim'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/matchit.zip'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/tComment'</span></span><br><span class="line">Bundle <span class="string">"mattn/emmet-vim"</span></span><br><span class="line">Bundle <span class="string">"scrooloose/nerdtree"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-powerline"</span></span><br><span class="line">Bundle <span class="string">"godlygeek/tabular"</span></span><br><span class="line">Bundle <span class="string">"msanders/snipmate.vim"</span></span><br><span class="line">Bundle <span class="string">"jelera/vim-javascript-syntax"</span></span><br><span class="line">Bundle <span class="string">"altercation/vim-colors-solarized"</span></span><br><span class="line">Bundle <span class="string">"othree/html5.vim"</span></span><br><span class="line">Bundle <span class="string">"xsbeats/vim-blade"</span></span><br><span class="line">Bundle <span class="string">"jiangmiao/auto-pairs"</span></span><br><span class="line">Bundle <span class="string">"evanmiller/nginx-vim-syntax"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-easymotion"</span></span><br><span class="line">Bundle <span class="string">"tomasr/molokai"</span></span><br><span class="line">Bundle <span class="string">"klen/python-mode"</span></span><br><span class="line">Bundle <span class="string">'Raimondi/delimitMate'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>打开vim,运行<code>:BundleInstall</code>或者直接在<code>bash</code>中敲入<code>vim +BundleInstall +qall</code><br>以上是我的插件配置,若还有什么需要,也可自己添加,然后运行<code>:BundleInstall</code>即可</p>
+<h1 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h1><h2 id="Nerd-Tree"><a href="#Nerd-Tree" class="headerlink" title="Nerd Tree"></a>Nerd Tree</h2><p><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">NERD Tree</a>(是一个树形目录插件，方便浏览当前目录有哪些目录和文件。<br><img src="https://s1.ax1x.com/2017/10/28/UOi01.png" alt="UOi01.png"><br>我在~/.vimrc文件中配置NERD Tree，设置一个启用或禁用NERD Tree的键映射<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;F5&gt;</span> :NERDTreeToggle<span class="symbol">&lt;cr&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>所以你只需按F5键就能启用或禁用NERD Tree,按?可以浏览其使用方法.</p>
+<h2 id="auto-pairs"><a href="#auto-pairs" class="headerlink" title="auto-pairs"></a>auto-pairs</h2><p>安装的Raimondi/delimitMate,没有用,就转而使用<code>auto-pairs</code>了,作用:对括号之间回车，自动分为3行并调整缩进.在写函数时hin方便的.</p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/07/Vim配置及使用/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/05/ubuntu安装自定义字体/" >ubuntu安装自定义字体</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-05  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li>下载好的字体–.ttf</li>
+<li>设置桌面的工具–Unity Tweak Tool<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1></li>
+</ul>
+<ol start="0">
+<li>字体文件位于/usr/share/fonts/,在这里新建文件夹并且将.ttf移入</li>
+<li>修改字体权限,确保root以外的普通用户也可以正常使用该字体</li>
+<li><p>建立字体缓存:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> mkfontscale</span><br><span class="line"><span class="variable">$sudo</span> mkfontdir</span><br><span class="line"><span class="variable">$sudo</span> fcache -fv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Unity Tweak Tool:预览-&gt;外观-&gt;字体,选择该字体</p>
+</li>
+</ol>
+
+	
+	</div>
+  <a type="button" href="/2017/09/05/ubuntu安装自定义字体/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/03/tty终端中文问题/" title="环境:ubuntu16.04,使用fbterm虚拟控制台&amp;yong输入法">tty终端中文问题</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-03  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>ubuntu默认有7个tty虚拟机终端,其中tty7启动了xorg的图形界面服务和窗口管理器.但是呢,虚拟机tty终端下的中文显示都是 ◇ 符号,默认也不能输入中文,平常倒没什么事情,一但unity桌面进不去了,tty就大显神威了.听说还有大佬在tty看视频(低头低头)</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="1-安装fbterm"><a href="#1-安装fbterm" class="headerlink" title="1. 安装fbterm"></a>1. 安装fbterm</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt install fbterm</span><br></pre></td></tr></table></figure>
+<h2 id="2-修改fbterm的配置文件-fbtermc"><a href="#2-修改fbterm的配置文件-fbtermc" class="headerlink" title="2. 修改fbterm的配置文件 .fbtermc"></a>2. 修改fbterm的配置文件 .fbtermc</h2><ul>
+<li><p>修改字体及其大小(可选,我觉得原字体太小了)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">font-size = 17</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改编码规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text-codings = utf-8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改输入法,选yong（之前看过有的博客的教程使用 fcitx-fbterm,我试了,不灵…，（；′⌒｀）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input-method = yong</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-安装小小输入法，小小输入法的网址"><a href="#3-安装小小输入法，小小输入法的网址" class="headerlink" title="3. 安装小小输入法，小小输入法的网址"></a>3. 安装小小输入法，<a href="http://yongim.ys168.com/" target="_blank" rel="noopener">小小输入法的网址</a></h2><ul>
+<li>修改配置文件 yong.ini</li>
+</ul>
+<p>将下载并解压的文件复制到某个目录下,这里将其放在/opt/目录下，然后修改配置yong.ini(注意:必须要先设置好yong.ini,再安装yong,否则就要在用户目录下的.yong/yong.ini中作出修改,而且每个用户都要修改,非常的不方便)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cd</span> /opt/yong/</span><br><span class="line"><span class="variable">$vim</span> sudo yong.ini</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">default</span> = <span class="number">6</span> #选择适合自己的输入方式</span><br><span class="line"><span class="attr">cand</span> = <span class="number">5</span> #后选字个数</span><br><span class="line"><span class="attr">Cnen</span> = LSHIFT #因个人配置选择</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装小小</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span>./yong-tool.sh --install   <span class="comment">#安装.</span></span><br><span class="line"><span class="variable">$sudo</span>./yong-tool.sh --uninstall <span class="comment">#卸载</span></span><br><span class="line"><span class="variable">$sudo</span>./yong-tool.sh --select    <span class="comment">#将yong设置为默认的输入法</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用-tty下"><a href="#使用-tty下" class="headerlink" title="使用(tty下)"></a>使用(tty下)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> fbterm</span><br></pre></td></tr></table></figure>
+<p>这时候ttｙ就能在虚拟控制台fbterm的帮助下，输入输出中文，终于可以和 ◇　说再见了Ｏ（∩＿∩）Ｏ～．<br><img src="https://s1.ax1x.com/2017/10/28/ULTyj.png" alt="ULTyj.png"></p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/03/tty终端中文问题/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/01/ubuntu下sublime无法输入中文/" title="hin腻害的一个方法(摘录下来以免忘了)sublime终于能输中文了(⊙o⊙)">ubuntu下sublime无法输入中文解决方案</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-01  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>此方法不适合由<a href="https://bababadboy.github.io/2017/09/01/ubuntu16-04%E5%AE%89%E8%A3%85sublime%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">Ubuntu16.04安装sublime解决方案</a>中 #方案一# 提供的安装sublime_text_3的方法.</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="保存下述代码为sublime-imfix-c文件"><a href="#保存下述代码为sublime-imfix-c文件" class="headerlink" title="保存下述代码为sublime-imfix.c文件"></a>保存下述代码为sublime-imfix.c文件</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">sublime-imfix.c</span></span><br><span class="line"><span class="comment">Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.</span></span><br><span class="line"><span class="comment">By Cjacker Huang</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">gcc -shared -o libsublime-imfix.so sublime-imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC</span></span><br><span class="line"><span class="comment">LD_PRELOAD=./libsublime-imfix.so subl</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtk/gtk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gdk/gdkx.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> GdkSegment GdkRegionBox;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">GdkRegion</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">long</span> size;</span><br><span class="line">  <span class="keyword">long</span> numRects;</span><br><span class="line">  GdkRegionBox *rects;</span><br><span class="line">  GdkRegionBox extents;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">GtkIMContext *local_context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">gdk_region_get_clipbox (<span class="keyword">const</span> GdkRegion *region,</span><br><span class="line">            GdkRectangle    *rectangle)</span><br><span class="line">&#123;</span><br><span class="line">  g_return_if_fail (region != <span class="literal">NULL</span>);</span><br><span class="line">  g_return_if_fail (rectangle != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">  rectangle-&gt;x = region-&gt;extents.x1;</span><br><span class="line">  rectangle-&gt;y = region-&gt;extents.y1;</span><br><span class="line">  rectangle-&gt;width = region-&gt;extents.x2 - region-&gt;extents.x1;</span><br><span class="line">  rectangle-&gt;height = region-&gt;extents.y2 - region-&gt;extents.y1;</span><br><span class="line">  GdkRectangle rect;</span><br><span class="line">  rect.x = rectangle-&gt;x;</span><br><span class="line">  rect.y = rectangle-&gt;y;</span><br><span class="line">  rect.width = <span class="number">0</span>;</span><br><span class="line">  rect.height = rectangle-&gt;height;</span><br><span class="line">  <span class="comment">//The caret width is 2;</span></span><br><span class="line">  <span class="comment">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span></span><br><span class="line">  <span class="keyword">if</span>(rectangle-&gt;width == <span class="number">2</span> &amp;&amp; GTK_IS_IM_CONTEXT(local_context)) &#123;</span><br><span class="line">        gtk_im_context_set_cursor_location(local_context, rectangle);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//this is needed, for example, if you input something in file dialog and return back the edit area</span></span><br><span class="line"><span class="comment">//context will lost, so here we set it again.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> GdkFilterReturn <span class="title">event_filter</span> <span class="params">(GdkXEvent *xevent, GdkEvent *event, gpointer im_context)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    XEvent *xev = (XEvent *)xevent;</span><br><span class="line">    <span class="keyword">if</span>(xev-&gt;type == KeyRelease &amp;&amp; GTK_IS_IM_CONTEXT(im_context)) &#123;</span><br><span class="line">       GdkWindow * win = g_object_get_data(G_OBJECT(im_context),<span class="string">"window"</span>);</span><br><span class="line">       <span class="keyword">if</span>(GDK_IS_WINDOW(win))</span><br><span class="line">         gtk_im_context_set_client_window(im_context, win);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> GDK_FILTER_CONTINUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gtk_im_context_set_client_window</span> <span class="params">(GtkIMContext *context,</span></span></span><br><span class="line"><span class="function"><span class="params">          GdkWindow    *window)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  GtkIMContextClass *klass;</span><br><span class="line">  g_return_if_fail (GTK_IS_IM_CONTEXT (context));</span><br><span class="line">  klass = GTK_IM_CONTEXT_GET_CLASS (context);</span><br><span class="line">  <span class="keyword">if</span> (klass-&gt;set_client_window)</span><br><span class="line">    klass-&gt;set_client_window (context, window);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  g_object_set_data(G_OBJECT(context),<span class="string">"window"</span>,window);</span><br><span class="line">  <span class="keyword">int</span> width = gdk_window_get_width(window);</span><br><span class="line">  <span class="keyword">int</span> height = gdk_window_get_height(window);</span><br><span class="line">  <span class="keyword">if</span>(width != <span class="number">0</span> &amp;&amp; height !=<span class="number">0</span>) &#123;</span><br><span class="line">    gtk_im_context_focus_in(context);</span><br><span class="line">    local_context = context;</span><br><span class="line">  &#125;</span><br><span class="line">  gdk_window_add_filter (window, event_filter, context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="安装C-C-的编译环境和-gtk-libgtk2-0-dev"><a href="#安装C-C-的编译环境和-gtk-libgtk2-0-dev" class="headerlink" title="安装C/C++的编译环境和 gtk libgtk2.0-dev"></a>安装C/C++的编译环境和 gtk libgtk2.0-dev</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt-get install build-essential</span><br><span class="line"><span class="variable">$sudo</span> apt-get install libgtk2.0-dev</span><br></pre></td></tr></table></figure>
+<h2 id="编译共享内库"><a href="#编译共享内库" class="headerlink" title="编译共享内库"></a>编译共享内库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gcc</span> -shared -o libsublime-imfix.so sublime-imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC</span><br></pre></td></tr></table></figure>
+<h2 id="将libsublime-imfix-so-拷贝到sublime-text所在文件夹"><a href="#将libsublime-imfix-so-拷贝到sublime-text所在文件夹" class="headerlink" title="将libsublime-imfix.so 拷贝到sublime_text所在文件夹"></a>将libsublime-imfix.so 拷贝到sublime_text所在文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> cp libsublime-imfix.so /opt/sublime_text/</span><br></pre></td></tr></table></figure>
+<h2 id="修改文件-usr-bin-sublime"><a href="#修改文件-usr-bin-sublime" class="headerlink" title="修改文件/usr/bin/sublime"></a>修改文件/usr/bin/sublime</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> vim /usr/bin/subl</span><br></pre></td></tr></table></figure>
+<p>将<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">exec</span> /opt/sublime_text/sublime_text <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so <span class="built_in">exec</span> /opt/sublime_text/sublime_text <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="后续问题"><a href="#后续问题" class="headerlink" title="后续问题"></a>后续问题</h1><p>你会发现通过终端打开的sublimeText3，preferences-&gt;packages browse…无法打开了…我…真是天灭Ubuntu</p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/01/ubuntu下sublime无法输入中文/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+
+		</div>
+
+		<!-- pagination -->
+		<div>
+  		<center>
+		<div class="pagination">
+
+   
+    
+           <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+        
+
+        <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+ 
+       <a href="/page/2/" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>     
+        
+
+  
+</div>
+
+  		</center>
+		</div>
+
+		
+		
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+  <div class="form-group has-success has-feedback" id="site_search">
+    <form class="site-search-form">
+        <input type="text" id="st-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control" />
+    </form>
+  </div>  
+
+
+		
+			
+	<div class="widget">
+		<h4>Categories</h4>
+		<ul class="tag_box inline list-unstyled">
+		
+			<li><a href="/categories/hexo/">hexo<span>1</span></a></li>
+		
+		</ul>
+	</div>
+
+		
+			
+	<div class="widget">
+		<h4>Tag Cloud</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/Mac/">Mac<span>1</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>3</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
+		
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+		
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>21</span></a></li>
+		 
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+  <h4>Recent Posts</h4>
+  <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/01/09/sql语言类型/" ><i class="fa fa-file-o"></i>sql语言类型</a>
+      </li>
+    
+      <li>
+        <a href="/2018/01/03/assert/" ><i class="fa fa-file-o"></i>assert()</a>
+      </li>
+    
+      <li>
+        <a href="/2017/10/18/AES加密hexo文章/"  title="若是想用hexo记录一些不想公开的内容，可以用hexo-encrypt对文章进行加密，当然前提是你不是挂载于gitpage上的，否则不是白搭么@灬@" ><i class="fa fa-file-o"></i>AES加密hexo文章</a>
+      </li>
+    
+      <li>
+        <a href="/2017/10/12/kali-grub修复/"  title="电脑的grub经常被自己玩坏~每次都要重复上一遍的操作，却仍旧要查教程，索性自己写一篇得了。" ><i class="fa fa-file-o"></i>kali grub修复</a>
+      </li>
+    
+      <li>
+        <a href="/2017/09/16/Mac升级vim8-x/"  title="mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x" ><i class="fa fa-file-o"></i>Mac升级vim8.x</a>
+      </li>
+    
+  </ul>
+</div>
+
+		
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/hexo-theme-freemind" title="Freemind's Github repository." target="_blank"]);">Freemind</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/kristopolous/BOOTSTRA.386" title="BOOTSTRA.386's Github repository." target="_blank"]);">BOOTSTRA.386</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/blackshow/hexo-theme-freemind.386" title="Freemind.386's Github repository." target="_blank"]);">Freemind.386</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/bababadboy" title="My Github account." target="_blank"]);">My Github</a></li>
+	
+	</ul>
+</div>
+
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+	
+</div> <!-- row-fluid -->
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>
