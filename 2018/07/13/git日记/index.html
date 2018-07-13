@@ -6,15 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Linux高效开发 | Being...anAsshole</title>
+  <title>git日记 | Being...anAsshole</title>
   <meta name="author" content="Richard Wx">
   
-  <meta name="description" content="使用Linux经常会使用到终端，一些使用终端的小技巧，可以减少浪费不必要的时间，更高效，多多使用方能得心应手。">
+  <meta name="description" content="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。官网文档[https://git-scm.com/docs](https://git-scm.com/docs)">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Linux高效开发"/>
+  <meta property="og:title" content="git日记"/>
   <meta property="og:site_name" content="Being...anAsshole"/>
 
   
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> Linux高效开发</h1>
+			<h1> git日记</h1>
 		</div>
 	
 
@@ -135,41 +135,11 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  
 		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> 使用Linux经常会使用到终端，一些使用终端的小技巧，可以减少浪费不必要的时间，更高效，多多使用方能得心应手。
+			<i class="fa fa-info-circle"></i> git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。官网文档[https://git-scm.com/docs](https://git-scm.com/docs)
 		 </div> <!-- alert -->
 	  		
 
-	  <ol>
-<li>终端快捷键节省时间</li>
-</ol>
-<ul>
-<li>打开终端(这个大家应该都十分熟悉了)<br><code>Ctrl + Alt + t</code></li>
-<li>对行操作(大部分人可能不晓得，也确实方便许多)<br>在终端，如果你使用 → 或 ← 是相当浪费时间的，相反，你应该：<ul>
-<li>跳过一个单词：<code>Ctrl + →</code> 或者 <code>Ctrl + ←</code></li>
-<li>直到行末：<code>Ctrl + a</code> ， 回到开头：<code>Ctrl + e</code></li>
-<li>删除整行：<code>Ctrl + u</code></li>
-<li>命令查找：通过在终端键入 <code>Ctrl + R</code> 来查找你以前输入过的命令类型。循环多次地键入这个快捷键你会找到所有你输入过的匹配的命令。</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>使用zsh(<a href="https://ohmyz.sh" target="_blank" rel="noopener">oh my zsh</a>)<br>zsh的好处不用多说，支持多方插件、更加友好的界面、拼写检查、智能补全。更多使用方法直接见官网。</li>
-<li><p>使用别名(Alias)<br>起别名允许你使用你所选的关键字别名来缩短常用的命令。不得不说，恰当地使用别名会明显地让你每天缩短30分钟（在敲打命令上）。高效的开发者会使用常用命令的别名，而且还会 export 常用的变量和路径到 bash 的变量中。使用方法也相当便捷，只需要编辑~/.zshrc。(如果你使用的是bash，则编辑~/.bashrc)。</p>
-<ol>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~./zshrc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其中<em>aliasname</em>是别名，<em>commandline</em>是命令 </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> aliasname=<span class="string">'commandline'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出保存，并使其生效</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~./zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>持续更新中…</p>
-</li>
-</ol>
-	  
+	  	  
 	</div>
 
 	<div>
@@ -178,13 +148,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2018/07/13/git日记/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2018/01/09/sql语言类型/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/07/12/Linux高效开发/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -238,7 +207,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-07-12 
+	2018-07-13 
 	</div>
 	
 
@@ -251,7 +220,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/Linux/">Linux<span>1</span></a></li> <li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+  <li><a href="/tags/git/">git<span>1</span></a></li>
     </ul>
 	</div>
 		
