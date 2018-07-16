@@ -199,13 +199,37 @@ var _hmt = _hmt || [];
 <ol>
 <li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~./zshrc</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>其中<em>aliasname</em>是别名，<em>commandline</em>是命令 </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> aliasname=<span class="string">'commandline'</span></span><br></pre></td></tr></table></figure>
+<li><p>其中<em>alias_name</em>是别名，<em>command_line</em>是命令 </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> alias_name=<span class="string">'command_line'</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>退出保存，并使其生效</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~./zshrc</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+</li>
+<li><p>第三方工具screen<br> 参考网址:<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-screen/" target="_blank" rel="noopener">使用 screen 管理你的远程会话</a><br> 为什么要使用screen，其实screen远远不只是一个分屏工具，更是管理远程回话工具的不二之选。经常使用ssh    远程登录Linux的小伙伴们一定常常被一个问题所苦恼：当你要长时间运行的一个任务时，比如系统备份、ftp 传输等，咱们必须等待它执行完毕后才能执行别的命令，通常情况下咱们都是怎么解决的呢？机智的小伙伴们可不会呆呆地傻等着呢，当然是再开一个远程终端窗口，那如果任务不止一个呢？<br> 答：那就有几个开几个！[滑稽]<br> 结果就是每次ssh都不厌其烦地输入账户名密码。。这的确不失为一个解决方案，但素，screen给我们提供了一个更优质的解决方案😏。ps:tumx也是一样的。</p>
+<h2 id="screen创建新窗口"><a href="#screen创建新窗口" class="headerlink" title="screen创建新窗口"></a>screen创建新窗口</h2><ol>
+<li>在终端直接输入<code>screen</code>，将创建一个执行shell的全屏窗口。你可以执行任意shell程序，就像在ssh窗口中那样。在该窗口中键入exit退出该窗口，如果这是该screen会话的唯一窗口，该screen会话退出，否则screen自动切换到前一个窗口。</li>
+<li><p>Screen命令后跟你要执行的程序。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen vim test.c</span><br></pre></td></tr></table></figure>
+<p> Screen创建一个执行vim test.c的单窗口会话，退出vim将退出该窗口/会话。</p>
+</li>
+<li><code>screen -dm &lt;你要跑的命令&gt;</code><br> screen会在后台创建一个新的会话运行&lt;你要跑的命令&gt;，可以通过<code>screen -ls</code>查看。并通过        <code>screen -r [[pid.]tty[.host]]</code> 连接会话(Detached=&gt;Attached)</li>
+<li><p>在一个已有screen会话中创建新的窗口<br> 在当前screen窗口中键入<code>C-a c</code>，即Ctrl键+a键，之后再按下c键，screen 在该会话内生成一个        新的窗口并切换到该窗口。<code>C-a w</code>可以列出窗口个数和当前窗口，在左下角有显示,一般是从0开始，        当前窗口用’*’号表示。’-‘表示最近一次的窗口。如果要切换可用<code>C-a &lt;要切换窗口的id&gt;</code>。</p>
+<h2 id="离开screen"><a href="#离开screen" class="headerlink" title="离开screen"></a>离开screen</h2><p>screen的方便之处在于：你可以不中断screen窗口中程序的运行而暂时断开（detach）screen会话，并    在随后时间重新连接（attach）该会话，重新控制各窗口中运行的程序。比如在<code>screen vim test.c</code>    文件时，来了紧急任务，那么可以在screen窗口输入<code>C-a d</code>来中断会话，处理完紧急任务后<code>screen -r      &lt;pid&gt;</code>重新连接会话。(倒是和git stash有点像😐)</p>
+<h2 id="screen常用选项"><a href="#screen常用选项" class="headerlink" title="screen常用选项"></a>screen常用选项</h2></li>
+</ol>
+<ul>
+<li>绑定键 <code>ctrl + a</code> ，下简写成 <code>C-a</code></li>
+<li>screen手册 C-a ?</li>
+<li>重命名window C-a A</li>
+<li>上下分屏  C-a，shift + s</li>
+<li>取消分屏 ？？？？</li>
+<li>切换屏幕  C-a tab 或者C-a <id> </id></li>
+<li>新建终端  C-a c</li>
+<li>关闭终端      C-a x？？？有点不太对</li>
+<li>暂时离开[detached] C-a，d</li>
+</ul>
 </li>
 <li><p>持续更新中…</p>
 </li>
@@ -636,45 +660,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
 			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
 			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
 			<li><a href="/tags/Mac/">Mac<span>1</span></a></li>
 		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
 		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
 		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
 			<li><a href="/tags/tty/">tty<span>1</span></a></li>
 		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
+			<li><a href="/tags/linux/">linux<span>3</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>24</span></a></li>
