@@ -187,10 +187,10 @@ No matching distribution found for tensorflow</code><br>换个TensorFlow Python�
 <p>报错：<code>Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &#39;/Users/wangxiaobin/env/tensorflow/lib/python3.7/site-packages/six.py&#39;
 Consider using the</code>–user<code>option or check the permissions.</code>这次好办，有解决的提示。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl --user</span><br></pre></td></tr></table></figure></p>
 <ol start="5">
-<li>测试TensorFlow    <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<li>测试TensorFlow    <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b=tf.constant([<span class="number">2.0</span>,<span class="number">3.0</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sess=tf.Session()</span><br><span class="line"><span class="number">2018</span><span class="number">-07</span><span class="number">-23</span> <span class="number">16</span>:<span class="number">30</span>:<span class="number">00.791342</span>: I tensorflow/core/platform/cpu_feature_guard.cc:<span class="number">141</span>] Your CPU supports instructions that this TensorFlow binary was <span class="keyword">not</span> compiled to use: AVX2 FMA</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(sess.run(a+b))</span><br><span class="line">[<span class="number">3.</span> <span class="number">5.</span>]</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>没有出错，表明安装成功!</p>
+<p>测试成功!</p>
 
 	
 	</div>
@@ -662,45 +662,45 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
-		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>3</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
 			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
 			<li><a href="/tags/Mac/">Mac<span>2</span></a></li>
 		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>3</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
 		
 			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>26</span></a></li>
