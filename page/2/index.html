@@ -138,6 +138,97 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2017/09/07/Vim配置及使用/" title="作为一个程序员,vim不会?不存在的.">Vim配置及使用</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>vim作为轻量级的文本编辑器拥有众多特性:</p>
+<ul>
+<li>跨平台及统一环境<br>无论是在<code>windows</code>还是在*nix，vim是一个很完美的跨平台文本编辑器，甚至可以直接在服务器平台CentOS，Ubuntu等直接配置使用，配置文件大同小异，操作习惯基本相同。</li>
+<li>定制化及可扩展性<br>vim提供一个<code>.vimrc</code>的配置文件来配置vim，并且自己可以定制一些插件可实现高效编辑</li>
+<li>高效命令行<br>使用Vim,无需用到鼠标,键盘足矣<h1 id="配置-vimrc"><a href="#配置-vimrc" class="headerlink" title="配置 .vimrc"></a>配置 .vimrc</h1>配置vim,需要在home/目录下新建<code>.vimrc</code>文档,那在这里面什么呢?–外观,插件,缩进,键盘映射等;在这里,你可以先参考我的<a href="https://github.com/bababadboy/.vimrc/blob/master/.vimrc" target="_blank" rel="noopener">配置文件</a>根据注释,也能大概知道是干什么的.<h1 id="安装插件管理工具vundle-vim-bundle"><a href="#安装插件管理工具vundle-vim-bundle" class="headerlink" title="安装插件管理工具vundle [vim bundle]"></a>安装插件管理工具vundle [vim bundle]</h1></li>
+</ul>
+<ol>
+<li><p>下载vundle</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在.vimrc中添加/对vundle的支持</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">filetype</span> off</span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/vundle/</span><br><span class="line"><span class="keyword">call</span> vundle#rc()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="在-vimrc-中安装插件有三种方法"><a href="#在-vimrc-中安装插件有三种方法" class="headerlink" title="在.vimrc 中安装插件有三种方法:"></a>在.vimrc 中安装插件有三种方法:</h2><ul>
+<li>在Github vim-scripts 用户下的repos,只需要写出repos名称</li>
+<li>Github其他用户下的repos, 需要写出”用户名/repos名”(常用)</li>
+<li>不在Github上的插件，需要写出git全路径<h2 id="将安装的插件在-vimrc配置"><a href="#将安装的插件在-vimrc配置" class="headerlink" title="将安装的插件在~/.vimrc配置"></a>将安装的插件在~/.vimrc配置</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Define bundles via Github repos</span></span><br><span class="line">Bundle <span class="string">'christoomey/vim-run-interactive'</span></span><br><span class="line">Bundle <span class="string">'Valloric/YouCompleteMe'</span></span><br><span class="line">Bundle <span class="string">'croaky/vim-colors-github'</span></span><br><span class="line">Bundle <span class="string">'danro/rename.vim'</span></span><br><span class="line">Bundle <span class="string">'majutsushi/tagbar'</span></span><br><span class="line">Bundle <span class="string">'kchmck/vim-coffee-script'</span></span><br><span class="line">Bundle <span class="string">'kien/ctrlp.vim'</span></span><br><span class="line">Bundle <span class="string">'pbrisbin/vim-mkdir'</span></span><br><span class="line">Bundle <span class="string">'scrooloose/syntastic'</span></span><br><span class="line">Bundle <span class="string">'slim-template/vim-slim'</span></span><br><span class="line">Bundle <span class="string">'thoughtbot/vim-rspec'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-bundler'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-endwise'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-fugitive'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-rails'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-surround'</span></span><br><span class="line">Bundle <span class="string">'vim-ruby/vim-ruby'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/ctags.vim'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/matchit.zip'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/tComment'</span></span><br><span class="line">Bundle <span class="string">"mattn/emmet-vim"</span></span><br><span class="line">Bundle <span class="string">"scrooloose/nerdtree"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-powerline"</span></span><br><span class="line">Bundle <span class="string">"godlygeek/tabular"</span></span><br><span class="line">Bundle <span class="string">"msanders/snipmate.vim"</span></span><br><span class="line">Bundle <span class="string">"jelera/vim-javascript-syntax"</span></span><br><span class="line">Bundle <span class="string">"altercation/vim-colors-solarized"</span></span><br><span class="line">Bundle <span class="string">"othree/html5.vim"</span></span><br><span class="line">Bundle <span class="string">"xsbeats/vim-blade"</span></span><br><span class="line">Bundle <span class="string">"jiangmiao/auto-pairs"</span></span><br><span class="line">Bundle <span class="string">"evanmiller/nginx-vim-syntax"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-easymotion"</span></span><br><span class="line">Bundle <span class="string">"tomasr/molokai"</span></span><br><span class="line">Bundle <span class="string">"klen/python-mode"</span></span><br><span class="line">Bundle <span class="string">'Raimondi/delimitMate'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>打开vim,运行<code>:BundleInstall</code>或者直接在<code>bash</code>中敲入<code>vim +BundleInstall +qall</code><br>以上是我的插件配置,若还有什么需要,也可自己添加,然后运行<code>:BundleInstall</code>即可</p>
+<h1 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h1><h2 id="Nerd-Tree"><a href="#Nerd-Tree" class="headerlink" title="Nerd Tree"></a>Nerd Tree</h2><p><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">NERD Tree</a>(是一个树形目录插件，方便浏览当前目录有哪些目录和文件。<br><img src="https://s1.ax1x.com/2017/10/28/UOi01.png" alt="UOi01.png"><br>我在~/.vimrc文件中配置NERD Tree，设置一个启用或禁用NERD Tree的键映射<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;F5&gt;</span> :NERDTreeToggle<span class="symbol">&lt;cr&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>所以你只需按F5键就能启用或禁用NERD Tree,按?可以浏览其使用方法.</p>
+<h2 id="auto-pairs"><a href="#auto-pairs" class="headerlink" title="auto-pairs"></a>auto-pairs</h2><p>安装的Raimondi/delimitMate,没有用,就转而使用<code>auto-pairs</code>了,作用:对括号之间回车，自动分为3行并调整缩进.在写函数时hin方便的.</p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/07/Vim配置及使用/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/05/ubuntu安装自定义字体/" >ubuntu安装自定义字体</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-05  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li>下载好的字体–.ttf</li>
+<li>设置桌面的工具–Unity Tweak Tool<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1></li>
+</ul>
+<ol start="0">
+<li>字体文件位于/usr/share/fonts/,在这里新建文件夹并且将.ttf移入</li>
+<li>修改字体权限,确保root以外的普通用户也可以正常使用该字体</li>
+<li><p>建立字体缓存:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> mkfontscale</span><br><span class="line"><span class="variable">$sudo</span> mkfontdir</span><br><span class="line"><span class="variable">$sudo</span> fcache -fv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Unity Tweak Tool:预览-&gt;外观-&gt;字体,选择该字体</p>
+</li>
+</ol>
+
+	
+	</div>
+  <a type="button" href="/2017/09/05/ubuntu安装自定义字体/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2017/09/03/tty终端中文问题/" title="环境:ubuntu16.04,使用fbterm虚拟控制台&amp;yong输入法">tty终端中文问题</a>
 		</h3>
 		</div>
@@ -442,95 +533,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/07/15/进退两难-用户权限与段错误/" title="本文是本人ubuntu配置hexo,ssh各种入坑的过程">进退两难-用户权限与段错误</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-07-15  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>我所使用的操作系统~ubuntu16.04,然鹅这就有问题了,因为涉及到了用户操作权限的问题.我用git克隆下来的hexo的部分文件是只读文件,更过分的是有些文件只有root才有权限访问.这是系统的文件防护机制,当然有其作用.但当我无意识的切换用户时,权限也随之改变,现如今想着可笑,曾经却一无所知.本人当时的骚操作是这样的:</p>
-<h2 id="生成ssh-key以配置和使用-github"><a href="#生成ssh-key以配置和使用-github" class="headerlink" title="生成ssh key以配置和使用 github"></a>生成ssh key以配置和使用 github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"XXXX@gmail.com"</span></span><br></pre></td></tr></table></figure>
-<p>…省略一大堆内容,反正是配置完成了,如下代码检查是否连接成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span> -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>但请注意!:我此时用户是默认的$ , 不是 #(root)</p>
-<h2 id="hexo-的布置"><a href="#hexo-的布置" class="headerlink" title="hexo 的布置"></a>hexo 的布置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/hexo/</span><br><span class="line">$ hexo/ hexo s</span><br><span class="line">$ hexo/ hexo g</span><br><span class="line">$ hexo/ hexo d</span><br></pre></td></tr></table></figure>
-<p>然后就报错了…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ERROR Plugin load failed: hexo-tag-bootstrap</span><br><span class="line">Error: EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/node_modules/hexo-tag-bootstrap/index.js&apos;</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: EACCES: permission denied, unlink &apos;/home/w-xiao/文档/git_repo/hexo/.deploy_git/archives/index.html&apos;</span><br><span class="line">FATAL EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/db.json&apos;</span><br><span class="line">Error: EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/db.json&apos;</span><br></pre></td></tr></table></figure>
-<h1 id="问题解决中…"><a href="#问题解决中…" class="headerlink" title="问题解决中…"></a>问题解决中…</h1><p>意思就是我没权限访问hexo/部分关键文件,hexo deploy 失败…<br>那我想,这还不好办么,使出如下命令符</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> su</span><br></pre></td></tr></table></figure>
-<p>然后再来一遍</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo/<span class="comment"># hexo s</span></span><br><span class="line">hexo/<span class="comment"># hexo g</span></span><br><span class="line">hexo/<span class="comment"># hexo d</span></span><br></pre></td></tr></table></figure>
-<p>自信地,嘚瑟滴以为这还难得到我么…结果是出了个自从使用ubuntu以来从未见过的”段错误”,它就直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">段错误</span><br></pre></td></tr></table></figure></p>
-<p>EXM???别的什么都没了,就留下三个  字  吗,才疏学浅的我可不懂这专业术语,尔后我去谷歌了下,寝室QQ群询问了一下,然后…就睡着了[捂脸],炎炎夏日,小睡也是别有风味的,然后一个下午就这么没了…晚上重拾问题 <del>好好撸了一发</del> 咳咳,是好好地认真的查了查资料,一下是baidu百科的回答:</p>
-<blockquote>
-<p>段错误就是指访问的内存超出了系统所给这个程序的内存空间，通常这个值是由gd tr来保存的，他是一个48位的寄存器，其中的32位是保存由它指向的 gdt表，后13位保存 相应于gdt的下标，最后3位包括了程序是否在内存中以及程序的在cpu中的运行级别，指向 的gdt是由以64位为一个单位的表，在这张表中就保存着程序运行的代码段以及数据段的起 始地址以及与此相应的段限和页面交换还有程序运行级别还有内存粒度等等的信息。</p>
-</blockquote>
-<p>瞄了一眼…大概是看不懂了…再想了想,又看了看,原来还有解释:</p>
-<blockquote>
-<p>一旦一个程序发生了越界访问，cpu就会产生相应的保护，于是segmentation fault就出现<br>了通过上面的解释，段错误应该就是访问了不可访问的内存，这个内存区要么是不存在的，<br>要么是受到系统保护的，还有可能是缺少文件或者文件损坏。</p>
-</blockquote>
-<p>清楚明白了.那究竟是什么原因导致root用户发生段错误而默认用户反而没这个问题的呢??答案一定是在上面个的解释中了,具体原因有待进一步调查…反正没有谷歌到,心塞诶.</p>
-<h2 id="关键骚操作"><a href="#关键骚操作" class="headerlink" title="关键骚操作"></a>关键骚操作</h2><p>现在我就陷入了进退两难的地步了  $:没足够的权限;#:段错误.真是苦酒入喉心作痛.<br>关键操作来了:我又换了个root的方法,当时也只是不报希望地瞎搞一通罢了,没想到误打误撞</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> nautilus</span><br></pre></td></tr></table></figure>
-<p>熟悉ubuntu的童鞋一定对以上命令不陌生,它是通过nautilus文件管理器打开文件,权限是root,尔后,打开了hexo/文件夹,在此文件夹中打开终端,输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo</span></span><br></pre></td></tr></table></figure>
-<p>它竟然有用了,真是奇怪哦,我开心高兴又喜出望外的输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo g</span></span><br><span class="line"><span class="comment"># hexo d</span></span><br></pre></td></tr></table></figure></p>
-<p>欧耶!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">位于分支 master</span><br><span class="line">无文件要提交，干净的工作区</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line"></span><br><span class="line">    at ChildProcess.&lt;anonymous&gt; (/home/w-xiao/文档/git_repo/hexo/node_modules/hexo-util/lib/spawn.js:37:17)</span><br><span class="line">    at emitTwo (events.js:125:13)</span><br><span class="line">    at ChildProcess.emit (events.js:213:7)</span><br><span class="line">    at maybeClose (internal/child_process.js:897:16)</span><br><span class="line">    at Process.ChildProcess._handle.onexit (internal/child_process.js:208:5)</span><br></pre></td></tr></table></figure>
-<p>WTF!!!还是依旧清脆的打脸声…瞧了瞧,咦~怎么会是permission denid?我明明就配置过ssh-key,这么短时间应该也没有过期啥的,然后我试了试连接github</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
-<p>果然连接失败了,相比眼光尖锐的童鞋已经发现了猫腻.震惊!ssh连接失败原因竟是这…</p>
-<h2 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h2><p>配置ssh-key时本人用了默认用户而非root,oh no,wtf!<br>然后登录root重新配置ssh-key就行了.生活如此多节,还得一个坑一个坑的踩过之后,慢慢才有了绕坑的能力.</p>
-
-	
-	</div>
-  <a type="button" href="/2017/07/15/进退两难-用户权限与段错误/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/07/12/不为谁而写的博客/" >不为谁而写的博客</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-07-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="不为谁而写的博客/fruitGirl.jpg" alt="fruitGirl"></p>
-
-	
-	</div>
-  <a type="button" href="/2017/07/12/不为谁而写的博客/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -588,48 +590,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
+			<li><a href="/tags/Mac/">Mac<span>2</span></a></li>
+		
 			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
-		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
 		
 			<li><a href="/tags/tty/">tty<span>1</span></a></li>
 		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
-		
-			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
 		
 			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
-			<li><a href="/tags/Mac/">Mac<span>1</span></a></li>
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
 		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
 		
 			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
 		
-		   <li><a href="/tags">...<span>24</span></a></li>
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>3</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>26</span></a></li>
 		 
 		</ul>
 	</div>
@@ -642,6 +644,14 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2018/07/23/MacOS安装TensorFlow/"  title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。" ><i class="fa fa-file-o"></i>在macOS上安装TensorFlow</a>
+      </li>
+    
+      <li>
+        <a href="/2018/07/18/java日记/" ><i class="fa fa-file-o"></i>java日记</a>
+      </li>
+    
+      <li>
         <a href="/2018/07/13/git日记/"  title="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。" ><i class="fa fa-file-o"></i>git日记</a>
       </li>
     
@@ -651,14 +661,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/01/09/sql语言类型/" ><i class="fa fa-file-o"></i>sql语言类型</a>
-      </li>
-    
-      <li>
-        <a href="/2018/01/03/assert/" ><i class="fa fa-file-o"></i>assert()</a>
-      </li>
-    
-      <li>
-        <a href="/2017/10/18/AES加密hexo文章/"  title="若是想用hexo记录一些不想公开的内容，可以用hexo-encrypt对文章进行加密，当然前提是你不是挂载于gitpage上的，否则不是白搭么@灬@" ><i class="fa fa-file-o"></i>AES加密hexo文章</a>
       </li>
     
   </ul>

@@ -138,6 +138,105 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/07/23/MacOS安装TensorFlow/" title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。">在macOS上安装TensorFlow</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-23  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=10029594" target="_blank" rel="noopener">参考网址</a></p>
+<h2 id="确定安装哪个TensorFlow"><a href="#确定安装哪个TensorFlow" class="headerlink" title="确定安装哪个TensorFlow"></a>确定安装哪个TensorFlow</h2><ul>
+<li><strong>TensorFlow仅支持CPU支持</strong>。如果您的系统没有NVIDIACUDA®GPU，则应安装此版本。请注意，具有CPU支持的TensorFlow通常比具有GPU支持的TensorFlow更容易安装。因此，即使您有NVIDIA CUDA GPU，我们建议先安装此版本作为诊断步骤，以防您在安装具有GPU支持的TensorFlow时出现问题。</li>
+<li><strong>TensorFlow支持GPU</strong>。TensorFlow程序通常在GPU上比在CPU上运行得更快。因此，如果您的系统具有NVIDIA CUDA GPU满足以下所示的先决条件，并且需要运行性能关键型应用程序，则应最终安装此版本。<br>由于本人当前用的是黑苹果，没有独显，所以安装的是cpu版本的Tensorfly，基于python3.6</li>
+</ul>
+<h2 id="确定如何安装TensorFlow"><a href="#确定如何安装TensorFlow" class="headerlink" title="确定如何安装TensorFlow"></a>确定如何安装TensorFlow</h2><p>Tensorflow支持多种安装机制。选择如下</p>
+<ul>
+<li>virtualenv</li>
+<li>“native” pip</li>
+<li>Docker</li>
+<li>Anaconda</li>
+</ul>
+<p>在这里我选择了Anaconda作为安装环境。步骤如下：</p>
+<ol>
+<li><p>按照 Anaconda下载网站 上的说明下载并安装Anaconda。图形界面或者是命令行版本的都没问题.<br><strong>这是个大大大坑</strong>看似最简单的一步，我执行第二步一直是’command not found: conda’，究竟是怎么肥四!学过Linux的小伙伴应该清楚，这是因为conda没在环境变量里头。只需要在终端配置文件中加入<code>export PATH=~/anaconda3/bin:$PATH</code>即可。可是让人感到不解的是，教程里可没有这一步啊，理应在安装Anaconda时他会自动加入环境变量的。迷糊了很久我发现了蛛丝马迹：本人终端用的是zsh,系统默认的是bash。于是乎，我打开了bash的配置文件,果不其然！在里头发现了环境变量╮(￣▽￣)╭。<code># added by Anaconda3 installer
+export PATH=&quot;/Users/wangxiaobin/conda3_command_line/bin:$PATH&quot;</code>所以说，得出的最终结论是Anaconda3 installer默认配置bash的环境变量是，而非正在使用的zsh。</p>
+</li>
+<li><p>创建一个tensorflow 通过调用以下命令命名的conda环境</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n tensorflow</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>通过发出以下命令激活conda环境：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate tensorflow <span class="comment">##激活</span></span><br><span class="line">(tensorflow)$ <span class="comment">#你的提示符应该改变</span></span><br><span class="line">$ <span class="built_in">source</span> deactivate tensorflow <span class="comment">##退出激活</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="为了方便激活，可以设置别名alias，如alias-tensorfly-39-source-activate-tensorflow-39"><a href="#为了方便激活，可以设置别名alias，如alias-tensorfly-39-source-activate-tensorflow-39" class="headerlink" title="为了方便激活，可以设置别名alias，如alias tensorfly = &#39;source activate tensorflow&#39;"></a>为了方便激活，可以设置别名alias，如<code>alias tensorfly = &#39;source activate tensorflow&#39;</code></h4><ol start="4">
+<li>在公共环境中安装TensorFlow(python2.x使用pip)：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed tensorflow</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>这里又是个大大大坑</strong><br>报错：<br><code>Could not find a version that satisfies the requirement tensorflow (from versions: )
+No matching distribution found for tensorflow</code><br>换个TensorFlow Python包的URL，因为是google源，可能会不稳定导致连接超时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl</span><br></pre></td></tr></table></figure></p>
+<p>报错：<code>Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &#39;/Users/wangxiaobin/env/tensorflow/lib/python3.7/site-packages/six.py&#39;
+Consider using the</code>–user<code>option or check the permissions.</code>这次好办，有解决的提示。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl --user</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li>测试TensorFlow    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import tensorflow as tf</p>
+</blockquote>
+<p>没有出错，表明安装成功!</p>
+</blockquote>
+</blockquote>
+
+	
+	</div>
+  <a type="button" href="/2018/07/23/MacOS安装TensorFlow/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/07/18/java日记/" >java日记</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-18  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		
+	
+	</div>
+  <a type="button" href="/2018/07/18/java日记/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/07/13/git日记/" title="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。">git日记</a>
 		</h3>
 		</div>
@@ -512,97 +611,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/07/Vim配置及使用/" title="作为一个程序员,vim不会?不存在的.">Vim配置及使用</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-07  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>vim作为轻量级的文本编辑器拥有众多特性:</p>
-<ul>
-<li>跨平台及统一环境<br>无论是在<code>windows</code>还是在*nix，vim是一个很完美的跨平台文本编辑器，甚至可以直接在服务器平台CentOS，Ubuntu等直接配置使用，配置文件大同小异，操作习惯基本相同。</li>
-<li>定制化及可扩展性<br>vim提供一个<code>.vimrc</code>的配置文件来配置vim，并且自己可以定制一些插件可实现高效编辑</li>
-<li>高效命令行<br>使用Vim,无需用到鼠标,键盘足矣<h1 id="配置-vimrc"><a href="#配置-vimrc" class="headerlink" title="配置 .vimrc"></a>配置 .vimrc</h1>配置vim,需要在home/目录下新建<code>.vimrc</code>文档,那在这里面什么呢?–外观,插件,缩进,键盘映射等;在这里,你可以先参考我的<a href="https://github.com/bababadboy/.vimrc/blob/master/.vimrc" target="_blank" rel="noopener">配置文件</a>根据注释,也能大概知道是干什么的.<h1 id="安装插件管理工具vundle-vim-bundle"><a href="#安装插件管理工具vundle-vim-bundle" class="headerlink" title="安装插件管理工具vundle [vim bundle]"></a>安装插件管理工具vundle [vim bundle]</h1></li>
-</ul>
-<ol>
-<li><p>下载vundle</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在.vimrc中添加/对vundle的支持</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">filetype</span> off</span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/vundle/</span><br><span class="line"><span class="keyword">call</span> vundle#rc()</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="在-vimrc-中安装插件有三种方法"><a href="#在-vimrc-中安装插件有三种方法" class="headerlink" title="在.vimrc 中安装插件有三种方法:"></a>在.vimrc 中安装插件有三种方法:</h2><ul>
-<li>在Github vim-scripts 用户下的repos,只需要写出repos名称</li>
-<li>Github其他用户下的repos, 需要写出”用户名/repos名”(常用)</li>
-<li>不在Github上的插件，需要写出git全路径<h2 id="将安装的插件在-vimrc配置"><a href="#将安装的插件在-vimrc配置" class="headerlink" title="将安装的插件在~/.vimrc配置"></a>将安装的插件在~/.vimrc配置</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Define bundles via Github repos</span></span><br><span class="line">Bundle <span class="string">'christoomey/vim-run-interactive'</span></span><br><span class="line">Bundle <span class="string">'Valloric/YouCompleteMe'</span></span><br><span class="line">Bundle <span class="string">'croaky/vim-colors-github'</span></span><br><span class="line">Bundle <span class="string">'danro/rename.vim'</span></span><br><span class="line">Bundle <span class="string">'majutsushi/tagbar'</span></span><br><span class="line">Bundle <span class="string">'kchmck/vim-coffee-script'</span></span><br><span class="line">Bundle <span class="string">'kien/ctrlp.vim'</span></span><br><span class="line">Bundle <span class="string">'pbrisbin/vim-mkdir'</span></span><br><span class="line">Bundle <span class="string">'scrooloose/syntastic'</span></span><br><span class="line">Bundle <span class="string">'slim-template/vim-slim'</span></span><br><span class="line">Bundle <span class="string">'thoughtbot/vim-rspec'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-bundler'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-endwise'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-fugitive'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-rails'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-surround'</span></span><br><span class="line">Bundle <span class="string">'vim-ruby/vim-ruby'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/ctags.vim'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/matchit.zip'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/tComment'</span></span><br><span class="line">Bundle <span class="string">"mattn/emmet-vim"</span></span><br><span class="line">Bundle <span class="string">"scrooloose/nerdtree"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-powerline"</span></span><br><span class="line">Bundle <span class="string">"godlygeek/tabular"</span></span><br><span class="line">Bundle <span class="string">"msanders/snipmate.vim"</span></span><br><span class="line">Bundle <span class="string">"jelera/vim-javascript-syntax"</span></span><br><span class="line">Bundle <span class="string">"altercation/vim-colors-solarized"</span></span><br><span class="line">Bundle <span class="string">"othree/html5.vim"</span></span><br><span class="line">Bundle <span class="string">"xsbeats/vim-blade"</span></span><br><span class="line">Bundle <span class="string">"jiangmiao/auto-pairs"</span></span><br><span class="line">Bundle <span class="string">"evanmiller/nginx-vim-syntax"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-easymotion"</span></span><br><span class="line">Bundle <span class="string">"tomasr/molokai"</span></span><br><span class="line">Bundle <span class="string">"klen/python-mode"</span></span><br><span class="line">Bundle <span class="string">'Raimondi/delimitMate'</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>打开vim,运行<code>:BundleInstall</code>或者直接在<code>bash</code>中敲入<code>vim +BundleInstall +qall</code><br>以上是我的插件配置,若还有什么需要,也可自己添加,然后运行<code>:BundleInstall</code>即可</p>
-<h1 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h1><h2 id="Nerd-Tree"><a href="#Nerd-Tree" class="headerlink" title="Nerd Tree"></a>Nerd Tree</h2><p><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">NERD Tree</a>(是一个树形目录插件，方便浏览当前目录有哪些目录和文件。<br><img src="https://s1.ax1x.com/2017/10/28/UOi01.png" alt="UOi01.png"><br>我在~/.vimrc文件中配置NERD Tree，设置一个启用或禁用NERD Tree的键映射<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;F5&gt;</span> :NERDTreeToggle<span class="symbol">&lt;cr&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>所以你只需按F5键就能启用或禁用NERD Tree,按?可以浏览其使用方法.</p>
-<h2 id="auto-pairs"><a href="#auto-pairs" class="headerlink" title="auto-pairs"></a>auto-pairs</h2><p>安装的Raimondi/delimitMate,没有用,就转而使用<code>auto-pairs</code>了,作用:对括号之间回车，自动分为3行并调整缩进.在写函数时hin方便的.</p>
-
-	
-	</div>
-  <a type="button" href="/2017/09/07/Vim配置及使用/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/05/ubuntu安装自定义字体/" >ubuntu安装自定义字体</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-05  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
-<li>下载好的字体–.ttf</li>
-<li>设置桌面的工具–Unity Tweak Tool<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1></li>
-</ul>
-<ol start="0">
-<li>字体文件位于/usr/share/fonts/,在这里新建文件夹并且将.ttf移入</li>
-<li>修改字体权限,确保root以外的普通用户也可以正常使用该字体</li>
-<li><p>建立字体缓存:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> mkfontscale</span><br><span class="line"><span class="variable">$sudo</span> mkfontdir</span><br><span class="line"><span class="variable">$sudo</span> fcache -fv</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用Unity Tweak Tool:预览-&gt;外观-&gt;字体,选择该字体</p>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/2017/09/05/ubuntu安装自定义字体/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -662,46 +670,46 @@ var _hmt = _hmt || [];
 		
 			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/Mac/">Mac<span>2</span></a></li>
+		
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
 			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
 			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
-			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
-		
-			<li><a href="/tags/Mac/">Mac<span>1</span></a></li>
-		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
 			<li><a href="/tags/tty/">tty<span>1</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>3</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
 		
 			<li><a href="/tags/vim/">vim<span>1</span></a></li>
 		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
 			<li><a href="/tags/c/">c++<span>1</span></a></li>
 		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>24</span></a></li>
+		   <li><a href="/tags">...<span>26</span></a></li>
 		 
 		</ul>
 	</div>
@@ -714,6 +722,14 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2018/07/23/MacOS安装TensorFlow/"  title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。" ><i class="fa fa-file-o"></i>在macOS上安装TensorFlow</a>
+      </li>
+    
+      <li>
+        <a href="/2018/07/18/java日记/" ><i class="fa fa-file-o"></i>java日记</a>
+      </li>
+    
+      <li>
         <a href="/2018/07/13/git日记/"  title="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。" ><i class="fa fa-file-o"></i>git日记</a>
       </li>
     
@@ -723,14 +739,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/01/09/sql语言类型/" ><i class="fa fa-file-o"></i>sql语言类型</a>
-      </li>
-    
-      <li>
-        <a href="/2018/01/03/assert/" ><i class="fa fa-file-o"></i>assert()</a>
-      </li>
-    
-      <li>
-        <a href="/2017/10/18/AES加密hexo文章/"  title="若是想用hexo记录一些不想公开的内容，可以用hexo-encrypt对文章进行加密，当然前提是你不是挂载于gitpage上的，否则不是白搭么@灬@" ><i class="fa fa-file-o"></i>AES加密hexo文章</a>
       </li>
     
   </ul>

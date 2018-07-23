@@ -6,15 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Mac升级vim8.x | Being...anAsshole</title>
+  <title>在macOS上安装TensorFlow | Being...anAsshole</title>
   <meta name="author" content="Richard Wx">
   
-  <meta name="description" content="mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x">
+  <meta name="description" content="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Mac升级vim8.x"/>
+  <meta property="og:title" content="在macOS上安装TensorFlow"/>
   <meta property="og:site_name" content="Being...anAsshole"/>
 
   
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> Mac升级vim8.x</h1>
+			<h1> 在macOS上安装TensorFlow</h1>
 		</div>
 	
 
@@ -135,29 +135,55 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  
 		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x
+			<i class="fa fa-info-circle"></i> 安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。
 		 </div> <!-- alert -->
 	  		
 
-	  <ol>
-<li>先去<a href="https://github.com/vim/vim/releases" target="_blank" rel="noopener">GitHub</a>下载源码.</li>
+	  <p><a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=10029594" target="_blank" rel="noopener">参考网址</a></p>
+<h2 id="确定安装哪个TensorFlow"><a href="#确定安装哪个TensorFlow" class="headerlink" title="确定安装哪个TensorFlow"></a>确定安装哪个TensorFlow</h2><ul>
+<li><strong>TensorFlow仅支持CPU支持</strong>。如果您的系统没有NVIDIACUDA®GPU，则应安装此版本。请注意，具有CPU支持的TensorFlow通常比具有GPU支持的TensorFlow更容易安装。因此，即使您有NVIDIA CUDA GPU，我们建议先安装此版本作为诊断步骤，以防您在安装具有GPU支持的TensorFlow时出现问题。</li>
+<li><strong>TensorFlow支持GPU</strong>。TensorFlow程序通常在GPU上比在CPU上运行得更快。因此，如果您的系统具有NVIDIA CUDA GPU满足以下所示的先决条件，并且需要运行性能关键型应用程序，则应最终安装此版本。<br>由于本人当前用的是黑苹果，没有独显，所以安装的是cpu版本的Tensorfly，基于python3.6</li>
+</ul>
+<h2 id="确定如何安装TensorFlow"><a href="#确定如何安装TensorFlow" class="headerlink" title="确定如何安装TensorFlow"></a>确定如何安装TensorFlow</h2><p>Tensorflow支持多种安装机制。选择如下</p>
+<ul>
+<li>virtualenv</li>
+<li>“native” pip</li>
+<li>Docker</li>
+<li>Anaconda</li>
+</ul>
+<p>在这里我选择了Anaconda作为安装环境。步骤如下：</p>
+<ol>
+<li><p>按照 Anaconda下载网站 上的说明下载并安装Anaconda。图形界面或者是命令行版本的都没问题.<br><strong>这是个大大大坑</strong>看似最简单的一步，我执行第二步一直是’command not found: conda’，究竟是怎么肥四!学过Linux的小伙伴应该清楚，这是因为conda没在环境变量里头。只需要在终端配置文件中加入<code>export PATH=~/anaconda3/bin:$PATH</code>即可。可是让人感到不解的是，教程里可没有这一步啊，理应在安装Anaconda时他会自动加入环境变量的。迷糊了很久我发现了蛛丝马迹：本人终端用的是zsh,系统默认的是bash。于是乎，我打开了bash的配置文件,果不其然！在里头发现了环境变量╮(￣▽￣)╭。<code># added by Anaconda3 installer
+export PATH=&quot;/Users/wangxiaobin/conda3_command_line/bin:$PATH&quot;</code>所以说，得出的最终结论是Anaconda3 installer默认配置bash的环境变量是，而非正在使用的zsh。</p>
+</li>
+<li><p>创建一个tensorflow 通过调用以下命令命名的conda环境</p>
+</li>
 </ol>
-<p><img src="https://s1.ax1x.com/2017/10/28/UOFTx.png" alt="UOFTx.png"></p>
-<ol start="2">
-<li>将下载好的压缩包解压</li>
-<li><p>进行环境的检测和安装路径的设置（在解压后的文件内使用终端）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$./configure --prefix=/opt/<span class="built_in">local</span> --with-features=huge --<span class="built_in">enable</span>-pythoninterp=yes --<span class="built_in">enable</span>-multibyte --with-vim-name=vim --with-python-config-dir=/usr/lib/python2.7/config</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检测是否有出现异常的情况<code>echo $?</code>如果是0表示上一条没有问题，如果其他数字就可能有问题<br><img src="https://s1.ax1x.com/2017/10/28/UOAk6.png" alt="UOAk6.png"></p>
-</li>
-<li>输入<code>make</code> 编译</li>
-<li><p>安装编译软件，使用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最后进行用命令进行链接</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> ln -s /opt/<span class="built_in">local</span>/bin/vim /usr/bin/vim</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n tensorflow</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>通过发出以下命令激活conda环境：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate tensorflow <span class="comment">##激活</span></span><br><span class="line">(tensorflow)$ <span class="comment">#你的提示符应该改变</span></span><br><span class="line">$ <span class="built_in">source</span> deactivate tensorflow <span class="comment">##退出激活</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<h4 id="为了方便激活，可以设置别名alias，如alias-tensorfly-39-source-activate-tensorflow-39"><a href="#为了方便激活，可以设置别名alias，如alias-tensorfly-39-source-activate-tensorflow-39" class="headerlink" title="为了方便激活，可以设置别名alias，如alias tensorfly = &#39;source activate tensorflow&#39;"></a>为了方便激活，可以设置别名alias，如<code>alias tensorfly = &#39;source activate tensorflow&#39;</code></h4><ol start="4">
+<li>在公共环境中安装TensorFlow(python2.x使用pip)：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed tensorflow</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>这里又是个大大大坑</strong><br>报错：<br><code>Could not find a version that satisfies the requirement tensorflow (from versions: )
+No matching distribution found for tensorflow</code><br>换个TensorFlow Python包的URL，因为是google源，可能会不稳定导致连接超时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl</span><br></pre></td></tr></table></figure></p>
+<p>报错：<code>Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &#39;/Users/wangxiaobin/env/tensorflow/lib/python3.7/site-packages/six.py&#39;
+Consider using the</code>–user<code>option or check the permissions.</code>这次好办，有解决的提示。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl --user</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li>测试TensorFlow    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import tensorflow as tf</p>
+</blockquote>
+<p>没有出错，表明安装成功!</p>
+</blockquote>
+</blockquote>
 	  
 	</div>
 
@@ -167,13 +193,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2017/10/12/kali-grub修复/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2017/09/15/hexo迁移/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/07/18/java日记/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -227,7 +252,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2017-09-16 
+	2018-07-23 
 	</div>
 	
 
@@ -240,7 +265,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/Mac/">Mac<span>2</span></a></li> <li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+  <li><a href="/tags/Mac/">Mac<span>2</span></a></li> <li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
     </ul>
 	</div>
 		
