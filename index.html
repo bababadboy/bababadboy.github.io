@@ -166,7 +166,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>在这里我选择了Anaconda作为安装环境。步骤如下：</p>
 <ol>
-<li><p>按照 Anaconda下载网站 上的说明下载并安装Anaconda。图形界面或者是命令行版本的都没问题.<br><strong>这是个大大大坑</strong>看似最简单的一步，我执行第二步一直是’command not found: conda’，究竟是怎么肥四!学过Linux的小伙伴应该清楚，这是因为conda没在环境变量里头。只需要在终端配置文件中加入<code>export PATH=~/anaconda3/bin:$PATH</code>即可。可是让人感到不解的是，教程里可没有这一步啊，理应在安装Anaconda时他会自动加入环境变量的。迷糊了很久我发现了蛛丝马迹：本人终端用的是zsh,系统默认的是bash。于是乎，我打开了bash的配置文件,果不其然！在里头发现了环境变量╮(￣▽￣)╭。<code># added by Anaconda3 installer
+<li><p>按照 Anaconda下载网站 上的说明下载并安装Anaconda。图形界面或者是命令行版本的都没问题.<br><em>这是个大大大坑</em><br>看似最简单的一步，我执行第二步一直是’command not found: conda’，究竟是怎么肥四!学过Linux的小伙伴应该清楚，这是因为conda没在环境变量里头。只需要在终端配置文件中加入<code>export PATH=~/anaconda3/bin:$PATH</code>即可。可是让人感到不解的是，教程里可没有这一步啊，理应在安装Anaconda时他会自动加入环境变量的。迷糊了很久我发现了蛛丝马迹：本人终端用的是zsh,系统默认的是bash。于是乎，我打开了bash的配置文件,果不其然！在里头发现了环境变量╮(￣▽￣)╭。<code># added by Anaconda3 installer
 export PATH=&quot;/Users/wangxiaobin/conda3_command_line/bin:$PATH&quot;</code>所以说，得出的最终结论是Anaconda3 installer默认配置bash的环境变量是，而非正在使用的zsh。</p>
 </li>
 <li><p>创建一个tensorflow 通过调用以下命令命名的conda环境</p>
@@ -181,22 +181,15 @@ export PATH=&quot;/Users/wangxiaobin/conda3_command_line/bin:$PATH&quot;</code>�
 <li>在公共环境中安装TensorFlow(python2.x使用pip)：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed tensorflow</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><strong>这里又是个大大大坑</strong><br>报错：<br><code>Could not find a version that satisfies the requirement tensorflow (from versions: )
+<p><em>这里又是个大大大坑</em><br>报错：<br><code>Could not find a version that satisfies the requirement tensorflow (from versions: )
 No matching distribution found for tensorflow</code><br>换个TensorFlow Python包的URL，因为是google源，可能会不稳定导致连接超时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl</span><br></pre></td></tr></table></figure></p>
 <p>报错：<code>Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &#39;/Users/wangxiaobin/env/tensorflow/lib/python3.7/site-packages/six.py&#39;
 Consider using the</code>–user<code>option or check the permissions.</code>这次好办，有解决的提示。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl --user</span><br></pre></td></tr></table></figure></p>
 <ol start="5">
-<li>测试TensorFlow    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br></pre></td></tr></table></figure>
+<li>测试TensorFlow    <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import tensorflow as tf</p>
-</blockquote>
 <p>没有出错，表明安装成功!</p>
-</blockquote>
-</blockquote>
 
 	
 	</div>
@@ -668,45 +661,45 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
 			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/Mac/">Mac<span>2</span></a></li>
-		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
-		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
 		
 			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
 		
 			<li><a href="/tags/c/">c++<span>1</span></a></li>
 		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
 			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/Mac/">Mac<span>2</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>3</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>26</span></a></li>
