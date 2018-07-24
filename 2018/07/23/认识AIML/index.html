@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>认识AIML | Being...anAsshole</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="认识AIML"/>
+  <meta property="og:site_name" content="Being...anAsshole"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Being...anAsshole</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 认识AIML</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。
+		 </div> <!-- alert -->
+	  		
+
+	  <p>和XML文件一样，AIML文件开始也需要定义编码方式，如下：&lt;?xml version=”1.0” encoding=”ISO-8859-1”?&gt; 常用的编码方式有：encoding=”ISO-8859-1”、encoding=”UTF-8”、encoding=”GB2312”等。</p>
+<h2 id="1-基本标签"><a href="#1-基本标签" class="headerlink" title="1. 基本标签"></a>1. 基本标签</h2><ul>
+<li>&lt;aiml&gt;:一个aiml文件的标志</li>
+<li>&lt;category>：定义unit ofknowledge中Alicebot的知识库。每个类别包含在一个句子的形式，用户输入可以是一个断言，问题和感叹号等用户的输入可以包含通配符的字符，如*和_。用       &lt;category>标签必须有&lt;pattern>和&lt;template>标记。</li>
+<li>&lt;pattern>：定义模式匹配的输入，通俗的讲就是用户输入的内容。你问它答里头的‘问’。里面的内容必须大写，可以有星号* 或下划线_，但必须空格隔开，星号表示匹配所有，任意情况；下划线的意义跟星号一样，除了不能匹配字典里面Z后面的字母。</li>
+<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li>
+</ul>
+<h2 id="2-其他"><a href="#2-其他" class="headerlink" title="2.其他"></a>2.其他</h2><ul>
+<li><p>&lt;*&gt;:用于匹配通配符*character(s),在&lt;pattern>标签。同正则表达式<br>例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> A * is a *.<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>When a <span class="tag">&lt;<span class="name">starindex="1"</span>/&gt;</span> is not a <span class="tag">&lt;<span class="name">star</span> <span class="attr">index</span>=<span class="string">"2"</span>/&gt;</span>?<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">human：A mango is a fruit.</span><br><span class="line">Robot：When a mango is nota fruit?</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;random>: 用于获取随机响应，通常内含&lt;li>标签。</p>
+</li>
+<li><p>&lt;li>: 用来表示多个响应。<br>例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>HI<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">random</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span> Hello! <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span> Hi! Nice to meet you! <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">random</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: Hi</span><br><span class="line">Robot: Hi! Nice to meet you!</span><br><span class="line">Human: Hi</span><br><span class="line">Robot: Hello!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;set> ：使用在AIML变量设定值。</p>
+</li>
+<li><p>&lt;get> ：用于获取存储在AIML变量的值。<br>get,set例子:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>I am*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Hello <span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">star</span>/&gt;</span>! <span class="tag">&lt;/<span class="name">set</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span> <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>GoodNight<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Hi <span class="tag">&lt;<span class="name">getname="username"</span>/&gt;</span> Thanks for the conversation!<span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: I am Mahesh</span><br><span class="line">Robot: Hello Mahesh</span><br><span class="line">Human: Good Night</span><br><span class="line">Robot: Good Night Mahesh! Thanks for theconversation!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;that> ：在AIML用于应对基于上下文。表示先前机器人说的话。也就是它的记忆功能。<br>例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>WHAT ABOUT MOVIES<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Do you like comedymovies<span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>YES<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">that</span>&gt;</span>Do you like comedymovies<span class="tag">&lt;/<span class="name">that</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Nice, I like comedy moviestoo.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>NO<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">that</span>&gt;</span>Do you like comedymovies<span class="tag">&lt;/<span class="name">that</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Ok! But I like comedymovies.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: What about movies?</span><br><span class="line">Robot: Do you like comedy movies?</span><br><span class="line">Human: No</span><br><span class="line">Robot: Ok! But I like comedy movies.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;topic> ：用于AIML存储上下文，这样以后可以谈话基于这一背景下进行。<br>例子:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>LET DISCUSSMOVIES<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Yes <span class="tag">&lt;<span class="name">setname="topic"</span>&gt;</span>movies<span class="tag">&lt;/<span class="name">set</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">topic</span> <span class="attr">name</span>=<span class="string">"movies"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> *<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Watching good movierefreshes our minds.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> I LIKE WATCHING COMEDY!<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>I like comedy moviestoo.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">topic</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: let discuss movies</span><br><span class="line">Robot: Yes movies</span><br><span class="line">Human: Comedy movies are nice to watch</span><br><span class="line">Robot: Watching good movie refreshes ourminds.</span><br><span class="line">Human: I like watching comedy</span><br><span class="line">Robot: I too like watching comedy.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;think>：用于AIML存储变量,在不通知用户的情况下。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>I AM FEMALE<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Thanks for telling me your gender. </span><br><span class="line"><span class="tag">&lt;<span class="name">think</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>＝<span class="attr">gender</span>&gt;</span>female<span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">think</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">这里把female这个值保存到gender这个变量里，且回复内容不包括female。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;condition>：类似其他编程语言的switch case。它有助于ALICE来匹配输入作出响应。<br>例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span> <span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> HOW ARE YOUFEELING TODAY <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">think</span>&gt;</span><span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"state"</span>&gt;</span> happy<span class="tag">&lt;/<span class="name">set</span>&gt;</span><span class="tag">&lt;/<span class="name">think</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">condition</span> <span class="attr">name</span>=<span class="string">"state"</span> <span class="attr">value</span>=<span class="string">"happy"</span>&gt;</span>I am happy!<span class="tag">&lt;/<span class="name">condition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">condition</span> <span class="attr">name</span>=<span class="string">"state"</span> <span class="attr">value</span>=<span class="string">"sad"</span>&gt;</span>I am sad!<span class="tag">&lt;/<span class="name">condition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: How are you feeling today</span><br><span class="line">Robot: I am happy!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;srai>：多用途标签，用来调用其它/匹配的类别。（符号缩减、分而治之、同义词分辨率、关键词检测）,还不是很懂。有搜到一个解释：刺激回复人工智能，表示&lt;srai>里面的话会被当作是用户输入，从新查找匹配模式，直到找到非&lt;srai>定义的回复。<br>例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> WHO ISALBERT EINSTEIN <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Albert Einstein was agerman physicist.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> WHO ISIsaac NEWTON <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Isaac Newton was a englishphysicist and mathematician.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>DO YOU KNOWWHO * IS<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>WHO IS<span class="tag">&lt;<span class="name">star</span>/&gt;</span><span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>BYE<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Good Bye!<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>BYE*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>BYE<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>FACTORY<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>DevelopmentCenter!<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>INDUSTRY<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>FACTORY<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>School is an importantinstitution in a child's life.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>_SCHOOL<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>_SCHOOL<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>SCHOOL*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>_ SCHOOL*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: I love going to school daily.</span><br><span class="line">Robot: School is an important institutionin a child's life.</span><br><span class="line">Human: I like my school.</span><br><span class="line">Robot: School is an important institutionin a child's life.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;upcase>: 用来把小写字母转换成大写形式。</p>
+</li>
+<li>&lt;lowcase>用来把大写字母转换成小写形式。</li>
+<li>&lt;system>元素表示调用系统函数，例如：<code>&lt;system&gt;date&lt;/system&gt;</code>表示取系统当前日期。</li>
+<li>&lt;sentence>元素用来格式化句子，比如：<code>&lt;sentence&gt;this is some kind ofsentence test.&lt;/sentence&gt;</code>可以格式化成：This is some kind of sentence test.即把句子首字母大写。</li>
+<li>&lt;learenfilename=”xxx.aiml”>元素表示让机器人学习某个aiml文件。</li>
+<li><p>&lt;if>元素，判断元素，有以下形式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">name</span>=<span class="string">"topic"</span><span class="attr">value</span>=<span class="string">"cars"</span>&gt;</span><span class="tag">&lt;/<span class="name">if</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">name</span>=<span class="string">"topic"</span><span class="attr">contains</span>=<span class="string">"cars"</span>&gt;</span><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">name</span>=<span class="string">"topic"</span><span class="attr">exists</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&lt;formal>元素，用来格式化输出，例如：<code>&lt;formal&gt;jon baer&lt;/formal&gt;</code>那么回复将被格式化成首字母大写输出：Jon Baer，对中文无效。</p>
+</li>
+</ul>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/07/23/MacOS安装TensorFlow/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-07-23 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/AIML/">AIML<span>1</span></a></li> <li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-基本标签"><span class="toc-article-text">1. 基本标签</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-其他"><span class="toc-article-text">2.其他</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>
