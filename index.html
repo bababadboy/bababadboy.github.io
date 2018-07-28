@@ -138,6 +138,62 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/07/27/Mac安装libsvm/" title="在本人目前的电脑上，有多个python环境，包括python2和python3，python3有两个版本，一个是brew安装的Python3.7,另一个是Anaconda管理的Python3.6.5。默认使用Anaconda版本。此篇博客包含了两个python3版本中安装libsvm的过程。">Mac的python3环境下安装libsvm</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-27  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>#准备工作</p>
+<ol>
+<li>官网下载libsvm-3.22压缩包<a href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="noopener">https://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></li>
+<li><p>解压缩</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar xzvf libsvm-3.22.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译</p>
+<ol>
+<li>在libsvm目录下执行<code>make</code></li>
+<li>在子目录python下执行<code>make</code></li>
+</ol>
+</li>
+</ol>
+<p>#安装</p>
+<ul>
+<li><h2 id="brew下的Python3"><a href="#brew下的Python3" class="headerlink" title="brew下的Python3"></a>brew下的Python3</h2>  将libsvm添加到Python3.7的路径中<ol>
+<li>首先把libsvm-3.22文件移动到/usr/local/lib/（其他路径也行）</li>
+<li>在usr/local/lib/python3.7/site-packages/下创建pypath.pth路径文件</li>
+<li>编辑pypath.pth文件，加入路径/usr/local/lib/libsvm-3.22/python</li>
+<li>大功告成。</li>
+</ol>
+</li>
+<li><h2 id="Anaconda下的Python3"><a href="#Anaconda下的Python3" class="headerlink" title="Anaconda下的Python3"></a>Anaconda下的Python3</h2><ol>
+<li>拷贝<code>usr/local/lib/libsvm-3.22/python/</code>目录下的svm.py和svmutil.py到<code>~/anaconda3/lib/python3.6</code></li>
+<li>拷贝<code>usr/local/lib/libsvm-3.22/libsvm.so.2</code>到<code>~/anaconda3/lib/</code></li>
+<li>大功告成。</li>
+</ol>
+</li>
+</ul>
+
+	
+	</div>
+  <a type="button" href="/2018/07/27/Mac安装libsvm/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/07/23/认识AIML/" title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。">认识AIML</a>
 		</h3>
 		</div>
@@ -566,52 +622,6 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/16/Mac升级vim8-x/" title="mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x">Mac升级vim8.x</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-16  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<ol>
-<li>先去<a href="https://github.com/vim/vim/releases" target="_blank" rel="noopener">GitHub</a>下载源码.</li>
-</ol>
-<p><img src="https://s1.ax1x.com/2017/10/28/UOFTx.png" alt="UOFTx.png"></p>
-<ol start="2">
-<li>将下载好的压缩包解压</li>
-<li><p>进行环境的检测和安装路径的设置（在解压后的文件内使用终端）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$./configure --prefix=/opt/<span class="built_in">local</span> --with-features=huge --<span class="built_in">enable</span>-pythoninterp=yes --<span class="built_in">enable</span>-multibyte --with-vim-name=vim --with-python-config-dir=/usr/lib/python2.7/config</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检测是否有出现异常的情况<code>echo $?</code>如果是0表示上一条没有问题，如果其他数字就可能有问题<br><img src="https://s1.ax1x.com/2017/10/28/UOAk6.png" alt="UOAk6.png"></p>
-</li>
-<li>输入<code>make</code> 编译</li>
-<li><p>安装编译软件，使用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最后进行用命令进行链接</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> ln -s /opt/<span class="built_in">local</span>/bin/vim /usr/bin/vim</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/2017/09/16/Mac升级vim8-x/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -669,48 +679,48 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>3</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
 		
 			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
 			<li><a href="/tags/latex/">latex<span>1</span></a></li>
 		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
 		
 			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
 		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
+		
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>3</span></a></li>
 		
 			<li><a href="/tags/tty/">tty<span>1</span></a></li>
 		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
 			<li><a href="/tags/assert/">assert<span>1</span></a></li>
 		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>28</span></a></li>
+		   <li><a href="/tags">...<span>29</span></a></li>
 		 
 		</ul>
 	</div>
@@ -721,6 +731,10 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/07/27/Mac安装libsvm/"  title="在本人目前的电脑上，有多个python环境，包括python2和python3，python3有两个版本，一个是brew安装的Python3.7,另一个是Anaconda管理的Python3.6.5。默认使用Anaconda版本。此篇博客包含了两个python3版本中安装libsvm的过程。" ><i class="fa fa-file-o"></i>Mac的python3环境下安装libsvm</a>
+      </li>
     
       <li>
         <a href="/2018/07/23/认识AIML/"  title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。" ><i class="fa fa-file-o"></i>认识AIML</a>
@@ -736,10 +750,6 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
     
       <li>
         <a href="/2018/07/13/git日记/"  title="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。" ><i class="fa fa-file-o"></i>git日记</a>
-      </li>
-    
-      <li>
-        <a href="/2018/07/12/Linux高效开发/"  title="使用Linux经常会使用到终端，一些使用终端的小技巧，可以减少浪费不必要的时间，更高效，多多使用方能得心应手。" ><i class="fa fa-file-o"></i>Linux高效开发</a>
       </li>
     
   </ul>

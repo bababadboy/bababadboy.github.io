@@ -6,15 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Mac升级vim8.x | Being...anAsshole</title>
+  <title>Mac的python3环境下安装libsvm | Being...anAsshole</title>
   <meta name="author" content="Richard Wx">
   
-  <meta name="description" content="mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x">
+  <meta name="description" content="在本人目前的电脑上，有多个python环境，包括python2和python3，python3有两个版本，一个是brew安装的Python3.7,另一个是Anaconda管理的Python3.6.5。默认使用Anaconda版本。此篇博客包含了两个python3版本中安装libsvm的过程。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Mac升级vim8.x"/>
+  <meta property="og:title" content="Mac的python3环境下安装libsvm"/>
   <meta property="og:site_name" content="Being...anAsshole"/>
 
   
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> Mac升级vim8.x</h1>
+			<h1> Mac的python3环境下安装libsvm</h1>
 		</div>
 	
 
@@ -135,29 +135,39 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  
 		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x
+			<i class="fa fa-info-circle"></i> 在本人目前的电脑上，有多个python环境，包括python2和python3，python3有两个版本，一个是brew安装的Python3.7,另一个是Anaconda管理的Python3.6.5。默认使用Anaconda版本。此篇博客包含了两个python3版本中安装libsvm的过程。
 		 </div> <!-- alert -->
 	  		
 
-	  <ol>
-<li>先去<a href="https://github.com/vim/vim/releases" target="_blank" rel="noopener">GitHub</a>下载源码.</li>
+	  <p>#准备工作</p>
+<ol>
+<li>官网下载libsvm-3.22压缩包<a href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="noopener">https://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></li>
+<li><p>解压缩</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar xzvf libsvm-3.22.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译</p>
+<ol>
+<li>在libsvm目录下执行<code>make</code></li>
+<li>在子目录python下执行<code>make</code></li>
 </ol>
-<p><img src="https://s1.ax1x.com/2017/10/28/UOFTx.png" alt="UOFTx.png"></p>
-<ol start="2">
-<li>将下载好的压缩包解压</li>
-<li><p>进行环境的检测和安装路径的设置（在解压后的文件内使用终端）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$./configure --prefix=/opt/<span class="built_in">local</span> --with-features=huge --<span class="built_in">enable</span>-pythoninterp=yes --<span class="built_in">enable</span>-multibyte --with-vim-name=vim --with-python-config-dir=/usr/lib/python2.7/config</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>检测是否有出现异常的情况<code>echo $?</code>如果是0表示上一条没有问题，如果其他数字就可能有问题<br><img src="https://s1.ax1x.com/2017/10/28/UOAk6.png" alt="UOAk6.png"></p>
-</li>
-<li>输入<code>make</code> 编译</li>
-<li><p>安装编译软件，使用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最后进行用命令进行链接</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> ln -s /opt/<span class="built_in">local</span>/bin/vim /usr/bin/vim</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>#安装</p>
+<ul>
+<li><h2 id="brew下的Python3"><a href="#brew下的Python3" class="headerlink" title="brew下的Python3"></a>brew下的Python3</h2>  将libsvm添加到Python3.7的路径中<ol>
+<li>首先把libsvm-3.22文件移动到/usr/local/lib/（其他路径也行）</li>
+<li>在usr/local/lib/python3.7/site-packages/下创建pypath.pth路径文件</li>
+<li>编辑pypath.pth文件，加入路径/usr/local/lib/libsvm-3.22/python</li>
+<li>大功告成。</li>
+</ol>
+</li>
+<li><h2 id="Anaconda下的Python3"><a href="#Anaconda下的Python3" class="headerlink" title="Anaconda下的Python3"></a>Anaconda下的Python3</h2><ol>
+<li>拷贝<code>usr/local/lib/libsvm-3.22/python/</code>目录下的svm.py和svmutil.py到<code>~/anaconda3/lib/python3.6</code></li>
+<li>拷贝<code>usr/local/lib/libsvm-3.22/libsvm.so.2</code>到<code>~/anaconda3/lib/</code></li>
+<li>大功告成。</li>
+</ol>
+</li>
+</ul>
 	  
 	</div>
 
@@ -167,13 +177,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2017/10/12/kali-grub修复/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2017/09/15/hexo迁移/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/07/23/认识AIML/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -227,7 +236,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2017-09-16 
+	2018-07-27 
 	</div>
 	
 
@@ -240,7 +249,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li> <li><a href="/tags/Mac/">Mac<span>3</span></a></li>
+  <li><a href="/tags/Mac/">Mac<span>3</span></a></li> <li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
     </ul>
 	</div>
 		
@@ -251,7 +260,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#brew下的Python3"><span class="toc-article-text">brew下的Python3</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Anaconda下的Python3"><span class="toc-article-text">Anaconda下的Python3</span></a></li></ol>
 		</div>
 	
 	</div>
