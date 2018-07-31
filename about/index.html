@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>php名称解析规则 | Being...anAsshole</title>
+  <title>about | Being...anAsshole</title>
   <meta name="author" content="Richard Wx">
   
   <meta name="description" content="Too lazy to decribe">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="php名称解析规则"/>
+  <meta property="og:title" content="about"/>
   <meta property="og:site_name" content="Being...anAsshole"/>
 
   
@@ -114,46 +114,30 @@ var _hmt = _hmt || [];
   <div class="container">
   	<div class="content">
     	 
-
-
 	
 		<div class="page-header">
-			<h1> php名称解析规则</h1>
+			<h1> about</h1>
 		</div>
 	
 
 
 
-<div class="row post">
+<div class="row page">
 	<!-- cols -->
 	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
+	<div class="col-md-12">
 	
 
 	<!-- content -->
 	<div class="mypage">		
 	  		
 
-	  <h1 id="php名称规则解析遵循如下规则"><a href="#php名称规则解析遵循如下规则" class="headerlink" title="php名称规则解析遵循如下规则"></a>php名称规则解析遵循如下规则</h1><p>1.对完全限定名称的函数，类和常量的调用在编译时解析。例如 new \A\B 解析为类 A\B。<br>2.所有的非限定名称和限定名称（非完全限定名称）根据当前的导入规则在编译时进行转换。例如，如果命名空间 A\B\C 被导入为 C，那么对 C\D\e() 的调用就会被转换为 A\B\C\D\e()。<br>3.在命名空间内部，所有的没有根据导入规则转换的限定名称均会在其前面加上当前的命名空间名称。例如，在命名空间 A\B 内部调用 C\D\e()，则 C\D\e() 会被转换为 A\B\C\D\e() 。<br>4.非限定类名根据当前的导入规则在编译时转换（用全名代替短的导入名称）。例如，如果命名空间 A\B\C 导入为C，则 new C() 被转换为 new A\B\C() 。<br><a id="more"></a><br>5.在命名空间内部（例如A\B），对非限定名称的函数调用是在运行时解析的。例如对函数 foo() 的调用是这样解析的：<br>    1.在当前命名空间中查找名为 A\B\foo() 的函数<br>    2.尝试查找并调用 全局(global) 空间中的函数 foo()。<br>6.在命名空间（例如A\B）内部对非限定名称或限定名称类（非完全限定名称）的调用是在运行时解析的。下面是调用 new C() 及 new D\E() 的解析过程：<br>    new C()的解析:<br>    1.在当前命名空间中查找A\B\C类。<br>    2.尝试自动装载类A\B\C。<br>    new D\E()的解析:<br>    1.在类名称前面加上当前命名空间名称变成：A\B\D\E，然后查找该类。<br>    2.尝试自动装载类 A\B\D\E。<br>为了引用全局命名空间中的全局类，必须使用完全限定名称 new \C()。</p>
-	  
+	  	  
 	</div>
 
 	<div>
   	<center>
 	<div class="pagination">
-
-    
-    
-    <a href="/2017/08/13/ubuntu设置开机启动项/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
-    
-
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2017/07/15/进退两难-用户权限与段错误/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
 
     
 </div>
@@ -163,76 +147,9 @@ var _hmt = _hmt || [];
 	
 	<!-- comment -->
 	
-<section id="comment">
-    <h2 class="title">Comments</h2>
-
-    
-    <div id="disqus_thread" class="ds-thread">
-        <script type="text/javascript">
-            /**
-             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-             */
-                /*
-                 var disqus_config = function () {
-                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                 };
-                 */
-            (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-
-                s.src = '//.disqus.com/embed.js';
-
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
-                Disqus.</a></noscript>
-    </div>
-    
-</section>
-
 
 	</div> <!-- col-md-9/col-md-12 -->
 		
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
-
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2017-08-01 
-	</div>
-	
-
-	<!-- categories -->
-    
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/php/">php<span>1</span></a></li>
-    </ul>
-	</div>
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-	</div>
 		
 
 </div><!-- row -->

@@ -139,7 +139,7 @@ var _hmt = _hmt || [];
 		 </div> <!-- alert -->
 	  		
 
-	  <p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~</p>
+	  <p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~<br><a id="more"></a></p>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>我所使用的操作系统~ubuntu16.04,然鹅这就有问题了,因为涉及到了用户操作权限的问题.我用git克隆下来的hexo的部分文件是只读文件,更过分的是有些文件只有root才有权限访问.这是系统的文件防护机制,当然有其作用.但当我无意识的切换用户时,权限也随之改变,现如今想着可笑,曾经却一无所知.本人当时的骚操作是这样的:</p>
 <h2 id="生成ssh-key以配置和使用-github"><a href="#生成ssh-key以配置和使用-github" class="headerlink" title="生成ssh key以配置和使用 github"></a>生成ssh key以配置和使用 github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"XXXX@gmail.com"</span></span><br></pre></td></tr></table></figure>
 <p>…省略一大堆内容,反正是配置完成了,如下代码检查是否连接成功</p>

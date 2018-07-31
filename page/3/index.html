@@ -182,8 +182,7 @@ var _hmt = _hmt || [];
   <div class="row">
 	
 	
-		<h1 id="php名称规则解析遵循如下规则"><a href="#php名称规则解析遵循如下规则" class="headerlink" title="php名称规则解析遵循如下规则"></a>php名称规则解析遵循如下规则</h1><p>1.对完全限定名称的函数，类和常量的调用在编译时解析。例如 new \A\B 解析为类 A\B。<br>2.所有的非限定名称和限定名称（非完全限定名称）根据当前的导入规则在编译时进行转换。例如，如果命名空间 A\B\C 被导入为 C，那么对 C\D\e() 的调用就会被转换为 A\B\C\D\e()。<br>3.在命名空间内部，所有的没有根据导入规则转换的限定名称均会在其前面加上当前的命名空间名称。例如，在命名空间 A\B 内部调用 C\D\e()，则 C\D\e() 会被转换为 A\B\C\D\e() 。<br>4.非限定类名根据当前的导入规则在编译时转换（用全名代替短的导入名称）。例如，如果命名空间 A\B\C 导入为C，则 new C() 被转换为 new A\B\C() 。<br>5.在命名空间内部（例如A\B），对非限定名称的函数调用是在运行时解析的。例如对函数 foo() 的调用是这样解析的：<br>    1.在当前命名空间中查找名为 A\B\foo() 的函数<br>    2.尝试查找并调用 全局(global) 空间中的函数 foo()。<br>6.在命名空间（例如A\B）内部对非限定名称或限定名称类（非完全限定名称）的调用是在运行时解析的。下面是调用 new C() 及 new D\E() 的解析过程：<br>    new C()的解析:<br>    1.在当前命名空间中查找A\B\C类。<br>    2.尝试自动装载类A\B\C。<br>    new D\E()的解析:<br>    1.在类名称前面加上当前命名空间名称变成：A\B\D\E，然后查找该类。<br>    2.尝试自动装载类 A\B\D\E。<br>为了引用全局命名空间中的全局类，必须使用完全限定名称 new \C()。</p>
-
+		<h1 id="php名称规则解析遵循如下规则"><a href="#php名称规则解析遵循如下规则" class="headerlink" title="php名称规则解析遵循如下规则"></a>php名称规则解析遵循如下规则</h1><p>1.对完全限定名称的函数，类和常量的调用在编译时解析。例如 new \A\B 解析为类 A\B。<br>2.所有的非限定名称和限定名称（非完全限定名称）根据当前的导入规则在编译时进行转换。例如，如果命名空间 A\B\C 被导入为 C，那么对 C\D\e() 的调用就会被转换为 A\B\C\D\e()。<br>3.在命名空间内部，所有的没有根据导入规则转换的限定名称均会在其前面加上当前的命名空间名称。例如，在命名空间 A\B 内部调用 C\D\e()，则 C\D\e() 会被转换为 A\B\C\D\e() 。<br>4.非限定类名根据当前的导入规则在编译时转换（用全名代替短的导入名称）。例如，如果命名空间 A\B\C 导入为C，则 new C() 被转换为 new A\B\C() 。<br></p>
 	
 	</div>
   <a type="button" href="/2017/08/01/php名称解析规则/#more" class="btn btn-default more">Read More</a>
@@ -209,42 +208,13 @@ var _hmt = _hmt || [];
 			<div class="entry">
   <div class="row">
 	
+           
+  	      <div class="thumbnail"><a href="/2017/07/15/进退两难-用户权限与段错误/"><img src="2017/07/15/进退两难-用户权限与段错误/http:blackshow.me/favicon.png" alt="进退两难-用户权限与段错误"  class="nofancybox"></a>
+           
+		</div>
 	
-		<p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>我所使用的操作系统~ubuntu16.04,然鹅这就有问题了,因为涉及到了用户操作权限的问题.我用git克隆下来的hexo的部分文件是只读文件,更过分的是有些文件只有root才有权限访问.这是系统的文件防护机制,当然有其作用.但当我无意识的切换用户时,权限也随之改变,现如今想着可笑,曾经却一无所知.本人当时的骚操作是这样的:</p>
-<h2 id="生成ssh-key以配置和使用-github"><a href="#生成ssh-key以配置和使用-github" class="headerlink" title="生成ssh key以配置和使用 github"></a>生成ssh key以配置和使用 github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span>-keygen -t rsa -C <span class="string">"XXXX@gmail.com"</span></span><br></pre></td></tr></table></figure>
-<p>…省略一大堆内容,反正是配置完成了,如下代码检查是否连接成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ssh</span> -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>但请注意!:我此时用户是默认的$ , 不是 #(root)</p>
-<h2 id="hexo-的布置"><a href="#hexo-的布置" class="headerlink" title="hexo 的布置"></a>hexo 的布置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/hexo/</span><br><span class="line">$ hexo/ hexo s</span><br><span class="line">$ hexo/ hexo g</span><br><span class="line">$ hexo/ hexo d</span><br></pre></td></tr></table></figure>
-<p>然后就报错了…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ERROR Plugin load failed: hexo-tag-bootstrap</span><br><span class="line">Error: EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/node_modules/hexo-tag-bootstrap/index.js&apos;</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: EACCES: permission denied, unlink &apos;/home/w-xiao/文档/git_repo/hexo/.deploy_git/archives/index.html&apos;</span><br><span class="line">FATAL EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/db.json&apos;</span><br><span class="line">Error: EACCES: permission denied, open &apos;/home/w-xiao/文档/git_repo/hexo/db.json&apos;</span><br></pre></td></tr></table></figure>
-<h1 id="问题解决中…"><a href="#问题解决中…" class="headerlink" title="问题解决中…"></a>问题解决中…</h1><p>意思就是我没权限访问hexo/部分关键文件,hexo deploy 失败…<br>那我想,这还不好办么,使出如下命令符</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> su</span><br></pre></td></tr></table></figure>
-<p>然后再来一遍</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo/<span class="comment"># hexo s</span></span><br><span class="line">hexo/<span class="comment"># hexo g</span></span><br><span class="line">hexo/<span class="comment"># hexo d</span></span><br></pre></td></tr></table></figure>
-<p>自信地,嘚瑟滴以为这还难得到我么…结果是出了个自从使用ubuntu以来从未见过的”段错误”,它就直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">段错误</span><br></pre></td></tr></table></figure></p>
-<p>EXM???别的什么都没了,就留下三个  字  吗,才疏学浅的我可不懂这专业术语,尔后我去谷歌了下,寝室QQ群询问了一下,然后…就睡着了[捂脸],炎炎夏日,小睡也是别有风味的,然后一个下午就这么没了…晚上重拾问题 <del>好好撸了一发</del> 咳咳,是好好地认真的查了查资料,一下是baidu百科的回答:</p>
-<blockquote>
-<p>段错误就是指访问的内存超出了系统所给这个程序的内存空间，通常这个值是由gd tr来保存的，他是一个48位的寄存器，其中的32位是保存由它指向的 gdt表，后13位保存 相应于gdt的下标，最后3位包括了程序是否在内存中以及程序的在cpu中的运行级别，指向 的gdt是由以64位为一个单位的表，在这张表中就保存着程序运行的代码段以及数据段的起 始地址以及与此相应的段限和页面交换还有程序运行级别还有内存粒度等等的信息。</p>
-</blockquote>
-<p>瞄了一眼…大概是看不懂了…再想了想,又看了看,原来还有解释:</p>
-<blockquote>
-<p>一旦一个程序发生了越界访问，cpu就会产生相应的保护，于是segmentation fault就出现<br>了通过上面的解释，段错误应该就是访问了不可访问的内存，这个内存区要么是不存在的，<br>要么是受到系统保护的，还有可能是缺少文件或者文件损坏。</p>
-</blockquote>
-<p>清楚明白了.那究竟是什么原因导致root用户发生段错误而默认用户反而没这个问题的呢??答案一定是在上面个的解释中了,具体原因有待进一步调查…反正没有谷歌到,心塞诶.</p>
-<h2 id="关键骚操作"><a href="#关键骚操作" class="headerlink" title="关键骚操作"></a>关键骚操作</h2><p>现在我就陷入了进退两难的地步了  $:没足够的权限;#:段错误.真是苦酒入喉心作痛.<br>关键操作来了:我又换了个root的方法,当时也只是不报希望地瞎搞一通罢了,没想到误打误撞</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> nautilus</span><br></pre></td></tr></table></figure>
-<p>熟悉ubuntu的童鞋一定对以上命令不陌生,它是通过nautilus文件管理器打开文件,权限是root,尔后,打开了hexo/文件夹,在此文件夹中打开终端,输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo</span></span><br></pre></td></tr></table></figure>
-<p>它竟然有用了,真是奇怪哦,我开心高兴又喜出望外的输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo g</span></span><br><span class="line"><span class="comment"># hexo d</span></span><br></pre></td></tr></table></figure></p>
-<p>欧耶!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">INFO  Copying files from extend dirs...</span><br><span class="line">位于分支 master</span><br><span class="line">无文件要提交，干净的工作区</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line">Error: Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line"></span><br><span class="line">    at ChildProcess.&lt;anonymous&gt; (/home/w-xiao/文档/git_repo/hexo/node_modules/hexo-util/lib/spawn.js:37:17)</span><br><span class="line">    at emitTwo (events.js:125:13)</span><br><span class="line">    at ChildProcess.emit (events.js:213:7)</span><br><span class="line">    at maybeClose (internal/child_process.js:897:16)</span><br><span class="line">    at Process.ChildProcess._handle.onexit (internal/child_process.js:208:5)</span><br></pre></td></tr></table></figure>
-<p>WTF!!!还是依旧清脆的打脸声…瞧了瞧,咦~怎么会是permission denid?我明明就配置过ssh-key,这么短时间应该也没有过期啥的,然后我试了试连接github</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
-<p>果然连接失败了,相比眼光尖锐的童鞋已经发现了猫腻.震惊!ssh连接失败原因竟是这…</p>
-<h2 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h2><p>配置ssh-key时本人用了默认用户而非root,oh no,wtf!<br>然后登录root重新配置ssh-key就行了.生活如此多节,还得一个坑一个坑的踩过之后,慢慢才有了绕坑的能力.</p>
-
+	
+		<p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~<br></p>
 	
 	</div>
   <a type="button" href="/2017/07/15/进退两难-用户权限与段错误/#more" class="btn btn-default more">Read More</a>
@@ -271,7 +241,7 @@ var _hmt = _hmt || [];
   <div class="row">
 	
 	
-		<p><img src="不为谁而写的博客/fruitGirl.jpg" alt="fruitGirl"></p>
+		<p><img src="/2017/07/12/不为谁而写的博客/fruitGirl.jpg" alt="fruitGirl"></p>
 
 	
 	</div>
@@ -372,45 +342,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
-		
-			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
-		
 			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
-		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
 			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
 			<li><a href="/tags/latex/">latex<span>1</span></a></li>
 		
-			<li><a href="/tags/linux/">linux<span>3</span></a></li>
+			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+		
+			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
+			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
+			<li><a href="/tags/Mac/">Mac<span>3</span></a></li>
+		
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>29</span></a></li>

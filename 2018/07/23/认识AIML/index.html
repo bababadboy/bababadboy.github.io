@@ -144,9 +144,8 @@ var _hmt = _hmt || [];
 <li>&lt;aiml&gt;:一个aiml文件的标志</li>
 <li>&lt;category>：定义unit ofknowledge中Alicebot的知识库。每个类别包含在一个句子的形式，用户输入可以是一个断言，问题和感叹号等用户的输入可以包含通配符的字符，如*和_。用       &lt;category>标签必须有&lt;pattern>和&lt;template>标记。</li>
 <li>&lt;pattern>：定义模式匹配的输入，通俗的讲就是用户输入的内容。你问它答里头的‘问’。里面的内容必须大写，可以有星号* 或下划线_，但必须空格隔开，星号表示匹配所有，任意情况；下划线的意义跟星号一样，除了不能匹配字典里面Z后面的字母。</li>
-<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li>
-</ul>
-<h2 id="2-其他"><a href="#2-其他" class="headerlink" title="2.其他"></a>2.其他</h2><ul>
+<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。<a id="more"></a> 
+<h2 id="2-其他"><a href="#2-其他" class="headerlink" title="2.其他"></a>2.其他</h2></li>
 <li><p>&lt;*&gt;:用于匹配通配符*character(s),在&lt;pattern>标签。同正则表达式<br>例子：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> A * is a *.<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>When a <span class="tag">&lt;<span class="name">starindex="1"</span>/&gt;</span> is not a <span class="tag">&lt;<span class="name">star</span> <span class="attr">index</span>=<span class="string">"2"</span>/&gt;</span>?<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">human：A mango is a fruit.</span><br><span class="line">Robot：When a mango is nota fruit?</span><br></pre></td></tr></table></figure>
 </li>

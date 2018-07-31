@@ -160,26 +160,7 @@ var _hmt = _hmt || [];
 <li><p>编译</p>
 <ol>
 <li>在libsvm目录下执行<code>make</code></li>
-<li>在子目录python下执行<code>make</code></li>
-</ol>
-</li>
-</ol>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ul>
-<li><h2 id="brew下的Python3"><a href="#brew下的Python3" class="headerlink" title="brew下的Python3"></a>brew下的Python3</h2>  将libsvm添加到Python3.7的路径中<ol>
-<li>首先把libsvm-3.22文件移动到/usr/local/lib/（其他路径也行）</li>
-<li>在usr/local/lib/python3.7/site-packages/下创建pypath.pth路径文件</li>
-<li>编辑pypath.pth文件，加入路径/usr/local/lib/libsvm-3.22/python</li>
-<li>大功告成。</li>
-</ol>
-</li>
-<li><h2 id="Anaconda下的Python3"><a href="#Anaconda下的Python3" class="headerlink" title="Anaconda下的Python3"></a>Anaconda下的Python3</h2><ol>
-<li>拷贝<code>usr/local/lib/libsvm-3.22/python/</code>目录下的svm.py和svmutil.py到<code>~/anaconda3/lib/python3.6</code></li>
-<li>拷贝<code>usr/local/lib/libsvm-3.22/libsvm.so.2</code>到<code>~/anaconda3/lib/</code></li>
-<li>大功告成。</li>
-</ol>
-</li>
-</ul>
-
+<li>在子目录python下执行<code>make</code></li></ol></li></ol>
 	
 	</div>
   <a type="button" href="/2018/07/27/Mac安装libsvm/#more" class="btn btn-default more">Read More</a>
@@ -211,50 +192,7 @@ var _hmt = _hmt || [];
 <li>&lt;aiml&gt;:一个aiml文件的标志</li>
 <li>&lt;category>：定义unit ofknowledge中Alicebot的知识库。每个类别包含在一个句子的形式，用户输入可以是一个断言，问题和感叹号等用户的输入可以包含通配符的字符，如*和_。用       &lt;category>标签必须有&lt;pattern>和&lt;template>标记。</li>
 <li>&lt;pattern>：定义模式匹配的输入，通俗的讲就是用户输入的内容。你问它答里头的‘问’。里面的内容必须大写，可以有星号* 或下划线_，但必须空格隔开，星号表示匹配所有，任意情况；下划线的意义跟星号一样，除了不能匹配字典里面Z后面的字母。</li>
-<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li>
-</ul>
-<h2 id="2-其他"><a href="#2-其他" class="headerlink" title="2.其他"></a>2.其他</h2><ul>
-<li><p>&lt;*&gt;:用于匹配通配符*character(s),在&lt;pattern>标签。同正则表达式<br>例子：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> A * is a *.<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>When a <span class="tag">&lt;<span class="name">starindex="1"</span>/&gt;</span> is not a <span class="tag">&lt;<span class="name">star</span> <span class="attr">index</span>=<span class="string">"2"</span>/&gt;</span>?<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">human：A mango is a fruit.</span><br><span class="line">Robot：When a mango is nota fruit?</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;random>: 用于获取随机响应，通常内含&lt;li>标签。</p>
-</li>
-<li><p>&lt;li>: 用来表示多个响应。<br>例子：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>HI<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">random</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span> Hello! <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span> Hi! Nice to meet you! <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">random</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: Hi</span><br><span class="line">Robot: Hi! Nice to meet you!</span><br><span class="line">Human: Hi</span><br><span class="line">Robot: Hello!</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;set> ：使用在AIML变量设定值。</p>
-</li>
-<li><p>&lt;get> ：用于获取存储在AIML变量的值。<br>get,set例子:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>I am*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Hello <span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">star</span>/&gt;</span>! <span class="tag">&lt;/<span class="name">set</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span> <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>GoodNight<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Hi <span class="tag">&lt;<span class="name">getname="username"</span>/&gt;</span> Thanks for the conversation!<span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: I am Mahesh</span><br><span class="line">Robot: Hello Mahesh</span><br><span class="line">Human: Good Night</span><br><span class="line">Robot: Good Night Mahesh! Thanks for theconversation!</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;that> ：在AIML用于应对基于上下文。表示先前机器人说的话。也就是它的记忆功能。<br>例子：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>WHAT ABOUT MOVIES<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Do you like comedymovies<span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>YES<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">that</span>&gt;</span>Do you like comedymovies<span class="tag">&lt;/<span class="name">that</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Nice, I like comedy moviestoo.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>NO<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">that</span>&gt;</span>Do you like comedymovies<span class="tag">&lt;/<span class="name">that</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Ok! But I like comedymovies.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: What about movies?</span><br><span class="line">Robot: Do you like comedy movies?</span><br><span class="line">Human: No</span><br><span class="line">Robot: Ok! But I like comedy movies.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;topic> ：用于AIML存储上下文，这样以后可以谈话基于这一背景下进行。<br>例子:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>LET DISCUSSMOVIES<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Yes <span class="tag">&lt;<span class="name">setname="topic"</span>&gt;</span>movies<span class="tag">&lt;/<span class="name">set</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">topic</span> <span class="attr">name</span>=<span class="string">"movies"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> *<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Watching good movierefreshes our minds.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> I LIKE WATCHING COMEDY!<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>I like comedy moviestoo.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">topic</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: let discuss movies</span><br><span class="line">Robot: Yes movies</span><br><span class="line">Human: Comedy movies are nice to watch</span><br><span class="line">Robot: Watching good movie refreshes ourminds.</span><br><span class="line">Human: I like watching comedy</span><br><span class="line">Robot: I too like watching comedy.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;think>：用于AIML存储变量,在不通知用户的情况下。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>I AM FEMALE<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Thanks for telling me your gender. </span><br><span class="line"><span class="tag">&lt;<span class="name">think</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>＝<span class="attr">gender</span>&gt;</span>female<span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">think</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line">这里把female这个值保存到gender这个变量里，且回复内容不包括female。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;condition>：类似其他编程语言的switch case。它有助于ALICE来匹配输入作出响应。<br>例子：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span> <span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> HOW ARE YOUFEELING TODAY <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">think</span>&gt;</span><span class="tag">&lt;<span class="name">set</span> <span class="attr">name</span>=<span class="string">"state"</span>&gt;</span> happy<span class="tag">&lt;/<span class="name">set</span>&gt;</span><span class="tag">&lt;/<span class="name">think</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">condition</span> <span class="attr">name</span>=<span class="string">"state"</span> <span class="attr">value</span>=<span class="string">"happy"</span>&gt;</span>I am happy!<span class="tag">&lt;/<span class="name">condition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">condition</span> <span class="attr">name</span>=<span class="string">"state"</span> <span class="attr">value</span>=<span class="string">"sad"</span>&gt;</span>I am sad!<span class="tag">&lt;/<span class="name">condition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: How are you feeling today</span><br><span class="line">Robot: I am happy!</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;srai>：多用途标签，用来调用其它/匹配的类别。（符号缩减、分而治之、同义词分辨率、关键词检测）,还不是很懂。有搜到一个解释：刺激回复人工智能，表示&lt;srai>里面的话会被当作是用户输入，从新查找匹配模式，直到找到非&lt;srai>定义的回复。<br>例子：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">aiml</span> <span class="attr">version</span>=<span class="string">"1.0.1"</span><span class="attr">encoding</span>=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> WHO ISALBERT EINSTEIN <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Albert Einstein was agerman physicist.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span> WHO ISIsaac NEWTON <span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Isaac Newton was a englishphysicist and mathematician.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>DO YOU KNOWWHO * IS<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>WHO IS<span class="tag">&lt;<span class="name">star</span>/&gt;</span><span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>BYE<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>Good Bye!<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>BYE*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>BYE<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>FACTORY<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>DevelopmentCenter!<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>INDUSTRY<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>FACTORY<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>School is an importantinstitution in a child's life.<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>_SCHOOL<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>_SCHOOL<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>SCHOOL*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">category</span>&gt;</span><span class="tag">&lt;<span class="name">pattern</span>&gt;</span>_ SCHOOL*<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span><span class="tag">&lt;<span class="name">srai</span>&gt;</span>SCHOOL<span class="tag">&lt;/<span class="name">srai</span>&gt;</span><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">category</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aiml</span>&gt;</span></span><br><span class="line">Human: I love going to school daily.</span><br><span class="line">Robot: School is an important institutionin a child's life.</span><br><span class="line">Human: I like my school.</span><br><span class="line">Robot: School is an important institutionin a child's life.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;upcase>: 用来把小写字母转换成大写形式。</p>
-</li>
-<li>&lt;lowcase>用来把大写字母转换成小写形式。</li>
-<li>&lt;system>元素表示调用系统函数，例如：<code>&lt;system&gt;date&lt;/system&gt;</code>表示取系统当前日期。</li>
-<li>&lt;sentence>元素用来格式化句子，比如：<code>&lt;sentence&gt;this is some kind ofsentence test.&lt;/sentence&gt;</code>可以格式化成：This is some kind of sentence test.即把句子首字母大写。</li>
-<li>&lt;learenfilename=”xxx.aiml”>元素表示让机器人学习某个aiml文件。</li>
-<li><p>&lt;if>元素，判断元素，有以下形式：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">name</span>=<span class="string">"topic"</span><span class="attr">value</span>=<span class="string">"cars"</span>&gt;</span><span class="tag">&lt;/<span class="name">if</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">name</span>=<span class="string">"topic"</span><span class="attr">contains</span>=<span class="string">"cars"</span>&gt;</span><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">name</span>=<span class="string">"topic"</span><span class="attr">exists</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&lt;formal>元素，用来格式化输出，例如：<code>&lt;formal&gt;jon baer&lt;/formal&gt;</code>那么回复将被格式化成首字母大写输出：Jon Baer，对中文无效。</p>
-</li>
-</ul>
-
+<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li></ul>
 	
 	</div>
   <a type="button" href="/2018/07/23/认识AIML/#more" class="btn btn-default more">Read More</a>
@@ -284,43 +222,7 @@ var _hmt = _hmt || [];
 		<p><a href="http://cwiki.apachecn.org/pages/viewpage.action?pageId=10029594" target="_blank" rel="noopener">参考网址</a></p>
 <h2 id="确定安装哪个TensorFlow"><a href="#确定安装哪个TensorFlow" class="headerlink" title="确定安装哪个TensorFlow"></a>确定安装哪个TensorFlow</h2><ul>
 <li><strong>TensorFlow仅支持CPU支持</strong>。如果您的系统没有NVIDIACUDA®GPU，则应安装此版本。请注意，具有CPU支持的TensorFlow通常比具有GPU支持的TensorFlow更容易安装。因此，即使您有NVIDIA CUDA GPU，我们建议先安装此版本作为诊断步骤，以防您在安装具有GPU支持的TensorFlow时出现问题。</li>
-<li><strong>TensorFlow支持GPU</strong>。TensorFlow程序通常在GPU上比在CPU上运行得更快。因此，如果您的系统具有NVIDIA CUDA GPU满足以下所示的先决条件，并且需要运行性能关键型应用程序，则应最终安装此版本。<br>由于本人当前用的是黑苹果，没有独显，所以安装的是cpu版本的Tensorfly，基于python3.6</li>
-</ul>
-<h2 id="确定如何安装TensorFlow"><a href="#确定如何安装TensorFlow" class="headerlink" title="确定如何安装TensorFlow"></a>确定如何安装TensorFlow</h2><p>Tensorflow支持多种安装机制。选择如下</p>
-<ul>
-<li>virtualenv</li>
-<li>“native” pip</li>
-<li>Docker</li>
-<li>Anaconda</li>
-</ul>
-<p>在这里我选择了Anaconda作为安装环境。步骤如下：</p>
-<ol>
-<li><p>按照 Anaconda下载网站 上的说明下载并安装Anaconda。图形界面或者是命令行版本的都没问题.<br><em>这是个大大大坑</em><br>看似最简单的一步，我执行第二步一直是’command not found: conda’，究竟是怎么肥四!学过Linux的小伙伴应该清楚，这是因为conda没在环境变量里头。只需要在终端配置文件中加入<code>export PATH=~/anaconda3/bin:$PATH</code>即可。可是让人感到不解的是，教程里可没有这一步啊，理应在安装Anaconda时他会自动加入环境变量的。迷糊了很久我发现了蛛丝马迹：本人终端用的是zsh,系统默认的是bash。于是乎，我打开了bash的配置文件,果不其然！在里头发现了环境变量╮(￣▽￣)╭。<code># added by Anaconda3 installer
-export PATH=&quot;/Users/wangxiaobin/conda3_command_line/bin:$PATH&quot;</code>所以说，得出的最终结论是Anaconda3 installer默认配置bash的环境变量是，而非正在使用的zsh。</p>
-</li>
-<li><p>创建一个tensorflow 通过调用以下命令命名的conda环境</p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n tensorflow</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>通过发出以下命令激活conda环境：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate tensorflow <span class="comment">##激活</span></span><br><span class="line">(tensorflow)$ <span class="comment">#你的提示符应该改变</span></span><br><span class="line">$ <span class="built_in">source</span> deactivate tensorflow <span class="comment">##退出激活</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>为了方便激活，可以设置别名alias，如<code>alias tensorfly = &#39;source activate tensorflow&#39;</code></p>
-<ol start="4">
-<li>在公共环境中安装TensorFlow(python2.x使用pip)：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed tensorflow</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><em>这里又是个大大大坑</em><br>报错：<br><code>Could not find a version that satisfies the requirement tensorflow (from versions: )
-No matching distribution found for tensorflow</code><br>换个TensorFlow Python包的URL，因为是google源，可能会不稳定导致连接超时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl</span><br></pre></td></tr></table></figure></p>
-<p>报错：<code>Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &#39;/Users/wangxiaobin/env/tensorflow/lib/python3.7/site-packages/six.py&#39;
-Consider using the</code>–user<code>option or check the permissions.</code>这次好办，有解决的提示。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ pip3 install --upgrade --ignore-installed https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.1.0-py3-none-any.whl --user</span><br></pre></td></tr></table></figure></p>
-<ol start="5">
-<li>测试TensorFlow    <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(tensorflow)$ python3</span><br><span class="line"><span class="comment">#进入python3环境</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=tf.constant([<span class="number">1.0</span>,<span class="number">2.0</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b=tf.constant([<span class="number">2.0</span>,<span class="number">3.0</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sess=tf.Session()</span><br><span class="line"><span class="number">2018</span><span class="number">-07</span><span class="number">-23</span> <span class="number">16</span>:<span class="number">30</span>:<span class="number">00.791342</span>: I tensorflow/core/platform/cpu_feature_guard.cc:<span class="number">141</span>] Your CPU supports instructions that this TensorFlow binary was <span class="keyword">not</span> compiled to use: AVX2 FMA</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(sess.run(a+b))</span><br><span class="line">[<span class="number">3.</span> <span class="number">5.</span>]</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>测试成功!</p>
-
+<li><p><strong>TensorFlow支持GPU</strong>。TensorFlow程序通常在GPU上比在CPU上运行得更快。因此，如果您的系统具有NVIDIA CUDA GPU满足以下所示的先决条件，并且需要运行性能关键型应用程序，则应最终安装此版本。<br>由于本人当前用的是黑苹果，没有独显，所以安装的是cpu版本的Tensorfly，基于python3.6</p></li></ul>
 	
 	</div>
   <a type="button" href="/2018/07/23/MacOS安装TensorFlow/#more" class="btn btn-default more">Read More</a>
@@ -416,52 +318,7 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 <li>跳过一个单词：<code>Ctrl + →</code> 或者 <code>Ctrl + ←</code></li>
 <li>直到行末：<code>Ctrl + a</code> ， 回到开头：<code>Ctrl + e</code></li>
 <li>删除整行：<code>Ctrl + u</code></li>
-<li>命令查找：通过在终端键入 <code>Ctrl + R</code> 来查找你以前输入过的命令类型。循环多次地键入这个快捷键你会找到所有你输入过的匹配的命令。</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
-<li>使用zsh(<a href="https://ohmyz.sh" target="_blank" rel="noopener">oh my zsh</a>)<br>zsh的好处不用多说，支持多方插件、更加友好的界面、拼写检查、智能补全。更多使用方法直接见官网。</li>
-<li><p>使用别名(Alias)<br>起别名允许你使用你所选的关键字别名来缩短常用的命令。不得不说，恰当地使用别名会明显地让你每天缩短30分钟（在敲打命令上）。高效的开发者会使用常用命令的别名，而且还会 export 常用的变量和路径到 bash 的变量中。使用方法也相当便捷，只需要编辑~/.zshrc。(如果你使用的是bash，则编辑~/.bashrc)。</p>
-<ol>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~./zshrc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其中<em>alias_name</em>是别名，<em>command_line</em>是命令 </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> alias_name=<span class="string">'command_line'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出保存，并使其生效</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~./zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>第三方工具screen<br> 参考网址:<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-screen/" target="_blank" rel="noopener">使用 screen 管理你的远程会话</a><br> 为什么要使用screen，其实screen远远不只是一个分屏工具，更是管理远程回话工具的不二之选。经常使用ssh    远程登录Linux的小伙伴们一定常常被一个问题所苦恼：当你要长时间运行的一个任务时，比如系统备份、ftp 传输等，咱们必须等待它执行完毕后才能执行别的命令，通常情况下咱们都是怎么解决的呢？机智的小伙伴们可不会呆呆地傻等着呢，当然是再开一个远程终端窗口，那如果任务不止一个呢？<br> 答：那就有几个开几个！[滑稽]<br> 结果就是每次ssh都不厌其烦地输入账户名密码。。这的确不失为一个解决方案，但素，screen给我们提供了一个更优质的解决方案😏。ps:tumx也是一样的。</p>
-<h2 id="screen创建新窗口"><a href="#screen创建新窗口" class="headerlink" title="screen创建新窗口"></a>screen创建新窗口</h2><ol>
-<li>在终端直接输入<code>screen</code>，将创建一个执行shell的全屏窗口。你可以执行任意shell程序，就像在ssh窗口中那样。在该窗口中键入exit退出该窗口，如果这是该screen会话的唯一窗口，该screen会话退出，否则screen自动切换到前一个窗口。</li>
-<li><p>Screen命令后跟你要执行的程序。</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen vim test.c</span><br></pre></td></tr></table></figure>
-<p> Screen创建一个执行vim test.c的单窗口会话，退出vim将退出该窗口/会话。</p>
-</li>
-<li><code>screen -dm &lt;你要跑的命令&gt;</code><br> screen会在后台创建一个新的会话运行&lt;你要跑的命令&gt;，可以通过<code>screen -ls</code>查看。并通过        <code>screen -r [[pid.]tty[.host]]</code> 连接会话(Detached=&gt;Attached)</li>
-<li><p>在一个已有screen会话中创建新的窗口<br> 在当前screen窗口中键入<code>C-a c</code>，即Ctrl键+a键，之后再按下c键，screen 在该会话内生成一个        新的窗口并切换到该窗口。<code>C-a w</code>可以列出窗口个数和当前窗口，在左下角有显示,一般是从0开始，        当前窗口用’*’号表示。’-‘表示最近一次的窗口。如果要切换可用<code>C-a &lt;要切换窗口的id&gt;</code>。</p>
-<h2 id="离开screen"><a href="#离开screen" class="headerlink" title="离开screen"></a>离开screen</h2><p>screen的方便之处在于：你可以不中断screen窗口中程序的运行而暂时断开（detach）screen会话，并    在随后时间重新连接（attach）该会话，重新控制各窗口中运行的程序。比如在<code>screen vim test.c</code>    文件时，来了紧急任务，那么可以在screen窗口输入<code>C-a d</code>来中断会话，处理完紧急任务后<code>screen -r      &lt;pid&gt;</code>重新连接会话。(倒是和git stash有点像😐)</p>
-<h2 id="screen常用选项"><a href="#screen常用选项" class="headerlink" title="screen常用选项"></a>screen常用选项</h2></li>
-</ol>
-<ul>
-<li>绑定键 <code>ctrl + a</code> ，下简写成 <code>C-a</code></li>
-<li>screen手册 C-a ?</li>
-<li>重命名window C-a A</li>
-<li>上下分屏  C-a，shift + s</li>
-<li>取消分屏 ？？？？</li>
-<li>切换屏幕  C-a tab 或者C-a <id> </id></li>
-<li>新建终端  C-a c</li>
-<li>关闭终端      C-a x？？？有点不太对</li>
-<li>暂时离开[detached] C-a，d</li>
-</ul>
-</li>
-<li><p>持续更新中…</p>
-</li>
-</ol>
-
+<li>命令查找：通过在终端键入 <code>Ctrl + R</code> 来查找你以前输入过的命令类型。循环多次地键入这个快捷键你会找到所有你输入过的匹配的命令。</li></ul></li></ul>
 	
 	</div>
   <a type="button" href="/2018/07/12/Linux高效开发/#more" class="btn btn-default more">Read More</a>
@@ -519,29 +376,7 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
   <div class="row">
 	
 	
-		<h1 id="什么是assert"><a href="#什么是assert" class="headerlink" title="什么是assert()?"></a>什么是assert()?</h1><p>来自百度百科的解释：<br><code>编写代码时，我们总是会做出一些假设，断言就是用于在代码中捕捉这些假设，可以将断言看作是异常处理的一种高级形式。断言表示为一些布尔表达式，程序员相信在程序中的某个特定点该表达式值为真。可以在任何时候启用和禁用断言验证，因此可以在测试时启用断言，而在部署时禁用断言。同样，程序投入运行后，最终用户在遇到问题时可以重新启用断言。</code><br>看完^_^一脸懵逼.jpg<br>其实assert很好理解的，它的作用是：当<code>assert(expression)</code>根据expression判断返回的值为假时，则程序将不会继续执行下去。并且它会打印一条报错信息。这也就是可以作为程序猿调试的方式之一了= =</p>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>频繁的调用会极大的影响程序的性能，增加额外的开销。在调试结束后，可以通过在包含#include &lt;assert.h&gt;的语句之前插入 #define NDEBUG 来禁用assert调用，示例代码如下（c语言的）：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NDEBUG</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br></pre></td></tr></table></figure></p>
-<h1 id="用法总结-amp-amp-注意事项"><a href="#用法总结-amp-amp-注意事项" class="headerlink" title="用法总结&amp;&amp;注意事项"></a>用法总结&amp;&amp;注意事项</h1><ol>
-<li>在函数开始处检验传入参数的合法性</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">resetBufferSize</span><span class="params">(<span class="keyword">int</span> nNewSize)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">　　<span class="comment">//功能:改变缓冲区大小,</span></span><br><span class="line">　　<span class="comment">//参数:nNewSize 缓冲区新长度</span></span><br><span class="line">　　<span class="comment">//返回值:缓冲区当前长度 </span></span><br><span class="line">　　<span class="comment">//说明:保持原信息内容不变     nNewSize&lt;=0表示清除缓冲区</span></span><br><span class="line">　　assert(nNewSize &gt;= <span class="number">0</span>);</span><br><span class="line">　　assert(nNewSize &lt;= MAX_BUFFER_SIZE);</span><br><span class="line">　　...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>每个assert()只检验一个条件，因为同时检验多个条件时，如果断言失败，无法直观的判断是哪个条件失败<br>好assert：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert(nOffset &gt;= <span class="number">0</span>);</span><br><span class="line">assert(nOffset+nSize &lt;= m_nInfomationSize);</span><br></pre></td></tr></table></figure>
-<p>坏assert：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(nOffset&gt;=<span class="number">0</span> &amp;&amp; nOffset+nSize&lt;=m_nInfomationSize);</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>assert只在DEBUG中有效，自然是不能改变程序，及不能使用改变环境的语句<br>错误：</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(i++ &lt; <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-<p>正确：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert(i &lt; <span class="number">100</span>);</span><br><span class="line">i ++;</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>assert和后面的语句应空一行，以形成逻辑和视觉上的一致感。emmm，这是个好习惯呢</li>
-<li>有的地方，assert不能代替条件过滤。还不是很懂这句花</li>
-</ol>
-<p>####参考博客<a href="https://www.cnblogs.com/ggzss/archive/2011/08/18/2145017.html" target="_blank" rel="noopener">https://www.cnblogs.com/ggzss/archive/2011/08/18/2145017.html</a></p>
-
+		<h1 id="什么是assert"><a href="#什么是assert" class="headerlink" title="什么是assert()?"></a>什么是assert()?</h1><p>来自百度百科的解释：<br><code>编写代码时，我们总是会做出一些假设，断言就是用于在代码中捕捉这些假设，可以将断言看作是异常处理的一种高级形式。断言表示为一些布尔表达式，程序员相信在程序中的某个特定点该表达式值为真。可以在任何时候启用和禁用断言验证，因此可以在测试时启用断言，而在部署时禁用断言。同样，程序投入运行后，最终用户在遇到问题时可以重新启用断言。</code><br>看完^_^一脸懵逼.jpg<br>其实assert很好理解的，它的作用是：当<code>assert(expression)</code>根据expression判断返回的值为假时，则程序将不会继续执行下去。并且它会打印一条报错信息。这也就是可以作为程序猿调试的方式之一了= =<br></p>
 	
 	</div>
   <a type="button" href="/2018/01/03/assert/#more" class="btn btn-default more">Read More</a>
@@ -570,21 +405,9 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 	
 		<p><a href="https://github.com/edolphin-ydf/hexo-encrypt" target="_blank" rel="noopener">插件地址</a></p>
 <ol>
-<li><p>使用插件hexo-encrypt进行加密，以下命令在站点文件夹执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install hexo-encrypt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开站点目录下的package.json文件，加入以下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;hexo-encrypt&quot;: &quot;^0.2.0&quot;,</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开站点目录下的 _config.yml ，加入以下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#encrypt</span><br><span class="line">encrypt:</span><br><span class="line">  password: 123456</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后在每篇文章的头部加入以下代码就实现了AES算法加密：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">encrypt: true</span><br><span class="line">enc_pwd: 123456</span><br></pre></td></tr></table></figure>
+<li>使用插件hexo-encrypt进行加密，以下命令在站点文件夹执行<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> install hexo-encrypt</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>大功告成！我只是测验一下，所以挂在github上的Emmmm…</p>
-
 	
 	</div>
   <a type="button" href="/2017/10/18/AES加密hexo文章/#more" class="btn btn-default more">Read More</a>
@@ -614,11 +437,7 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 		<p><strong>前提准备</strong>：一个kali安装盘<br><strong>问题</strong>：U盘安装kali总会失败，多次停留在grub的update-grub进度条上<br><strong>解决方案</strong>：</p>
 <ul>
 <li>停留在update-grub时强制关机，然后重新用U盘启动，并选择live安装方式。</li>
-<li>进入kali系统，在终端输入如下命令安装grub（千万记住你的kali是在哪个盘的，比如我的是在sda）：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">root@kali:/# mount /dev/sda</span><br><span class="line">root@kali:/# mount /dev/sda /mnt/</span><br><span class="line">root@kali:/# mount --bind /dev /mnt/dev/</span><br><span class="line">root@kali:/# mount --bind /dev/pts /mnt/dev/pts</span><br><span class="line">root@kali:/# mount --bind /proc /mnt/proc</span><br><span class="line">root@kali:/# mount --bind /sys /mnt/sys</span><br><span class="line">root@kali:/# chroot  /mnt/</span><br><span class="line">root@kali:/# grub-install /dev/sda</span><br><span class="line">Installation finished. No error reported.  No erroe:表示没错！</span><br><span class="line">root@kali:/# update-grub  更新</span><br><span class="line">Generating grub.cfg ...</span><br><span class="line">Found background image: /usr/share/images/desktop-base/desktop-grub.png</span><br><span class="line">Found linux image: /boot/vmlinuz-3.14-kali1-amd64</span><br><span class="line">Found initrd image: /boot/initrd.img-3.14-kali1-amd64</span><br><span class="line">  No volume groups found</span><br><span class="line">done</span><br><span class="line">root@kali:/# exit</span><br><span class="line">exit</span><br><span class="line">root@kali:/# umount /mnt/dev/pts</span><br><span class="line">root@kali:/# umount /mnt/dev</span><br><span class="line">root@kali:/# umount /mnt/proc</span><br><span class="line">root@kali:/# umount /mnt/sys</span><br><span class="line">root@kali:/# umount /mnt</span><br><span class="line">root@kali:/# reboot</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.codeweblog.com/kali-linux-grub%E4%BF%AE%E5%A4%8D/" target="_blank" rel="noopener">参考博客</a></p>
-
+<li>进入kali系统，在终端输入如下命令安装grub（千万记住你的kali是在哪个盘的，比如我的是在sda）：</li></ul>
 	
 	</div>
   <a type="button" href="/2017/10/12/kali-grub修复/#more" class="btn btn-default more">Read More</a>
@@ -682,45 +501,45 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
-		
-			<li><a href="/tags/Mac/">Mac<span>3</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>3</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
 		
 			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
 		
-			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+		
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
 		
 			<li><a href="/tags/java/">java<span>1</span></a></li>
 		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>29</span></a></li>
