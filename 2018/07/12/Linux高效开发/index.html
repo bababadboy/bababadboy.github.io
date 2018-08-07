@@ -139,46 +139,41 @@ var _hmt = _hmt || [];
 		 </div> <!-- alert -->
 	  		
 
-	  <ol>
-<li>终端快捷键节省时间</li>
-</ol>
-<ul>
+	  <h1 id="1-终端快捷键节省时间"><a href="#1-终端快捷键节省时间" class="headerlink" title="1. 终端快捷键节省时间"></a>1. 终端快捷键节省时间</h1><ul>
 <li>打开终端(这个大家应该都十分熟悉了)<br><code>Ctrl + Alt + t</code></li>
 <li>对行操作(大部分人可能不晓得，也确实方便许多)<br>在终端，如果你使用 → 或 ← 是相当浪费时间的，相反，你应该：<ul>
 <li>跳过一个单词：<code>Ctrl + →</code> 或者 <code>Ctrl + ←</code></li>
 <li>直到行末：<code>Ctrl + a</code> ， 回到开头：<code>Ctrl + e</code></li>
 <li>删除整行：<code>Ctrl + u</code></li>
-<li>命令查找：通过在终端键入 <code>Ctrl + R</code> 来查找你以前输入过的命令类型。循环多次地键入这个快捷键你会找到所有你输入过的匹配的命令。<a id="more"></a></li>
-</ul>
+<li>命令查找：通过在终端键入 <code>Ctrl + R</code> 来查找你以前输入过的命令类型。循环多次地键入这个快捷键你会找到所有你输入过的匹配的命令。<a id="more"></a>
 </li>
 </ul>
-<ol start="2">
-<li>使用zsh(<a href="https://ohmyz.sh" target="_blank" rel="noopener">oh my zsh</a>)<br>zsh的好处不用多说，支持多方插件、更加友好的界面、拼写检查、智能补全。更多使用方法直接见官网。</li>
-<li><p>使用别名(Alias)<br>起别名允许你使用你所选的关键字别名来缩短常用的命令。不得不说，恰当地使用别名会明显地让你每天缩短30分钟（在敲打命令上）。高效的开发者会使用常用命令的别名，而且还会 export 常用的变量和路径到 bash 的变量中。使用方法也相当便捷，只需要编辑~/.zshrc。(如果你使用的是bash，则编辑~/.bashrc)。</p>
-<ol>
-<li><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~./zshrc</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>其中<em>alias_name</em>是别名，<em>command_line</em>是命令 </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> alias_name=<span class="string">'command_line'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出保存，并使其生效</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~./zshrc</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>第三方工具screen<br> 参考网址:<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-screen/" target="_blank" rel="noopener">使用 screen 管理你的远程会话</a><br> 为什么要使用screen，其实screen远远不只是一个分屏工具，更是管理远程回话工具的不二之选。经常使用ssh    远程登录Linux的小伙伴们一定常常被一个问题所苦恼：当你要长时间运行的一个任务时，比如系统备份、ftp 传输等，咱们必须等待它执行完毕后才能执行别的命令，通常情况下咱们都是怎么解决的呢？机智的小伙伴们可不会呆呆地傻等着呢，当然是再开一个远程终端窗口，那如果任务不止一个呢？<br> 答：那就有几个开几个！[滑稽]<br> 结果就是每次ssh都不厌其烦地输入账户名密码。。这的确不失为一个解决方案，但素，screen给我们提供了一个更优质的解决方案😏。ps:tumx也是一样的。</p>
+</ul>
+<h1 id="2-使用zsh-oh-my-zsh"><a href="#2-使用zsh-oh-my-zsh" class="headerlink" title="2. 使用zsh(oh my zsh)"></a>2. 使用zsh(<a href="https://ohmyz.sh" target="_blank" rel="noopener">oh my zsh</a>)</h1><p>zsh的好处不用多说，支持多方插件、更加友好的界面、拼写检查、智能补全。更多使用方法直接见官网。</p>
+<h1 id="3-使用别名-Alias"><a href="#3-使用别名-Alias" class="headerlink" title="3. 使用别名(Alias)"></a>3. 使用别名(Alias)</h1><p>起别名允许你使用你所选的关键字别名来缩短常用的命令。不得不说，恰当地使用别名会明显地让你每天缩短30分钟（在敲打命令上）。高效的开发者会使用常用命令的别名，而且还会 export 常用的变量和路径到 bash 的变量中。使用方法也相当便捷，只需要编辑~/.zshrc。(如果你使用的是bash，则编辑~/.bashrc)。</p>
+<pre><code>1. <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~./zshrc</span><br></pre></td></tr></table></figure>
+
+2. 其中*alias_name*是别名，*command_line*是命令 
+    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> alias_name=<span class="string">'command_line'</span></span><br></pre></td></tr></table></figure>
+
+3. 退出保存，并使其生效
+    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~./zshrc</span><br></pre></td></tr></table></figure>
+</code></pre><h1 id="4-第三方工具screen"><a href="#4-第三方工具screen" class="headerlink" title="4. 第三方工具screen"></a>4. 第三方工具screen</h1><p>参考网址:<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-screen/" target="_blank" rel="noopener">使用 screen 管理你的远程会话</a><br>    为什么要使用screen，其实screen远远不只是一个分屏工具，更是管理远程回话工具的不二之选。经常使用ssh    远程登录Linux的小伙伴们一定常常被一个问题所苦恼：当你要长时间运行的一个任务时，比如系统备份、ftp 传输等，咱们必须等待它执行完毕后才能执行别的命令，通常情况下咱们都是怎么解决的呢？机智的小伙伴们可不会呆呆地傻等着呢，当然是再开一个远程终端窗口，那如果任务不止一个呢？<br>    答：那就有几个开几个！[滑稽]<br>    结果就是每次ssh都不厌其烦地输入账户名密码。。这的确不失为一个解决方案，但素，screen给我们提供了一个更优质的解决方案😏。ps:tumx也是一样的。</p>
 <h2 id="screen创建新窗口"><a href="#screen创建新窗口" class="headerlink" title="screen创建新窗口"></a>screen创建新窗口</h2><ol>
 <li>在终端直接输入<code>screen</code>，将创建一个执行shell的全屏窗口。你可以执行任意shell程序，就像在ssh窗口中那样。在该窗口中键入exit退出该窗口，如果这是该screen会话的唯一窗口，该screen会话退出，否则screen自动切换到前一个窗口。</li>
 <li><p>Screen命令后跟你要执行的程序。</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen vim test.c</span><br></pre></td></tr></table></figure>
-<p> Screen创建一个执行vim test.c的单窗口会话，退出vim将退出该窗口/会话。</p>
-</li>
-<li><code>screen -dm &lt;你要跑的命令&gt;</code><br> screen会在后台创建一个新的会话运行&lt;你要跑的命令&gt;，可以通过<code>screen -ls</code>查看。并通过        <code>screen -r [[pid.]tty[.host]]</code> 连接会话(Detached=&gt;Attached)</li>
-<li><p>在一个已有screen会话中创建新的窗口<br> 在当前screen窗口中键入<code>C-a c</code>，即Ctrl键+a键，之后再按下c键，screen 在该会话内生成一个        新的窗口并切换到该窗口。<code>C-a w</code>可以列出窗口个数和当前窗口，在左下角有显示,一般是从0开始，        当前窗口用’*’号表示。’-‘表示最近一次的窗口。如果要切换可用<code>C-a &lt;要切换窗口的id&gt;</code>。</p>
-<h2 id="离开screen"><a href="#离开screen" class="headerlink" title="离开screen"></a>离开screen</h2><p>screen的方便之处在于：你可以不中断screen窗口中程序的运行而暂时断开（detach）screen会话，并    在随后时间重新连接（attach）该会话，重新控制各窗口中运行的程序。比如在<code>screen vim test.c</code>    文件时，来了紧急任务，那么可以在screen窗口输入<code>C-a d</code>来中断会话，处理完紧急任务后<code>screen -r      &lt;pid&gt;</code>重新连接会话。(倒是和git stash有点像😐)</p>
-<h2 id="screen常用选项"><a href="#screen常用选项" class="headerlink" title="screen常用选项"></a>screen常用选项</h2></li>
+<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen vim test.c</span><br></pre></td></tr></table></figure>
+
+Screen创建一个执行vim test.c的单窗口会话，退出vim将退出该窗口/会话。
+</code></pre></li>
+<li><code>screen -dm &lt;你要跑的命令&gt;</code><pre><code>screen会在后台创建一个新的会话运行&lt;你要跑的命令&gt;，可以通过`screen -ls`查看。并通过        `screen -r [[pid.]tty[.host]]` 连接会话(Detached=&gt;Attached)
+</code></pre></li>
+<li>在一个已有screen会话中创建新的窗口<pre><code>在当前screen窗口中键入`C-a c`，即Ctrl键+a键，之后再按下c键，screen 在该会话内生成一个        新的窗口并切换到该窗口。`C-a w`可以列出窗口个数和当前窗口，在左下角有显示,一般是从0开始，        当前窗口用&apos;*&apos;号表示。&apos;-&apos;表示最近一次的窗口。如果要切换可用`C-a &lt;要切换窗口的id&gt;`。
+</code></pre></li>
 </ol>
-<ul>
+<h2 id="离开screen"><a href="#离开screen" class="headerlink" title="离开screen"></a>离开screen</h2><p>screen的方便之处在于：你可以不中断screen窗口中程序的运行而暂时断开（detach）screen会话，并在随后时间重新连接（attach）该会话，重新控制各窗口中运行的程序。比如在<code>screen vim test.c</code>文件时，来了紧急任务，那么可以在screen窗口输入<code>C-a d</code>来中断会话，处理完紧急任务后<code>screen -r &lt;pid&gt;</code>重新连接会话。(倒是和git stash有点像😐)</p>
+<h2 id="screen常用选项"><a href="#screen常用选项" class="headerlink" title="screen常用选项"></a>screen常用选项</h2><ul>
 <li>绑定键 <code>ctrl + a</code> ，下简写成 <code>C-a</code></li>
 <li>screen手册 C-a ?</li>
 <li>重命名window C-a A</li>
@@ -189,11 +184,11 @@ var _hmt = _hmt || [];
 <li>关闭终端      C-a x？？？有点不太对</li>
 <li>暂时离开[detached] C-a，d</li>
 </ul>
-</li>
-<li><p>持续更新中…</p>
-</li>
-</ol>
-	  
+<h1 id="5-Mac-批量解压缩rar"><a href="#5-Mac-批量解压缩rar" class="headerlink" title="5. Mac 批量解压缩rar"></a>5. Mac 批量解压缩rar</h1><h2 id="下载unrar"><a href="#下载unrar" class="headerlink" title="下载unrar"></a>下载unrar</h2><p>首先，rar文件Mac系统自带软件不能解压缩。可以考虑下载unrar，是命令行工具。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install unrar</span><br></pre></td></tr></table></figure></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unrar <span class="comment">#相当于man unrar,打开帮助信息</span></span><br><span class="line">unrar x rarfile.rar <span class="comment"># Extract files with full path，目前就用过这个命令🤣</span></span><br></pre></td></tr></table></figure>
+<h2 id="批量解压缩"><a href="#批量解压缩" class="headerlink" title="批量解压缩"></a>批量解压缩</h2><p>很抱歉，unrar根本就不支持批量解压缩命令。是不是很失望，难道我只能手动输入每个包的名字？我觉得海星…目录下也就一百来个压缩包…<img src="/2018/07/12/Linux高效开发/anpai.jpg" alt="anpai"><br>秉持’Do Not Repeat Yourself‘的原则，你能很轻松的发现可以结合shell命令一句话搞定！提示一下，使用<code>find</code>命令。<img src="/2018/07/12/Linux高效开发/housailei.jpg" alt="housailei"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ -name <span class="string">'*.rar'</span> -<span class="built_in">exec</span> unrar x &#123;&#125;\;</span><br></pre></td></tr></table></figure>
+<h1 id="6-持续更新中…"><a href="#6-持续更新中…" class="headerlink" title="6. 持续更新中…"></a>6. 持续更新中…</h1>	  
 	</div>
 
 	<div>
@@ -286,7 +281,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#screen创建新窗口"><span class="toc-article-text">screen创建新窗口</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#离开screen"><span class="toc-article-text">离开screen</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#screen常用选项"><span class="toc-article-text">screen常用选项</span></a></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-终端快捷键节省时间"><span class="toc-article-text">1. 终端快捷键节省时间</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-使用zsh-oh-my-zsh"><span class="toc-article-text">2. 使用zsh(oh my zsh)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-使用别名-Alias"><span class="toc-article-text">3. 使用别名(Alias)</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#4-第三方工具screen"><span class="toc-article-text">4. 第三方工具screen</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#screen创建新窗口"><span class="toc-article-text">screen创建新窗口</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#离开screen"><span class="toc-article-text">离开screen</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#screen常用选项"><span class="toc-article-text">screen常用选项</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#5-Mac-批量解压缩rar"><span class="toc-article-text">5. Mac 批量解压缩rar</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#下载unrar"><span class="toc-article-text">下载unrar</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#常用命令"><span class="toc-article-text">常用命令</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#批量解压缩"><span class="toc-article-text">批量解压缩</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#6-持续更新中…"><span class="toc-article-text">6. 持续更新中…</span></a></li></ol>
 		</div>
 	
 	</div>
