@@ -138,6 +138,34 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/08/30/R实现ARIMA预测/" title="ARIMA模型是经典的时间序列预测模型。包含了AR,I,MA三个部分，简单的说，把三个数学公式拼在了一起。具体含义因篇幅原因本文就不展开了。而R语言常在统计领域中出现，可以方便的为统计人员计算并可视化。">R实现ARIMA预测</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-08-30  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>第一次用ARIMA模型，咱们使用R语言内建的AirPassengers数据集，它反映了从1949到1960年的国际航班乘客数量。曲线的特征还是很明显的，我觉得偏于理论学习。下图为ARIMA实现基本步骤。</p>
+<p><img src="/2018/08/30/R实现ARIMA预测/flowchart.png" alt="flowchart.png"><br></p>
+	
+	</div>
+  <a type="button" href="/2018/08/30/R实现ARIMA预测/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/08/26/Python实践投资组合理论/" title="搞了一段时间的量化，还是个萌新，也塞进了很多统计学的术语。现做一个小小的实践验证投资组合原理。其中股票历史价格的获取来源于tushare，期待着它能加入港股，美股啥的，A股可真是个韭菜养殖场。">Python实践投资组合理论</a>
 		</h3>
 		</div>
@@ -155,32 +183,7 @@ var _hmt = _hmt || [];
 		<ol>
 <li><h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2></li>
 </ol>
-<p>我随便挑了几支股票（其实并不是，第一次选的5支股票最后的最大Sharpe Ratio是负的🌚），他们分别是：000413 东旭光电,300033 同花顺, 002007 兰华生物, 000001 平安银行, 000002 万科 A。可惜的是tushare不支持同时获取多只股票，只好用个list，再循环获取了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">stock_set = [<span class="string">'000413'</span>,<span class="string">'300033'</span>,<span class="string">'002007'</span>,<span class="string">'000001'</span>,<span class="string">'000002'</span>]</span><br><span class="line">noa = len(stock_set)</span><br><span class="line">df = pds.DataFrame()</span><br><span class="line"><span class="keyword">for</span> stock <span class="keyword">in</span> stock_set:</span><br><span class="line">    data = ts.get_h_data(stock, start=<span class="string">'2017-01-01'</span>, end=<span class="string">'2017-12-31'</span>)[<span class="string">'close'</span>]</span><br><span class="line">    df.insert(<span class="number">0</span>,stock,data)</span><br><span class="line"><span class="comment">#数据按照日期升序排列</span></span><br><span class="line">df=df.sort_index(ascending=<span class="keyword">True</span>)</span><br><span class="line"><span class="comment">#规范化时序数据</span></span><br><span class="line">(df/df.iloc[<span class="number">0</span>]*<span class="number">100</span>).plot()</span><br></pre></td></tr></table></figure>
-<p>规范化后的时间序列数据:<br><img src="/2018/08/26/Python实践投资组合理论/qianfuquan.png" alt="price"></p>
-<ol start="2">
-<li><h2 id="计算不同证券的均值、协方差"><a href="#计算不同证券的均值、协方差" class="headerlink" title="计算不同证券的均值、协方差"></a>计算不同证券的均值、协方差</h2>均值-方差是指不同证券(对数)收益的均值和方差，可以这样计算</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rets = np.log(df / df.shift(<span class="number">1</span>))</span><br><span class="line"><span class="comment">#均值。我们使用252个交易日，从每日收益得出年化收益</span></span><br><span class="line">rets.mean()*<span class="number">252</span></span><br></pre></td></tr></table></figure>
-<p>pandas有一个内建方法，可以生成协方差矩阵：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rets.cov()*<span class="number">252</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li><h2 id="给不同资产随机分配初始权重"><a href="#给不同资产随机分配初始权重" class="headerlink" title="给不同资产随机分配初始权重"></a>给不同资产随机分配初始权重</h2></li>
-</ol>
-<p>下面的代码将生成5个处于(0,1)之间的随机数，然后对这些数值规范化，使所有值的总和为1：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">weights = np.random.random(len(stock_set))</span><br><span class="line">weights /= np.sum(weights)</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li><h2 id="计算预期组合年化收益、组合方差和组合标准差"><a href="#计算预期组合年化收益、组合方差和组合标准差" class="headerlink" title="计算预期组合年化收益、组合方差和组合标准差"></a>计算预期组合年化收益、组合方差和组合标准差</h2></li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pro = np.sum(rets.mean()*weights)*<span class="number">252</span><span class="comment">#预期组合年化收益</span></span><br><span class="line">var = np.dot(weights.T,np.dot(rets.cov()*<span class="number">252</span>),weights)<span class="comment">#预期组合方差</span></span><br><span class="line">stand_var = np.sqrt(var)<span class="comment">#预期组合标准差</span></span><br></pre></td></tr></table></figure>
-<p>var的公式转换为Python numpy的向量化并没有那么容易理解。首先你得明白组合方差的计算方法，此处给个B站传送门<a href="http://www.bilibili.com/video/av28816215/?share_source=qq&amp;ts=1535292177&amp;share_medium=iphone&amp;bbid=90bcfe261d837d684ec0d5cbbbf02c36" target="_blank" rel="noopener">投资组合预期收益和收益方差计算</a>,这么棒的视频当然要滋词滋词。</p>
-<ol start="5">
-<li><h2 id="用蒙特卡洛模拟产生大量随机组合"><a href="#用蒙特卡洛模拟产生大量随机组合" class="headerlink" title="用蒙特卡洛模拟产生大量随机组合"></a>用蒙特卡洛模拟产生大量随机组合</h2></li>
-</ol>
-<p>采用蒙特卡洛模拟生成较大规模的随机投资组合权重。然后选出最优权重。对于每一次的模拟，我们都记录得出的预期投资组合的均值和方差：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">port_returns = []</span><br><span class="line">port_variance = []</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">4000</span>):</span><br><span class="line">    weights = np.random.random(len(stock_set))</span><br><span class="line">    weights /=np.sum(weights)</span><br><span class="line">    port_returns.append(np.sum(returns.mean()*<span class="number">252</span>*weights))</span><br><span class="line">    port_variance.append(np.sqrt(np.dot(weights.T, np.dot(returns.cov()*<span class="number">252</span>, weights))))</span><br><span class="line"></span><br><span class="line">port_returns = np.array(port_returns)</span><br><span class="line">port_variance = np.array(port_variance)</span><br><span class="line"></span><br><span class="line"><span class="comment">#无风险利率设定为4%</span></span><br><span class="line">risk_free = <span class="number">0.04</span></span><br><span class="line">plt.scatter(port_variance, port_returns, c=(port_returns-risk_free)/port_variance)</span><br><span class="line">plt.grid(<span class="keyword">True</span>)</span><br><span class="line">plt.xlabel(<span class="string">'excepted volatility'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'expected return'</span>)</span><br><span class="line">plt.colorbar(label = <span class="string">'Sharpe Ratio'</span>)</span><br></pre></td></tr></table></figure>
-<p>结果展示：<br><img src="/2018/08/26/Python实践投资组合理论/MonteCarlo.png" alt="montecarlo"></p>
-
+<p>我随便挑了几支股票（其实并不是，第一次选的5支股票最后的最大Sharpe Ratio是负的🌚），他们分别是：000413 东旭光电,300033 同花顺, 002007 兰华生物, 000001 平安银行, 000002 万科 A。可惜的是tushare不支持同时获取多只股票，只好用个list，再循环获取了。<br></p>
 	
 	</div>
   <a type="button" href="/2018/08/26/Python实践投资组合理论/#more" class="btn btn-default more">Read More</a>
@@ -439,33 +442,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/01/03/assert/" >assert()</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-01-03  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="什么是assert"><a href="#什么是assert" class="headerlink" title="什么是assert()?"></a>什么是assert()?</h1><p>来自百度百科的解释：<br><code>编写代码时，我们总是会做出一些假设，断言就是用于在代码中捕捉这些假设，可以将断言看作是异常处理的一种高级形式。断言表示为一些布尔表达式，程序员相信在程序中的某个特定点该表达式值为真。可以在任何时候启用和禁用断言验证，因此可以在测试时启用断言，而在部署时禁用断言。同样，程序投入运行后，最终用户在遇到问题时可以重新启用断言。</code><br>看完^_^一脸懵逼.jpg<br>其实assert很好理解的，它的作用是：当<code>assert(expression)</code>根据expression判断返回的值为假时，则程序将不会继续执行下去。并且它会打印一条报错信息。这也就是可以作为程序猿调试的方式之一了= =<br></p>
-	
-	</div>
-  <a type="button" href="/2018/01/03/assert/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -523,48 +499,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>4</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
-		
 			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
 		
 			<li><a href="/tags/c/">c++<span>1</span></a></li>
 		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
-		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
 			<li><a href="/tags/tty/">tty<span>1</span></a></li>
 		
+			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+		
 			<li><a href="/tags/linux/">linux<span>3</span></a></li>
 		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
+			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
 		
-			<li><a href="/tags/量化/">量化<span>1</span></a></li>
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
 		
-			<li><a href="/tags/统计/">统计<span>1</span></a></li>
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
 		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
 		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
 			<li><a href="/tags/latex/">latex<span>1</span></a></li>
 		
+			<li><a href="/tags/quant/">quant<span>1</span></a></li>
 		
-		   <li><a href="/tags">...<span>32</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/Mac/">Mac<span>3</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>35</span></a></li>
 		 
 		</ul>
 	</div>
@@ -575,6 +551,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/08/30/R实现ARIMA预测/"  title="ARIMA模型是经典的时间序列预测模型。包含了AR,I,MA三个部分，简单的说，把三个数学公式拼在了一起。具体含义因篇幅原因本文就不展开了。而R语言常在统计领域中出现，可以方便的为统计人员计算并可视化。" ><i class="fa fa-file-o"></i>R实现ARIMA预测</a>
+      </li>
     
       <li>
         <a href="/2018/08/26/Python实践投资组合理论/"  title="搞了一段时间的量化，还是个萌新，也塞进了很多统计学的术语。现做一个小小的实践验证投资组合原理。其中股票历史价格的获取来源于tushare，期待着它能加入港股，美股啥的，A股可真是个韭菜养殖场。" ><i class="fa fa-file-o"></i>Python实践投资组合理论</a>
@@ -590,10 +570,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/07/23/认识AIML/"  title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。" ><i class="fa fa-file-o"></i>认识AIML</a>
-      </li>
-    
-      <li>
-        <a href="/2018/07/23/MacOS安装TensorFlow/"  title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。" ><i class="fa fa-file-o"></i>在macOS上安装TensorFlow</a>
       </li>
     
   </ul>

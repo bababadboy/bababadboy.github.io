@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>R实现ARIMA预测 | Being...anAsshole</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="ARIMA模型是经典的时间序列预测模型。包含了AR,I,MA三个部分，简单的说，把三个数学公式拼在了一起。具体含义因篇幅原因本文就不展开了。而R语言常在统计领域中出现，可以方便的为统计人员计算并可视化。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="R实现ARIMA预测"/>
+  <meta property="og:site_name" content="Being...anAsshole"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Being...anAsshole</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> R实现ARIMA预测</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> ARIMA模型是经典的时间序列预测模型。包含了AR,I,MA三个部分，简单的说，把三个数学公式拼在了一起。具体含义因篇幅原因本文就不展开了。而R语言常在统计领域中出现，可以方便的为统计人员计算并可视化。
+		 </div> <!-- alert -->
+	  		
+
+	  <p>第一次用ARIMA模型，咱们使用R语言内建的AirPassengers数据集，它反映了从1949到1960年的国际航班乘客数量。曲线的特征还是很明显的，我觉得偏于理论学习。下图为ARIMA实现基本步骤。</p>
+<p><img src="/2018/08/30/R实现ARIMA预测/flowchart.png" alt="flowchart.png"><br><a id="more"></a></p>
+<ol>
+<li><h2 id="获取数据并可视化"><a href="#获取数据并可视化" class="headerlink" title="获取数据并可视化"></a>获取数据并可视化</h2></li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取AirPassengers</span></span><br><span class="line">&gt; data(AirPassengers)</span><br><span class="line"><span class="comment">#查看数据的基本信息</span></span><br><span class="line">&gt; AirPassengers</span><br><span class="line"> Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span><br><span class="line"><span class="number">1949</span> <span class="number">112</span> <span class="number">118</span> <span class="number">132</span> <span class="number">129</span> <span class="number">121</span> <span class="number">135</span> <span class="number">148</span> <span class="number">148</span> <span class="number">136</span> <span class="number">119</span> <span class="number">104</span> <span class="number">118</span></span><br><span class="line"><span class="number">1950</span> <span class="number">115</span> <span class="number">126</span> <span class="number">141</span> <span class="number">135</span> <span class="number">125</span> <span class="number">149</span> <span class="number">170</span> <span class="number">170</span> <span class="number">158</span> <span class="number">133</span> <span class="number">114</span> <span class="number">140</span></span><br><span class="line"><span class="number">1951</span> <span class="number">145</span> <span class="number">150</span> <span class="number">178</span> <span class="number">163</span> <span class="number">172</span> <span class="number">178</span> <span class="number">199</span> <span class="number">199</span> <span class="number">184</span> <span class="number">162</span> <span class="number">146</span> <span class="number">166</span></span><br><span class="line"><span class="number">1952</span> <span class="number">171</span> <span class="number">180</span> <span class="number">193</span> <span class="number">181</span> <span class="number">183</span> <span class="number">218</span> <span class="number">230</span> <span class="number">242</span> <span class="number">209</span> <span class="number">191</span> <span class="number">172</span> <span class="number">194</span></span><br><span class="line"><span class="number">1953</span> <span class="number">196</span> <span class="number">196</span> <span class="number">236</span> <span class="number">235</span> <span class="number">229</span> <span class="number">243</span> <span class="number">264</span> <span class="number">272</span> <span class="number">237</span> <span class="number">211</span> <span class="number">180</span> <span class="number">201</span></span><br><span class="line"><span class="number">1954</span> <span class="number">204</span> <span class="number">188</span> <span class="number">235</span> <span class="number">227</span> <span class="number">234</span> <span class="number">264</span> <span class="number">302</span> <span class="number">293</span> <span class="number">259</span> <span class="number">229</span> <span class="number">203</span> <span class="number">229</span></span><br><span class="line"><span class="number">1955</span> <span class="number">242</span> <span class="number">233</span> <span class="number">267</span> <span class="number">269</span> <span class="number">270</span> <span class="number">315</span> <span class="number">364</span> <span class="number">347</span> <span class="number">312</span> <span class="number">274</span> <span class="number">237</span> <span class="number">278</span></span><br><span class="line"><span class="number">1956</span> <span class="number">284</span> <span class="number">277</span> <span class="number">317</span> <span class="number">313</span> <span class="number">318</span> <span class="number">374</span> <span class="number">413</span> <span class="number">405</span> <span class="number">355</span> <span class="number">306</span> <span class="number">271</span> <span class="number">306</span></span><br><span class="line"><span class="number">1957</span> <span class="number">315</span> <span class="number">301</span> <span class="number">356</span> <span class="number">348</span> <span class="number">355</span> <span class="number">422</span> <span class="number">465</span> <span class="number">467</span> <span class="number">404</span> <span class="number">347</span> <span class="number">305</span> <span class="number">336</span></span><br><span class="line"><span class="number">1958</span> <span class="number">340</span> <span class="number">318</span> <span class="number">362</span> <span class="number">348</span> <span class="number">363</span> <span class="number">435</span> <span class="number">491</span> <span class="number">505</span> <span class="number">404</span> <span class="number">359</span> <span class="number">310</span> <span class="number">337</span></span><br><span class="line"><span class="number">1959</span> <span class="number">360</span> <span class="number">342</span> <span class="number">406</span> <span class="number">396</span> <span class="number">420</span> <span class="number">472</span> <span class="number">548</span> <span class="number">559</span> <span class="number">463</span> <span class="number">407</span> <span class="number">362</span> <span class="number">405</span></span><br><span class="line"><span class="number">1960</span> <span class="number">417</span> <span class="number">391</span> <span class="number">419</span> <span class="number">461</span> <span class="number">472</span> <span class="number">535</span> <span class="number">622</span> <span class="number">606</span> <span class="number">508</span> <span class="number">461</span> <span class="number">390</span> <span class="number">432</span></span><br><span class="line">&gt; start(AirPassengers)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1949</span>    <span class="number">1</span></span><br><span class="line">&gt; end(AirPassengers)</span><br><span class="line">[<span class="number">1</span>] <span class="number">1960</span>   <span class="number">12</span></span><br><span class="line">&gt; frequency(AirPassengers)</span><br><span class="line">[<span class="number">1</span>] <span class="number">12</span></span><br><span class="line">&gt; summary(AirPassengers)</span><br><span class="line">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span><br><span class="line">  <span class="number">104.0</span>   <span class="number">180.0</span>   <span class="number">265.5</span>   <span class="number">280.3</span>   <span class="number">360.5</span>   <span class="number">622.0</span>  </span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">接着把获取的数据可视化分析</span><br><span class="line"></span><br><span class="line">```R</span><br><span class="line">&gt; plot(AirPassengers)</span><br><span class="line"><span class="comment">#增加一条拟合线，lm(应变量~ 自变量)</span></span><br><span class="line">&gt; abline(lm(AirPassengers ~ time(AirPassengers)))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/08/30/R实现ARIMA预测/psgplot.pdf" alt="psgplot"></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#逐年比较，每个月平均值。</span></span><br><span class="line">&gt; plot(aggregate(AirPassengers,FUN=mean))</span><br><span class="line"><span class="comment">#每个月的盒图</span></span><br><span class="line">&gt; boxplot(AirPassengers~cycle(AirPassengers))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/08/30/R实现ARIMA预测/agg.pdf" alt="agg"><br><img src="/2018/08/30/R实现ARIMA预测/boxplt.pdf" alt="boxplt"></p>
+<h4 id="得出的结论"><a href="#得出的结论" class="headerlink" title="得出的结论"></a>得出的结论</h4><ol>
+<li>乘客历年增加，不符合平稳过程。</li>
+<li>从盒图中可以发现，每年的7、8月份中位数最大，方差也最大。</li>
+<li><p>有明显的周期性，周期大致为12。因为历年相同月份的方差不大。</p>
+</li>
+<li><h2 id="得到平稳序列"><a href="#得到平稳序列" class="headerlink" title="得到平稳序列"></a>得到平稳序列</h2></li>
+</ol>
+<p>使用ARIMA的前提条件是时间序列是平稳过程，很明显，AirPassengers不是平稳过程。因此，我们得将其转换成平稳过程。消除不平稳性有几个方法：</p>
+<ul>
+<li>差分(differencing)</li>
+<li>去趋势(detrending)</li>
+<li>seasonality</li>
+<li>取对数log</li>
+</ul>
+<p>咱们采取两种方法消除不平稳性：</p>
+<ol>
+<li>对时间序列取对数消除方差的变化，即：让历年同一个月份的方差减小。</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; plot(log(AirPassengers))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/08/30/R实现ARIMA预测/log.pdf" alt="log"></p>
+<ol start="2">
+<li>对时间序列取求一阶差分消除趋势。即：让历年的趋势同处于一条水平线。</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; plot(diff(log(AirPassengers)))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/08/30/R实现ARIMA预测/difflog.pdf" alt="difflog"><br>由于大致可以判断，达到平稳过程的要求。但素，仅凭粗糙的肉眼并不能分辨精确的数学定义。因为这里的数据不复杂，所以问题不大。如果要更进一步区分，我们可以采用Dicky-Fuller检测。若能看分辨出其不稳定，可以再次差分，直到稳定。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可选，若已安装，可跳过。</span></span><br><span class="line">&gt; install.packages(<span class="string">'tseries'</span>)</span><br><span class="line">&gt; install.packages(<span class="string">'forecast'</span>)</span><br><span class="line"><span class="comment">#调用tseries,forecast包</span></span><br><span class="line">&gt; <span class="keyword">library</span>(<span class="string">'tseries'</span>)</span><br><span class="line">&gt; <span class="keyword">library</span>(<span class="string">'forecast'</span>) </span><br><span class="line"><span class="comment">#Augmented Dickey-Fuller Test,一般p-value &lt; 0.05则可视为平稳。</span></span><br><span class="line">&gt; adf.test(diff(log(AirPassengers)),alternative=<span class="string">'stationary'</span>,k=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	Augmented Dickey-Fuller Test</span><br><span class="line"></span><br><span class="line">data:  diff(log(AirPassengers))</span><br><span class="line">Dickey-Fuller = -<span class="number">9.6003</span>, Lag order = <span class="number">0</span>, p-value = <span class="number">0.01</span></span><br><span class="line">alternative hypothesis: stationary</span><br><span class="line"></span><br><span class="line">Warning message:</span><br><span class="line">In adf.test(diff(log(AirPassengers)), alternative = <span class="string">"stationary"</span>,  :</span><br><span class="line">  p-value smaller than printed p-value</span><br></pre></td></tr></table></figure>
+<p>由上述的adf测试得出结果，p-value&lt;0.01,拒绝原假设，即序列稳定。</p>
+<ol start="3">
+<li><h2 id="通过ACF-PACF找到ARIMA最优参数"><a href="#通过ACF-PACF找到ARIMA最优参数" class="headerlink" title="通过ACF,PACF找到ARIMA最优参数"></a>通过ACF,PACF找到ARIMA最优参数</h2></li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; acf(diff(log(AirPassengers)))</span><br><span class="line">&gt; pacf(diff(log(AirPassengers)))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/08/30/R实现ARIMA预测/acf.pdf" alt="acf"><br><img src="/2018/08/30/R实现ARIMA预测/pacf.pdf" alt="pacf"><br>很明显，ACF图在滞后一阶后，降到蓝线以下，所以q=1,而PACF在滞后0阶滞后降到蓝线一下，因此p为0；加上第二步中的一阶差分，d=1。最后得出模型ARIMA(0,1,1)。</p>
+<h3 id="小彩蛋auto-arima"><a href="#小彩蛋auto-arima" class="headerlink" title="小彩蛋auto.arima()"></a>小彩蛋auto.arima()</h3><p>直接利用R的auto.arima(data,trace=T)选出最优参数可不是轻轻松松(￣▽￣)~*</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&gt; auto.arima(data,trace=<span class="literal">T</span>)</span><br><span class="line"></span><br><span class="line"> ARIMA(<span class="number">2</span>,<span class="number">0</span>,<span class="number">2</span>)(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : <span class="literal">Inf</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>)[<span class="number">12</span>] with drift         : -<span class="number">432.7415</span></span><br><span class="line"> ARIMA(<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>)(<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>)[<span class="number">12</span>] with drift         : -<span class="number">472.4967</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : -<span class="number">481.1033</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>)[<span class="number">12</span>]                    : -<span class="number">434.799</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : -<span class="number">479.454</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>)[<span class="number">12</span>] with drift         : -<span class="number">447.8018</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>)[<span class="number">12</span>] with drift         : -<span class="number">479.5049</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>)[<span class="number">12</span>] with drift         : <span class="literal">Inf</span></span><br><span class="line"> ARIMA(<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : -<span class="number">479.4557</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : -<span class="number">465.3811</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : -<span class="number">479.1627</span></span><br><span class="line"> ARIMA(<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] with drift         : <span class="literal">Inf</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    : -<span class="number">483.204</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    : -<span class="number">481.5888</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>)[<span class="number">12</span>]                    : -<span class="number">449.8846</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>)[<span class="number">12</span>]                    : -<span class="number">481.6381</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>)[<span class="number">12</span>]                    : <span class="literal">Inf</span></span><br><span class="line"> ARIMA(<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    : -<span class="number">481.5755</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    : -<span class="number">467.459</span></span><br><span class="line"> ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    : -<span class="number">481.2929</span></span><br><span class="line"> ARIMA(<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    : -<span class="number">481.5558</span></span><br><span class="line"></span><br><span class="line"> Best model: ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>]                    </span><br><span class="line"></span><br><span class="line">Series: data </span><br><span class="line">ARIMA(<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>)(<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>)[<span class="number">12</span>] </span><br><span class="line"></span><br><span class="line">Coefficients:</span><br><span class="line">          ma1     sma1</span><br><span class="line">      -<span class="number">0.4018</span>  -<span class="number">0.5569</span></span><br><span class="line">s.e.   <span class="number">0.0896</span>   <span class="number">0.0731</span></span><br><span class="line"></span><br><span class="line">sigma^<span class="number">2</span> estimated as <span class="number">0.001369</span>:  log likelihood=<span class="number">244.7</span></span><br><span class="line">AIC=-<span class="number">483.39</span>   AICc=-<span class="number">483.2</span>   BIC=-<span class="number">474.77</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><h2 id="建立ARIMA模型并预测"><a href="#建立ARIMA模型并预测" class="headerlink" title="建立ARIMA模型并预测"></a>建立ARIMA模型并预测</h2></li>
+</ol>
+<p>预测五年后乘客的数量趋势：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; fit &lt;- arima(log(AirPassengers), c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>),seasonal = list(order = c(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>), period = <span class="number">12</span>))</span><br><span class="line">&gt; pred &lt;- predict(fit, n.ahead = <span class="number">5</span>*<span class="number">12</span>)</span><br><span class="line">&gt; ts.plot(AirPassengers,<span class="number">2.718</span>^pred$pred, log = <span class="string">"y"</span>, lty = c(<span class="number">1</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/08/30/R实现ARIMA预测/predict.pdf" alt="predict"></p>
+<ol start="5">
+<li><h2 id="预测模型检验"><a href="#预测模型检验" class="headerlink" title="预测模型检验"></a>预测模型检验</h2></li>
+</ol>
+<p>利用LBQ test检验模型是否合格，也就是检验残差是否为白噪声。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/08/26/Python实践投资组合理论/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-08-30 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li> <li><a href="/tags/时间序列/">时间序列<span>1</span></a></li> <li><a href="/tags/R/">R<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#获取数据并可视化"><span class="toc-article-text">获取数据并可视化</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#得出的结论"><span class="toc-article-text">得出的结论</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#得到平稳序列"><span class="toc-article-text">得到平稳序列</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#通过ACF-PACF找到ARIMA最优参数"><span class="toc-article-text">通过ACF,PACF找到ARIMA最优参数</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#小彩蛋auto-arima"><span class="toc-article-text">小彩蛋auto.arima()</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#建立ARIMA模型并预测"><span class="toc-article-text">建立ARIMA模型并预测</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#预测模型检验"><span class="toc-article-text">预测模型检验</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>
