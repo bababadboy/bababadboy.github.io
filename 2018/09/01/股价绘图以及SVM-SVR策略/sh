@@ -1,0 +1,1 @@
+python /usr/local/lib/libsvm-3.22/tools/grid.py log2c -8,8,2 -log2g 8,-8,-2 -log2p -8,8,2 -v 10 scaled

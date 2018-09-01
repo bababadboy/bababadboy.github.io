@@ -138,6 +138,37 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/01/09/sql语言类型/" >sql语言类型</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-01-09  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>学了这么久的数据库了，连DML,DDL,DCL都搞不清楚是不是太不专业了(￣.￣)，今天，就大概的解释一下好了。</p>
+<h1 id="DML-Data-Manipulation-Language"><a href="#DML-Data-Manipulation-Language" class="headerlink" title="DML (Data Manipulation Language)"></a>DML (Data Manipulation Language)</h1><p>它包含了<code>SELECT</code>,<code>UPDATE</code>,<code>INSERT</code>,<code>DELETE</code>,这四种耳熟能详的增删改查de‘操纵数据‘的语句</p>
+<h1 id="DDL-Data-Definition-Language"><a href="#DDL-Data-Definition-Language" class="headerlink" title="DDL (Data Definition Language)"></a>DDL (Data Definition Language)</h1><p>即‘数据定义语句‘，主要有<code>CREATE</code>,<code>ALTER</code>,<code>DROP</code>等主要用于改变表（TABLE）的结构，数据类型，表之间的链接和约束等初始化工作上</p>
+<h1 id="DCL-Data-Control-Language"><a href="#DCL-Data-Control-Language" class="headerlink" title="DCL (Data Control Language)"></a>DCL (Data Control Language)</h1><p>即‘数据控制语句’。是用来设置或更改数据库用户或角色权限的语句，包括（GRANT, DENY, REVOKE等）语句。在默认状态下，只有sysadmin,dbcreator,db_owner或db_securityadmin等人员才有权力执行DCL.<br>:p<br>参考博客：<a href="http://blog.csdn.net/level_level/article/details/4248685" target="_blank" rel="noopener">http://blog.csdn.net/level_level/article/details/4248685</a></p>
+
+	
+	</div>
+  <a type="button" href="/2018/01/09/sql语言类型/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/01/03/assert/" >assert()</a>
 		</h3>
 		</div>
@@ -470,38 +501,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/01/ubuntu16-04安装sublime解决方案/" >ubuntu16.04安装sublime</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-01  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><a href="http://www.sublimetext.com/" target="_blank" rel="noopener">sublime</a>是一款非常流行的代码编辑器,它拥有漂亮的用户界面和强大的功能,支持迷你地图,多选择,python插件,代码高亮,收起等等.Sublime是收费软件，一个license 70美元，但是不购买license也可以用。它提供了无限期试用，并且试用版和注册版的功能相同，无任何限制，只是偶尔在保存的时候会弹出注册提示框。</p>
-<h1 id="方案一-类似于绿色软件"><a href="#方案一-类似于绿色软件" class="headerlink" title="方案一(类似于绿色软件)"></a>方案一(类似于绿色软件)</h1><p>下载tar包:<a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">https://www.sublimetext.com/3</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wget</span> https://www.sublimetext.com/sublime_text_3_build_3114_x64.tar.bz2</span><br></pre></td></tr></table></figure></p>
-<p>解压即可用:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$tar</span> xvf sublime_text_3_build_3114_x64.tar.bz2</span><br><span class="line"><span class="variable">$cd</span> sublime_text_3/</span><br><span class="line">$./sublime_text</span><br></pre></td></tr></table></figure></p>
-<h1 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h1><p>使用第三方源安装:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> add-apt-repository ppa:webupd8team/sublime-text-3</span><br><span class="line"><span class="variable">$sudo</span> apt-get update</span><br><span class="line"><span class="variable">$sudo</span> apt-get install sublime-text-installer</span><br><span class="line"><span class="variable">$subl</span></span><br></pre></td></tr></table></figure></p>
-<p>如果你还要按照<a href="https://bababadboy.github.io/2017/09/01/ubuntu%E4%B8%8Bsublime%E6%97%A0%E6%B3%95%E8%BE%93-%E5%85%A5%E4%B8%AD%E6%96%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">这个教程</a>解决sublime-text-3中文输入问题,个人建议使用方案二</p>
-
-	
-	</div>
-  <a type="button" href="/2017/09/01/ubuntu16-04安装sublime解决方案/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -559,48 +558,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/Mac/">Mac<span>3</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
-		
-			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
-		
-			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
-		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+			<li><a href="/tags/hexo/">hexo<span>4</span></a></li>
 		
 			<li><a href="/tags/c/">c++<span>1</span></a></li>
 		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
 		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
 		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
 		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+			<li><a href="/tags/量化/">量化<span>1</span></a></li>
 		
 			<li><a href="/tags/php/">php<span>1</span></a></li>
 		
-			<li><a href="/tags/linux/">linux<span>3</span></a></li>
+			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>1</span></a></li>
+		
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
 		
 			<li><a href="/tags/统计/">统计<span>1</span></a></li>
 		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
 		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>35</span></a></li>
+		   <li><a href="/tags">...<span>38</span></a></li>
 		 
 		</ul>
 	</div>
@@ -611,6 +610,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/09/01/股价绘图以及SVM-SVR策略/"  title="运行环境基于Anaconda的Tensorflow环境，方便管理以及后续的Tensorflow RNN卷积神经网络的使用。使用到配置完毕的LIBSVM(前文)。" ><i class="fa fa-file-o"></i>股价绘图以及SVM/SVR策略</a>
+      </li>
     
       <li>
         <a href="/2018/08/30/R实现ARIMA预测/"  title="ARIMA模型是经典的时间序列预测模型。包含了AR,I,MA三个部分，简单的说，把三个数学公式拼在了一起。具体含义因篇幅原因本文就不展开了。而R语言常在统计领域中出现，可以方便的为统计人员计算并可视化。" ><i class="fa fa-file-o"></i>R实现ARIMA预测</a>
@@ -626,10 +629,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/07/27/Mac安装libsvm/"  title="在本人目前的电脑上，有多个python环境，包括python2和python3，python3有两个版本，一个是brew安装的Python3.7,另一个是Anaconda管理的Python3.6.5。默认使用Anaconda版本。此篇博客包含了两个python3版本中安装libsvm的过程。" ><i class="fa fa-file-o"></i>Mac的python3环境下安装libsvm</a>
-      </li>
-    
-      <li>
-        <a href="/2018/07/23/认识AIML/"  title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。" ><i class="fa fa-file-o"></i>认识AIML</a>
       </li>
     
   </ul>
