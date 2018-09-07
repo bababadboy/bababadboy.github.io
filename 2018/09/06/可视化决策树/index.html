@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>可视化决策树 | Being...anAsshole</title>
+  <title>可视化决策树 | Don&#39;t Be A Programmer</title>
   <meta name="author" content="Richard Wx">
   
   <meta name="description" content="机器学习之决策树小试牛刀。决策树是{ml}中用来分类和回归的重要方法。决策树有ID3,C45,C50,CART等不同的类型。咱们今天先不搞原理，直接上手python3实现决策树的可视化。">
@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="可视化决策树"/>
-  <meta property="og:site_name" content="Being...anAsshole"/>
+  <meta property="og:site_name" content="Don&#39;t Be A Programmer"/>
 
   
     <meta property="og:image" content=""/>
@@ -71,7 +71,7 @@ var _hmt = _hmt || [];
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class="navbar-brand" href="/">Being...anAsshole</a>
+	  <a class="navbar-brand" href="/">Don&#39;t Be A Programmer</a>
       <div class="collapse navbar-collapse nav-menu">
 		<ul class="nav navbar-nav">
 		  
@@ -144,13 +144,13 @@ var _hmt = _hmt || [];
 <p>二话不说，直接进入正题。咱们先导入如要使用的包。sklearn.tree是决策树类，sklearn.datasets是咱们使用的数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.tree <span class="keyword">as</span> tree</span><br><span class="line"><span class="keyword">import</span> sklearn.datasets <span class="keyword">as</span> datasets</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure></p>
 <p>咱们的用的数据是iris,是机器学习的经典数据，通过机器学习分类iris花的种类，具体可见<a href="https://en.wikipedia.org/wiki/Iris_flower_data_set" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Iris_flower_data_set</a>。数据内建在datasets，我们直接加载。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iris = datasets.load_iris()</span><br></pre></td></tr></table></figure></p>
 <p>为了测试数据呢，咱们选出几个数据用作测试。下标为0,50,100的数据正好是iris的三种花的第一个数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test_idx = [<span class="number">0</span>,<span class="number">50</span>,<span class="number">100</span>]</span><br></pre></td></tr></table></figure></p>
-<p>接下来，我们除去上面的三个数据，作为训练数据，这三个数据作为测试数据。监督学习都会有一个features,target，iris的数据也是同样，iris有两个成员变量，iris.data、iris.target，分别是iris的特征和分类结果。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_data = np.delete(iris.data,test_idx)</span><br><span class="line">train_target = np.delete(iris.target,test_idx)</span><br><span class="line">test_data = iris.data[test_idx]</span><br><span class="line">test_target = iris.data[test_idx]</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们除去上面的三个数据，作为训练数据，这三个数据作为测试数据。监督学习都会有一个features,target，iris的数据也是同样，iris有两个成员变量，iris.data、iris.target，分别是iris的特征和分类结果。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_data = np.delete(iris.data,test_idx)</span><br><span class="line">train_target = np.delete(iris.target,test_idx)</span><br><span class="line">test_data, test_target = iris.data[test_idx], iris.data[test_idx]</span><br></pre></td></tr></table></figure></p>
 <p>现在我们用构造一个决策树分类器。fit方法有两个变量：train_data,train_target，简而言之，通过训练数据’调教’决策树的分类参数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clf = tree.DesicionTreeClassfifier()</span><br><span class="line">clf.fit(train_data,train_target)</span><br></pre></td></tr></table></figure></p>
 <p>‘调教’完分类器后，我们便可以用分类器预测分类了。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">predict = clf.predict(test_data)</span><br><span class="line">print(<span class="string">'predict: '</span>,preditc)</span><br><span class="line">predict: [<span class="number">0</span> <span class="number">1</span> <span class="number">2</span>]</span><br></pre></td></tr></table></figure></p>
 <p>我们可以查看一下预测的正确率，因为一共只有三个测试数据，正确率完全098k,你也可以预测自己添加的数据。使用了skearn.metrics类，这个类可以很方便的帮助我们计算争取率。(metrics是‘公制的’意思)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.metrics <span class="keyword">as</span> metrics</span><br><span class="line">print(metrics.accuracy_score(test_target,predict))</span><br></pre></td></tr></table></figure></p>
 <p>最后，把决策树分类器可视化。我们需要导入pydotplus包，而不仅如此，我们需要暗转graphviz的可视化软件，graphviz不是python的包。homwbrew安装即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ brew install graphviz</span><br></pre></td></tr></table></figure></p>
 <p>下面的代码原理就不深究了吧。又不是不能用。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pydotplus</span><br><span class="line">dot_data= tree.export_graphviz(clf,</span><br><span class="line">						out_file=<span class="keyword">None</span>,</span><br><span class="line">						feature_names=iris.feature_names,</span><br><span class="line">						class_names=iris.target_names,</span><br><span class="line">						filled=<span class="keyword">True</span>,rounded=<span class="keyword">True</span>,impurity=<span class="keyword">False</span>)</span><br><span class="line">graph = pydotplus.graph_from_dot_data(dot_data)</span><br><span class="line">graph.write_pdf(<span class="string">'IrisTree.pdf'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>生成的图片如下：<br><img src="/2018/09/06/可视化决策树/IrisTree.png" alt="tree"></p>
+<p>生成的图片如下：<br><img src="/2018/09/06/可视化决策树/IrisTree.png" alt="tree"><br>然后我们想着，这个clf模型挺好用的不是，如果下次还想继续使用这个模型，我们每次还得重新训练一遍？数据量小还能接受，花了几个小时训练的模型只能用一次就显得铺张浪费了，所以我们要把它保存起来。咱们使用到了sklearn.externals的joblib。也可以使用pickle实现，不过joblib对大数据的效率更高。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.externals <span class="keyword">as</span> ext</span><br><span class="line">ext.joblib.dump(clf,<span class="string">'路径/iris_tree.pkl'</span>)<span class="comment">#保存</span></span><br><span class="line">clf2=ext.joblib.load(<span class="string">'路径/iris_tree.pkl'</span>)<span class="comment">#加载</span></span><br></pre></td></tr></table></figure></p>
 	  
 	</div>
 
