@@ -138,6 +138,47 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/09/27/ubuntu配置ssh/" title="服务器没有续费，却还想要拥有一个服务器的感觉，所以我就用ssh连接虚拟机，✧(≖ ◡ ≖✿)嘿嘿。">ubuntu配置ssh</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-09-27  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<ol>
+<li><p>首先在虚拟机用<code>ifconfig</code>命令查看ip地址，在主机用<code>ping</code>命令其ip地址，看看能否ping通过。</p>
+</li>
+<li><p>在虚拟机安装openssh-server，如果是服务器，它是默认安装的，不然你怎么用ssh远程连接服务器嘛。但是自己的安装的linux，默认没有安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openssh-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启ssh服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">richie@ubuntu:~$ service sshd start <span class="comment">#/restart：重启/stop：停止 /status：状态</span></span><br><span class="line">richie@ubuntu:~$ service sshd status</span><br><span class="line">● ssh.service - OpenBSD Secure Shell server</span><br><span class="line">   Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Wed 2018-09-26 08:46:31 PDT; 1min 59s ago</span><br><span class="line"> Main PID: 3121 (sshd)</span><br><span class="line">   CGroup: /system.slice/ssh.service</span><br><span class="line">           └─3121 /usr/sbin/sshd -D</span><br><span class="line"></span><br><span class="line">Sep 26 08:46:31 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...</span><br><span class="line">Sep 26 08:46:31 ubuntu sshd[3121]: Server listening on 0.0.0.0 port 22.</span><br><span class="line">Sep 26 08:46:31 ubuntu sshd[3121]: Server listening on :: port 22.</span><br><span class="line">Sep 26 08:46:31 ubuntu systemd[1]: Started OpenBSD Secure Shell server.</span><br><span class="line">Sep 26 08:48:25 ubuntu systemd[1]: Started OpenBSD Secure Shell server.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>ssh服务开启后，端口22也会默认跟着打开，我们为了确认端口22打开状态可以：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">richie@ubuntu:~$ netstat -ntpl | grep 22</span><br><span class="line">(Not all processes could be identified, non-owned process info</span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp6       0      0 :::22                   :::*                    LISTEN      -</span><br></pre></td></tr></table></figure></p>
+<ol start="4">
+<li>恭喜你，你已经完成虚拟机的配置了！主机在终端用ssh便可连接。并欺骗自己拥有一台服务器了（狗头）</li>
+</ol>
+
+	
+	</div>
+  <a type="button" href="/2018/09/27/ubuntu配置ssh/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/09/14/配置gitalk/" title="博客评论插件有很多又很少，gitalk在目前来看是比较适合hexo主题的一款评论系统。">配置gitalk</a>
 		</h3>
 		</div>
@@ -401,33 +442,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/07/18/java日记/" >java日记</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-07-18  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		
-	
-	</div>
-  <a type="button" href="/2018/07/18/java日记/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -485,48 +499,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/svm/">svm<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>4</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>2</span></a></li>
 		
 			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
 			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
-			<li><a href="/tags/Mac/">Mac<span>3</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>1</span></a></li>
-		
-			<li><a href="/tags/统计/">统计<span>1</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
-		
-			<li><a href="/tags/Terminal/">Terminal<span>1</span></a></li>
-		
-			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
-		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
-		
-			<li><a href="/tags/ml/">ml<span>1</span></a></li>
+			<li><a href="/tags/股票/">股票<span>1</span></a></li>
 		
 			<li><a href="/tags/量化/">量化<span>1</span></a></li>
 		
+			<li><a href="/tags/R/">R<span>1</span></a></li>
 		
-		   <li><a href="/tags">...<span>42</span></a></li>
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+		
+			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
+		
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/ml/">ml<span>1</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/统计/">统计<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>44</span></a></li>
 		 
 		</ul>
 	</div>
@@ -537,6 +551,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/09/27/ubuntu配置ssh/"  title="服务器没有续费，却还想要拥有一个服务器的感觉，所以我就用ssh连接虚拟机，✧(≖ ◡ ≖✿)嘿嘿。" ><i class="fa fa-file-o"></i>ubuntu配置ssh</a>
+      </li>
     
       <li>
         <a href="/2018/09/14/配置gitalk/"  title="博客评论插件有很多又很少，gitalk在目前来看是比较适合hexo主题的一款评论系统。" ><i class="fa fa-file-o"></i>配置gitalk</a>
@@ -552,10 +570,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/08/30/R实现ARIMA预测/"  title="ARIMA模型是经典的时间序列预测模型。包含了AR,I,MA三个部分，简单的说，把三个数学公式拼在了一起。具体含义因篇幅原因本文就不展开了。而R语言常在统计领域中出现，可以方便的为统计人员计算并可视化。" ><i class="fa fa-file-o"></i>R实现ARIMA预测</a>
-      </li>
-    
-      <li>
-        <a href="/2018/08/26/Python实践投资组合理论/"  title="搞了一段时间的量化，还是个萌新，也塞进了很多统计学的术语。现做一个小小的实践验证投资组合原理。其中股票历史价格的获取来源于tushare，期待着它能加入港股，美股啥的，A股可真是个韭菜养殖场。" ><i class="fa fa-file-o"></i>Python实践投资组合理论</a>
       </li>
     
   </ul>

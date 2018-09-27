@@ -35,7 +35,7 @@ def count(_dataFrame):
 		Args:
 		Returns -> tuple: 例如：
 	return	  1414, 1514
-	label:	  	1 ,  -1			
+	label:	  	-1 ,  1			
 	'''
 	res = 0,0
 	minus1 = _dataFrame[_dataFrame['label'] == -1]
@@ -46,8 +46,8 @@ def count(_dataFrame):
 def add_label(_dataFrame):
 	df = _dataFrame
 	df['Amt_div_Vol'] = df['amount'] / df['volume']    #给df增加一列Amt_div_Vol
-	df['label'] = (df['high'].shift(1)- df['low']) / df['close']    #增加一列label
-	df['label'] = df['label'].apply(lambda x : 1 if x >= 0.03  else -1) #修改label的值
+	df['label'] = (df['high'].shift(3)- df['low']) / df['close']    #增加一列label
+	df['label'] = df['label'].apply(lambda x : 1 if x >= 0.02  else -1) #修改label的值
 
 	'''
 	选取amt,volume,amt_div_vol作为三个特征，
@@ -57,15 +57,15 @@ def add_label(_dataFrame):
 	return df
 
 if __name__ == '__main__':
-	root_dir = '/Users/wangxiaobin/Documents/git&hexo_blog/source/_posts/股价绘图以及SVM-SVR策略'
+	root_dir = '/Users/wangxiaobin/Documents/git&hexo_blog/source/_posts/股价绘图以及SVM-SVR策略/stock_price'
 	svm_train_dir = '/Users/wangxiaobin/Documents/git&hexo_blog/source/_posts/股价绘图以及SVM-SVR策略'
 	# svm_test_dir = '/Users/wangxiaobin/Desktop/大二下创新实践/作业4/作业4 Libsvm-股票数据分析/svm_test'
 
 	filecsv_list = listcsvFiles(root_dir)
 	df = loadDataSetByPandas(filecsv_list)
 	df = add_label(df)
-	df.to_csv('data_by_pandas.csv',header=None,index=None)
-
+	df.to_csv('../data_after_pandas.csv',index=None)
+	print(count(df))
 	# svmtrain_list = listcsvFiles(svm_train_dir)
 	# df_train = loadDataSetByPandas(svmtrain_list)
 	# train = add_label(df_train)
