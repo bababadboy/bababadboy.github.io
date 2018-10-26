@@ -138,6 +138,73 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/07/27/Mac安装libsvm/" title="在本人目前的电脑上，有多个python环境，包括python2和python3，python3有两个版本，一个是brew安装的Python3.7,另一个是Anaconda管理的Python3.6.5。默认使用Anaconda版本。此篇博客包含了两个python3版本中安装libsvm的过程。">Mac的python3环境下安装libsvm</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-27  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ol>
+<li>官网下载libsvm-3.22压缩包<a href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="noopener">https://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></li>
+<li><p>解压缩</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar xzvf libsvm-3.22.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译</p>
+<ol>
+<li>在libsvm目录下执行<code>make</code></li>
+<li>在子目录python下执行<code>make</code></li></ol></li></ol>
+	
+	</div>
+  <a type="button" href="/2018/07/27/Mac安装libsvm/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/07/23/认识AIML/" title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。">认识AIML</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-23  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>和XML文件一样，AIML文件开始也需要定义编码方式，如下：&lt;?xml version=”1.0” encoding=”ISO-8859-1”?&gt; 常用的编码方式有：encoding=”ISO-8859-1”、encoding=”UTF-8”、encoding=”GB2312”等。</p>
+<h2 id="1-基本标签"><a href="#1-基本标签" class="headerlink" title="1. 基本标签"></a>1. 基本标签</h2><ul>
+<li>&lt;aiml&gt;:一个aiml文件的标志</li>
+<li>&lt;category>：定义unit ofknowledge中Alicebot的知识库。每个类别包含在一个句子的形式，用户输入可以是一个断言，问题和感叹号等用户的输入可以包含通配符的字符，如*和_。用       &lt;category>标签必须有&lt;pattern>和&lt;template>标记。</li>
+<li>&lt;pattern>：定义模式匹配的输入，通俗的讲就是用户输入的内容。你问它答里头的‘问’。里面的内容必须大写，可以有星号* 或下划线_，但必须空格隔开，星号表示匹配所有，任意情况；下划线的意义跟星号一样，除了不能匹配字典里面Z后面的字母。</li>
+<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li></ul>
+	
+	</div>
+  <a type="button" href="/2018/07/23/认识AIML/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/07/23/MacOS安装TensorFlow/" title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。">在macOS上安装TensorFlow</a>
 		</h3>
 		</div>
@@ -186,39 +253,6 @@ var _hmt = _hmt || [];
 	
 	</div>
   <a type="button" href="/2018/07/18/java日记/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/07/13/git日记/" title="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。">git日记</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-07-13  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-           
-  	      <div class="thumbnail"><a href="/2018/07/13/git日记/"><img src="2018/07/13/git日记/git日记/logo.png" alt="git日记"  class="nofancybox"></a>
-           
-		</div>
-	
-	
-		<p><img src="/2018/07/13/git日记/logo.png" alt="git"><br>官网文档链接<br><a href="https://git-scm.com/docs" target="_blank" rel="noopener">https://git-scm.com/docs</a><br>在官网可以找到一个非常生动有趣的的git教程，简直不要太容易理解哦😌<a href="http://ndpsoftware.com/git-cheatsheet.html" target="_blank" rel="noopener">http://ndpsoftware.com/git-cheatsheet.html</a></p>
-
-	
-	</div>
-  <a type="button" href="/2018/07/13/git日记/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -408,43 +442,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/15/hexo迁移/" title="把原先在linux上的部分hexo文件到了我的hackintosh上，这篇文章的目的：如果下次自己还要换系统，换电脑，自己只要看自己这篇博客就够了= =">hexo迁移</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-15  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>参考了知乎的文章<a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">使用hexo,换了电脑怎么怎么更新博客</a>，    </p>
-<h2 id="装nodejs-npm-hexo-unix自带git"><a href="#装nodejs-npm-hexo-unix自带git" class="headerlink" title="装nodejs,npm,hexo(unix自带git)"></a>装nodejs,npm,hexo(unix自带git)</h2><ul>
-<li><p>下载安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a></p>
-</li>
-<li><p>安装hexo：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> i -g hexo</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在适当文件夹，初始化hexo</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$hexo</span> init</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-	
-	</div>
-  <a type="button" href="/2017/09/15/hexo迁移/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -502,48 +499,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/svm/">svm<span>1</span></a></li>
+			<li><a href="/tags/python/">python<span>3</span></a></li>
 		
-			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+			<li><a href="/tags/shell/">shell<span>2</span></a></li>
 		
-			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
 		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
 		
-			<li><a href="/tags/R/">R<span>1</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/Terminal/">Terminal<span>0</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
-			<li><a href="/tags/股票/">股票<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
-		
-			<li><a href="/tags/Linux/">Linux<span>1</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
-		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/gitalk/">gitalk<span>1</span></a></li>
-		
-			<li><a href="/tags/统计/">统计<span>1</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
 			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
 		
-		   <li><a href="/tags">...<span>45</span></a></li>
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/quant/">quant<span>1</span></a></li>
+		
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>1</span></a></li>
+		
+			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>6</span></a></li>
+		
+			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>44</span></a></li>
 		 
 		</ul>
 	</div>
@@ -556,6 +553,14 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2018/10/26/git日记/"  title="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。" ><i class="fa fa-file-o"></i>git日记</a>
+      </li>
+    
+      <li>
+        <a href="/2018/10/13/django建站/" ><i class="fa fa-file-o"></i>django建站</a>
+      </li>
+    
+      <li>
         <a href="/2018/10/06/Linux作业了解/"  title="了解一下Linux作业相关知识。" ><i class="fa fa-file-o"></i>Linux作业了解</a>
       </li>
     
@@ -565,14 +570,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/09/14/配置gitalk/"  title="博客评论插件有很多又很少，gitalk在目前来看是比较适合hexo主题的一款评论系统。" ><i class="fa fa-file-o"></i>配置gitalk</a>
-      </li>
-    
-      <li>
-        <a href="/2018/09/06/可视化决策树/"  title="机器学习之决策树小试牛刀。决策树是{ml}中用来分类和回归的重要方法。决策树有ID3,C45,C50,CART等不同的类型。咱们今天先不搞原理，直接上手python3实现决策树的可视化。" ><i class="fa fa-file-o"></i>可视化决策树</a>
-      </li>
-    
-      <li>
-        <a href="/2018/09/01/股价绘图以及SVM-SVR策略/"  title="运行环境基于Anaconda的Tensorflow环境，方便管理以及后续的Tensorflow RNN卷积神经网络的使用。使用到配置完毕的LIBSVM(前文)。" ><i class="fa fa-file-o"></i>股价绘图以及SVM/SVR策略</a>
       </li>
     
   </ul>
