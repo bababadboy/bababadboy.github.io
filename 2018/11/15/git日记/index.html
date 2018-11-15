@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>git日记 | Don&#39;t Be A Programmer</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="git接触已有时日，**怎奈记性太差**(重点)，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="git日记"/>
+  <meta property="og:site_name" content="Don&#39;t Be A Programmer"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Don&#39;t Be A Programmer</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> git日记</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> git接触已有时日，**怎奈记性太差**(重点)，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。
+		 </div> <!-- alert -->
+	  		
+
+	  <p><img src="/2018/11/15/git日记/logo.png" alt="git"><br>官网文档链接<br><a href="https://git-scm.com/docs" target="_blank" rel="noopener">https://git-scm.com/docs</a><br>在官网可以找到一个非常生动有趣的的git教程，简直不要太容易理解哦😌<a href="http://ndpsoftware.com/git-cheatsheet.html" target="_blank" rel="noopener">http://ndpsoftware.com/git-cheatsheet.html</a></p>
+<h1 id="1-在Mac-OS上使用git删除-DS-Store"><a href="#1-在Mac-OS上使用git删除-DS-Store" class="headerlink" title="1. 在Mac OS上使用git删除.DS_Store"></a>1. 在Mac OS上使用git删除.DS_Store</h1><h2 id="DS-Store是什么"><a href="#DS-Store是什么" class="headerlink" title=".DS_Store是什么"></a>.DS_Store是什么</h2><a id="more"></a>
+<p>使用 Mac 的用户可能会注意到，系统经常会自动在每个目录生成一个隐藏的 .DS_Store 文件。.DS_Store (英文全称 Desktop Services Store)是一种由苹果公司的Mac OS X操作系统所创造的隐藏文件，目的在于存贮目录的自定义属性，例如文件们的图标位置或者是背景色的选择。相当于 Windows 下的 desktop.ini</p>
+<h2 id="删除-DS-Store"><a href="#删除-DS-Store" class="headerlink" title="删除.DS_Store"></a>删除.DS_Store</h2><ol>
+<li>如果你的项目中.DS_Store 文件仍然是未跟踪文件，那么直接将 .DS_Store 加入到 .gitignore 文件即可。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**/.DS_Store #能囊括项目目录所有子目录下的.DS_Store文件</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>gitignore文件是为了尚未被追踪的文件之后不会被追踪，但如果你已经把.DS_Store文件加入到追踪文件，那么可以使用<code>git rm --cached filename</code>命令以停止对filename的追踪,将filename删除后再把filename加入.gitignore中。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除项目中的所有.DS_Store。这会跳过不在项目中的 .DS_Store</span></span><br><span class="line">find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch</span><br><span class="line"><span class="comment"># 将 .DS_Store 加入到 .gitignore</span></span><br><span class="line"><span class="built_in">echo</span> **/.DS_Store &gt;&gt; ~/.gitignore</span><br><span class="line"><span class="comment"># 更新项目</span></span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">'.DS_Store banished!'</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="禁用或启用自动生成-没有尝试过"><a href="#禁用或启用自动生成-没有尝试过" class="headerlink" title="禁用或启用自动生成(没有尝试过)"></a>禁用或启用自动生成(没有尝试过)</h2><ul>
+<li>禁止.DS_store生成：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</span><br></pre></td></tr></table></figure>
+<ul>
+<li>恢复.DS_store生成：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
+<p>参考链接：<br><a href="https://github.com/nodejh/nodejh.github.io/issues/18" target="_blank" rel="noopener">https://github.com/nodejh/nodejh.github.io/issues/18</a></p>
+<p><a href="https://git-scm.com/docs/gitignore" target="_blank" rel="noopener">https://git-scm.com/docs/gitignore</a></p>
+<h1 id="2-git-fetch-vs-git-pull"><a href="#2-git-fetch-vs-git-pull" class="headerlink" title="2. git fetch vs git pull"></a>2. git fetch vs git pull</h1><p>Git 有两个命令把远程分支获取到本地。一个是<code>git fetch</code>,一个是<code>git pull</code>。原谅我之前没怎么用过<code>git fetch</code> :(</p>
+<h2 id="1-git-fetch"><a href="#1-git-fetch" class="headerlink" title="1. git fetch"></a>1. git fetch</h2><p><code>git fetch</code>是从远程获取最新版本到本地，但它不会自动merge。如果想要比较远程最新仓库与本地的不同，就得用<code>git fetch</code>了。我们可以这么用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master	<span class="comment"># 获取远程分支</span></span><br><span class="line">git <span class="built_in">log</span> -p master..origin/master <span class="comment"># 比较差异</span></span><br><span class="line">git merge origin/master <span class="comment"># 合并</span></span><br><span class="line"><span class="comment">##不想合并怎么办？？##</span></span><br></pre></td></tr></table></figure>
+<p>也可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin dev:branch1</span><br><span class="line">git diff branch1 </span><br><span class="line">git merge branch1</span><br></pre></td></tr></table></figure>
+<h2 id="2-git-pull"><a href="#2-git-pull" class="headerlink" title="2. git pull"></a>2. git pull</h2><p>而<code>git pull</code>就相当于<code>git fetch</code>+<code>git merge</code>,建议食用<code>git fetch</code>。</p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/11/14/java日记/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '73f43497bb12a025bad7',
+            clientSecret: '35e3869097d64f9d11faebb262b8766b391c377b',
+            id: window.location.pathname,
+            repo: 'comment',
+            owner: 'bababadboy',
+            admin: 'bababadboy'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+    
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-11-15 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/git/">git<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-在Mac-OS上使用git删除-DS-Store"><span class="toc-article-text">1. 在Mac OS上使用git删除.DS_Store</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DS-Store是什么"><span class="toc-article-text">.DS_Store是什么</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#删除-DS-Store"><span class="toc-article-text">删除.DS_Store</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#禁用或启用自动生成-没有尝试过"><span class="toc-article-text">禁用或启用自动生成(没有尝试过)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-git-fetch-vs-git-pull"><span class="toc-article-text">2. git fetch vs git pull</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-git-fetch"><span class="toc-article-text">1. git fetch</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-git-pull"><span class="toc-article-text">2. git pull</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2018 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>
