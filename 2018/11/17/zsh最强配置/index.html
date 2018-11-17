@@ -6,15 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>kali grub修复 | Don&#39;t Be A Programmer</title>
+  <title>zsh最强配置 | Don&#39;t Be A Programmer</title>
   <meta name="author" content="Richard Wx">
   
-  <meta name="description" content="电脑的grub经常被自己玩坏~每次都要重复上一遍的操作，却仍旧要查教程，索性自己写一篇得了。">
+  <meta name="description" content="利用 antigen 配置史上最强zsh:)">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="kali grub修复"/>
+  <meta property="og:title" content="zsh最强配置"/>
   <meta property="og:site_name" content="Don&#39;t Be A Programmer"/>
 
   
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> kali grub修复</h1>
+			<h1> zsh最强配置</h1>
 		</div>
 	
 
@@ -135,18 +135,51 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  
 		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> 电脑的grub经常被自己玩坏~每次都要重复上一遍的操作，却仍旧要查教程，索性自己写一篇得了。
+			<i class="fa fa-info-circle"></i> 利用 antigen 配置史上最强zsh:)
 		 </div> <!-- alert -->
 	  		
 
-	  <p><strong>前提准备</strong>：一个kali安装盘<br><strong>问题</strong>：U盘安装kali总会失败，多次停留在grub的update-grub进度条上<br><strong>解决方案</strong>：</p>
-<ul>
-<li>停留在update-grub时强制关机，然后重新用U盘启动，并选择live安装方式。</li>
-<li>进入kali系统，在终端输入如下命令安装grub（千万记住你的kali是在哪个盘的，比如我的是在sda）：<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">root@kali:/# mount /dev/sda</span><br><span class="line">root@kali:/# mount /dev/sda /mnt/</span><br><span class="line">root@kali:/# mount --bind /dev /mnt/dev/</span><br><span class="line">root@kali:/# mount --bind /dev/pts /mnt/dev/pts</span><br><span class="line">root@kali:/# mount --bind /proc /mnt/proc</span><br><span class="line">root@kali:/# mount --bind /sys /mnt/sys</span><br><span class="line">root@kali:/# chroot  /mnt/</span><br><span class="line">root@kali:/# grub-install /dev/sda</span><br><span class="line">Installation finished. No error reported.  No erroe:表示没错！</span><br><span class="line">root@kali:/# update-grub  更新</span><br><span class="line">Generating grub.cfg ...</span><br><span class="line">Found background image: /usr/share/images/desktop-base/desktop-grub.png</span><br><span class="line">Found linux image: /boot/vmlinuz-3.14-kali1-amd64</span><br><span class="line">Found initrd image: /boot/initrd.img-3.14-kali1-amd64</span><br><span class="line">  No volume groups found</span><br><span class="line">done</span><br><span class="line">root@kali:/# exit</span><br><span class="line">exit</span><br><span class="line">root@kali:/# umount /mnt/dev/pts</span><br><span class="line">root@kali:/# umount /mnt/dev</span><br><span class="line">root@kali:/# umount /mnt/proc</span><br><span class="line">root@kali:/# umount /mnt/sys</span><br><span class="line">root@kali:/# umount /mnt</span><br><span class="line">root@kali:/# reboot</span><br></pre></td></tr></table></figure>
-</li>
+	  <p>Antigen 是zsh插件管理工具，就和vim的插件管理工具Vundle一样，正如其<a href="https://github.com/zsh-users/antigen" target="_blank" rel="noopener">Github</a>主页上说的‘Antigen is to zsh, what Vundle is to vim.’<br><a id="more"></a></p>
+<h1 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1. 下载安装"></a>1. 下载安装</h1><p>下载安装的方式有很多种，不同的操作系统可支持的安装方式也不尽相同，以下是官网提供的安装方式。</p>
+<h2 id="1-使用curl命令安装"><a href="#1-使用curl命令安装" class="headerlink" title="1. 使用curl命令安装"></a>1. 使用curl命令安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L git.io/antigen &gt; antigen.zsh</span><br></pre></td></tr></table></figure>
+<h2 id="2-克隆仓库"><a href="#2-克隆仓库" class="headerlink" title="2. 克隆仓库"></a>2. 克隆仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/antigen.git ~/antigen</span><br></pre></td></tr></table></figure>
+<h2 id="3-也可以使用不同操作系统的包管理工具"><a href="#3-也可以使用不同操作系统的包管理工具" class="headerlink" title="3. 也可以使用不同操作系统的包管理工具"></a>3. 也可以使用不同操作系统的包管理工具</h2><ul>
+<li>Debian 系统</li>
 </ul>
-<p><a href="http://www.codeweblog.com/kali-linux-grub%E4%BF%AE%E5%A4%8D/" target="_blank" rel="noopener">参考博客</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install zsh-antigen</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Archlinux 系统</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yaourt -S antigen-git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在水果机上</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install antigen</span><br></pre></td></tr></table></figure>
+<p>本人选择第三种方式，因为第一种方法配置后只在当前终端有效，新建终端antigen配置又失效了,始终没搞成功:(安装成功后如下图，<br>根据其提示，把<code>source /usr/local/share/antigen/antigen.zsh</code>加入.zshrc<br><img src="/2018/11/17/zsh最强配置/brew_install_antigen.png" alt="zsh最强配置"></p>
+<h1 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h1><p>配置<code>.zshrc</code>文件，本人有关antigen的配置如下：</p>
+<pre><code class="shell">source /usr/local/share/antigen/antigen.zsh
+<span class="meta">#</span><span class="bash"> Load the oh-my-zsh<span class="string">'s library.</span></span>
+antigen use oh-my-zsh
+<span class="meta">#</span><span class="bash"> Bundles from the default repo (robbyrussell<span class="string">'s oh-my-zsh).</span></span>
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+
+<span class="meta">#</span><span class="bash"> Syntax highlighting bundle.</span>
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+<span class="meta">#</span><span class="bash"> 命令提示 bundle</span>
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+<span class="meta">#</span><span class="bash"> Load the theme.</span>
+antigen theme refined
+
+<span class="meta">#</span><span class="bash"> Tell Antigen that you<span class="string">'re done.</span></span>
+antigen apply
+</code></pre>
+<p>结束。什么？这还不是史上最强，我不信:)</p>
 	  
 	</div>
 
@@ -156,13 +189,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2017/10/18/AES加密hexo文章/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2017/09/16/Mac升级vim8-x/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/11/15/git日记/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -230,7 +262,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2017-10-12 
+	2018-11-17 
 	</div>
 	
 
@@ -243,13 +275,19 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/linux/">linux<span>7</span></a></li> <li><a href="/tags/kali/">kali<span>1</span></a></li> <li><a href="/tags/grub/">grub<span>1</span></a></li>
+  <li><a href="/tags/linux/">linux<span>7</span></a></li> <li><a href="/tags/shell/">shell<span>3</span></a></li> <li><a href="/tags/zsh/">zsh<span>1</span></a></li> <li><a href="/tags/antigen/">antigen<span>1</span></a></li>
     </ul>
 	</div>
 		
 
 	<!-- toc -->
 	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-下载安装"><span class="toc-article-text">1. 下载安装</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-使用curl命令安装"><span class="toc-article-text">1. 使用curl命令安装</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-克隆仓库"><span class="toc-article-text">2. 克隆仓库</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-也可以使用不同操作系统的包管理工具"><span class="toc-article-text">3. 也可以使用不同操作系统的包管理工具</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-使用"><span class="toc-article-text">2. 使用</span></a></li></ol>
+		</div>
 	
 	</div>
 	
