@@ -9,7 +9,7 @@
   <title>git日记 | Don&#39;t Be A Programmer</title>
   <meta name="author" content="Richard Wx">
   
-  <meta name="description" content="git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。">
+  <meta name="description" content="git接触已有时日，**怎奈记性太差**(重点)，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -135,12 +135,12 @@ var _hmt = _hmt || [];
 	<div class="mypage">		
 	  
 		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> git接触已有时日，怎奈记性太差，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。
+			<i class="fa fa-info-circle"></i> git接触已有时日，**怎奈记性太差**(重点)，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。
 		 </div> <!-- alert -->
 	  		
 
-	  <p><img src="/2018/10/26/git日记/logo.png" alt="git"><br>官网文档链接<br><a href="https://git-scm.com/docs" target="_blank" rel="noopener">https://git-scm.com/docs</a><br>在官网可以找到一个非常生动有趣的的git教程，简直不要太容易理解哦😌<a href="http://ndpsoftware.com/git-cheatsheet.html" target="_blank" rel="noopener">http://ndpsoftware.com/git-cheatsheet.html</a></p>
-<h1 id="在Mac-OS上使用git删除-DS-Store"><a href="#在Mac-OS上使用git删除-DS-Store" class="headerlink" title="在Mac OS上使用git删除.DS_Store"></a>在Mac OS上使用git删除.DS_Store</h1><h2 id="DS-Store是什么"><a href="#DS-Store是什么" class="headerlink" title=".DS_Store是什么"></a>.DS_Store是什么</h2><a id="more"></a>
+	  <p><img src="/2018/11/18/git日记/logo.png" alt="git"><br>官网文档链接<br><a href="https://git-scm.com/docs" target="_blank" rel="noopener">https://git-scm.com/docs</a><br>在官网可以找到一个非常生动有趣的的git教程，简直不要太容易理解哦😌<a href="http://ndpsoftware.com/git-cheatsheet.html" target="_blank" rel="noopener">http://ndpsoftware.com/git-cheatsheet.html</a></p>
+<h1 id="1-在Mac-OS上使用git删除-DS-Store"><a href="#1-在Mac-OS上使用git删除-DS-Store" class="headerlink" title="1. 在Mac OS上使用git删除.DS_Store"></a>1. 在Mac OS上使用git删除.DS_Store</h1><h2 id="DS-Store是什么"><a href="#DS-Store是什么" class="headerlink" title=".DS_Store是什么"></a>.DS_Store是什么</h2><a id="more"></a>
 <p>使用 Mac 的用户可能会注意到，系统经常会自动在每个目录生成一个隐藏的 .DS_Store 文件。.DS_Store (英文全称 Desktop Services Store)是一种由苹果公司的Mac OS X操作系统所创造的隐藏文件，目的在于存贮目录的自定义属性，例如文件们的图标位置或者是背景色的选择。相当于 Windows 下的 desktop.ini</p>
 <h2 id="删除-DS-Store"><a href="#删除-DS-Store" class="headerlink" title="删除.DS_Store"></a>删除.DS_Store</h2><ol>
 <li>如果你的项目中.DS_Store 文件仍然是未跟踪文件，那么直接将 .DS_Store 加入到 .gitignore 文件即可。</li>
@@ -160,6 +160,33 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaults delete com.apple.desktopservices DSDontWriteNetworkStores</span><br></pre></td></tr></table></figure>
 <p>参考链接：<br><a href="https://github.com/nodejh/nodejh.github.io/issues/18" target="_blank" rel="noopener">https://github.com/nodejh/nodejh.github.io/issues/18</a></p>
 <p><a href="https://git-scm.com/docs/gitignore" target="_blank" rel="noopener">https://git-scm.com/docs/gitignore</a></p>
+<h1 id="2-git-fetch-vs-git-pull"><a href="#2-git-fetch-vs-git-pull" class="headerlink" title="2. git fetch vs git pull"></a>2. git fetch vs git pull</h1><p>Git 有两个命令把远程分支获取到本地。一个是<code>git fetch</code>,一个是<code>git pull</code>。原谅我之前没怎么用过<code>git fetch</code> :(</p>
+<h2 id="2-1-git-fetch"><a href="#2-1-git-fetch" class="headerlink" title="2.1 git fetch"></a>2.1 git fetch</h2><p><code>git fetch</code>是从远程获取最新版本到本地，但它不会自动merge。如果想要比较远程最新仓库与本地的不同，就得用<code>git fetch</code>了。我们可以这么用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master	<span class="comment"># 获取远程分支</span></span><br><span class="line">git <span class="built_in">log</span> -p master..origin/master <span class="comment"># 比较差异</span></span><br><span class="line">git merge origin/master <span class="comment"># 合并</span></span><br><span class="line"><span class="comment">##不想合并怎么办？？##</span></span><br></pre></td></tr></table></figure>
+<p>也可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin dev:branch1</span><br><span class="line">git diff branch1 </span><br><span class="line">git merge branch1</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-git-pull"><a href="#2-2-git-pull" class="headerlink" title="2.2 git pull"></a>2.2 git pull</h2><p>而<code>git pull</code>就相当于<code>git fetch</code>+<code>git merge</code>,建议食用<code>git fetch</code>。</p>
+<h1 id="3-upstream和downstream概述"><a href="#3-upstream和downstream概述" class="headerlink" title="3. upstream和downstream概述"></a>3. upstream和downstream概述</h1><p><a href="https://blog.csdn.net/taiyangdao/article/details/52766483" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="3-1-概念"><a href="#3-1-概念" class="headerlink" title="3.1 概念"></a>3.1 概念</h2><p>一个分支的upstream，其实就是本地分支与远程分支做关联，告诉git，默认此分支为推送及拉取的远程分支的信息。如果A库中的分支x被push到B库中的分支y，则y就是x的upstream，而x就是y的downstream。</p>
+<ol>
+<li><p>对于从远程库中clone或fetch得到的本地分支，都在远程库中有一个upstream分支。</p>
+</li>
+<li><p>对于在本地新建的本地分支，如果执行git push origin my_remote_branch_name是不会将my_remote_branch_name设置为新建的本地分支在远程库origin中的upstream分支的，此时，可以执行如下操作，为本地当前分支设置upstream：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --<span class="built_in">set</span>-upstream origin my_remote_branch_name</span><br></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin my_remote_branch_name</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>此外，还可以执行如下操作，直接为新建的本地分支设置在远程库中的upstream分支：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --<span class="built_in">set</span>-upstream my_local_branch_name origin/my_remote_branch_name</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-fork-pr模式团队开发实战"><a href="#3-2-fork-pr模式团队开发实战" class="headerlink" title="3.2 fork+pr模式团队开发实战"></a>3.2 fork+pr模式团队开发实战</h2><p>比如你使用git团队协作开发，使用clone+pr模式。步骤如下图：</p>
+<h3 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h3><p> user1在github上创建了名为’repo’的仓库，代码库链接为’<a href="https://github.com/user1/repo&#39;" target="_blank" rel="noopener">https://github.com/user1/repo&#39;</a></p>
+<h3 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h3><p> user1在把仓库克隆至本地<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/user1/repo</span><br></pre></td></tr></table></figure></p>
+<h3 id="step3"><a href="#step3" class="headerlink" title="step3"></a>step3</h3><p> user2在github上fork了user1的repo,那么他的代码仓库链接为’<a href="https://github.com/user2/repo&#39;" target="_blank" rel="noopener">https://github.com/user2/repo&#39;</a></p>
+<h3 id="step4"><a href="#step4" class="headerlink" title="step4"></a>step4</h3><p> user2把他的fork后的仓库克隆了下来。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/user2/repo</span><br></pre></td></tr></table></figure></p>
+<h3 id="step5"><a href="#step5" class="headerlink" title="step5"></a>step5</h3><p>如果user2想加一个指向user1的repo。如果user1的repo有更新，user2即可直接通过<code>git fetch+git merge</code>从user1的repo更新到自己的本地，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream https://github.com/user1/repo.git</span><br></pre></td></tr></table></figure></p>
+<h3 id="step6"><a href="#step6" class="headerlink" title="step6"></a>step6</h3><p>此时user2可以通过<code>git remote -v</code>命令查看他相关联的分支，<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">origin https://github.com/user2/repository.git (fetch) </span><br><span class="line">origin https://github.com/user2/repository.git (push)</span><br><span class="line">upstream https://github.com/user1/repository.git (fetch) </span><br><span class="line">upstream https://github.com/user1/repository.git (push)</span><br></pre></td></tr></table></figure></p>
 	  
 	</div>
 
@@ -169,13 +196,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2018/10/31/事件冒泡/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2018/10/13/django建站/" type="button" class="btn btn-default ">Next<i
+    <a href="/2018/11/17/SpringBoot初始化数据库和导入数据库/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -243,7 +269,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2018-10-26 
+	2018-11-18 
 	</div>
 	
 
@@ -267,7 +293,7 @@ var _hmt = _hmt || [];
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#在Mac-OS上使用git删除-DS-Store"><span class="toc-article-text">在Mac OS上使用git删除.DS_Store</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DS-Store是什么"><span class="toc-article-text">.DS_Store是什么</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#删除-DS-Store"><span class="toc-article-text">删除.DS_Store</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#禁用或启用自动生成-没有尝试过"><span class="toc-article-text">禁用或启用自动生成(没有尝试过)</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#1-在Mac-OS上使用git删除-DS-Store"><span class="toc-article-text">1. 在Mac OS上使用git删除.DS_Store</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#DS-Store是什么"><span class="toc-article-text">.DS_Store是什么</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#删除-DS-Store"><span class="toc-article-text">删除.DS_Store</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#禁用或启用自动生成-没有尝试过"><span class="toc-article-text">禁用或启用自动生成(没有尝试过)</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-git-fetch-vs-git-pull"><span class="toc-article-text">2. git fetch vs git pull</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-1-git-fetch"><span class="toc-article-text">2.1 git fetch</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-2-git-pull"><span class="toc-article-text">2.2 git pull</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#3-upstream和downstream概述"><span class="toc-article-text">3. upstream和downstream概述</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-1-概念"><span class="toc-article-text">3.1 概念</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-2-fork-pr模式团队开发实战"><span class="toc-article-text">3.2 fork+pr模式团队开发实战</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#step1"><span class="toc-article-text">step1</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#step2"><span class="toc-article-text">step2</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#step3"><span class="toc-article-text">step3</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#step4"><span class="toc-article-text">step4</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#step5"><span class="toc-article-text">step5</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#step6"><span class="toc-article-text">step6</span></a></li></ol></li></ol></li></ol>
 		</div>
 	
 	</div>
