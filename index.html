@@ -138,6 +138,101 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/" title="为了提高网站的api的安全性，一般都会实现认证(Autentication)和授权(Authenrization)，分别对应用户的登录、控制用户可以访问的资源。">SpringBoot整合JWT实现接口认证授权</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-12-19  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="JWT介绍"><a href="#JWT介绍" class="headerlink" title="JWT介绍"></a>JWT介绍</h1><h2 id="什么是JWT（Json-Web-Token"><a href="#什么是JWT（Json-Web-Token" class="headerlink" title="什么是JWT（Json Web Token)"></a>什么是JWT（Json Web Token)</h2><p>详情请见<a href="https://jwt.io/" target="_blank" rel="noopener">jwt官网</a>.直观来讲，它是一个格式为形如<code>aaaa.bbbb.cccc</code>的字符串token，它存放了登录用户的信息，也是用户登录网站的凭证。</p>
+<h2 id="为什么要用JWT"><a href="#为什么要用JWT" class="headerlink" title="为什么要用JWT?"></a>为什么要用JWT?</h2><p>当我们登录了一个网站，然后因为手头有急事把浏览器关闭转而做其他事，但你不用担心下次重新打开浏览器后网站已经失去了登录状态（前提是你间隔的时间没有大于jwt的过期时间），这很方便。当然你会说，Session也可以实现这个功能，But在使用Session的同时，会增加服务器的存储压力，而JWT是将存储的压力分布到各个客户端，减轻服务器的压力。</p>
+<h2 id="JWT长什么样"><a href="#JWT长什么样" class="headerlink" title="JWT长什么样"></a>JWT长什么样</h2><p>JWT由三个子字符串组成</p>
+<ul>
+<li>Header(头部)</li>
+<li>Payload(负载)</li>
+<li>Signature(签名)</li>
+</ul>
+<p>写成一行，就是这个样子：<code>Header.Payload.Signature</code></p>
+<ol>
+<li>Header</li>
+</ol>
+<p>Header是由一下这个格式的Json通过Base64编码生成的字符串(<strong>注意：Base64编码不是加密，加密一般不可破解，编码可以通过用编码反编码或得原来的Json数据，因此不安全，所以不存放敏感信息</strong>),Header中存放的内容是说明编码对象是一个JWT以及使用“SHA-256”的算法进行加密（加密用于生成Signature签名） </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">  <span class="attr">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Payload</li>
+</ol>
+<p>虽然第二部分官网上写的是Payload,但你要认识到Payload是base64编码得到的字符串，编码之前它是个Json格式的数据，我们把它称作Claim,也就是<code>Claim---Base64编码--&gt;Payload</code>.这也很好理解，那Claim里存放的是什么数据呢，它存放JWT自身的标准属性，所有的标准属性都是可选的,比如有：</p>
+<ul>
+<li>“iss”:”Issuer —— 签发人”, </li>
+<li>“sub”:”Subject —— 主题”, </li>
+<li>“aud”:”Audience —— 受众”, </li>
+<li>“exp”:”Expiration Time —— 过期时间”, </li>
+<li>“nbf”:”Not Before —— 生效时间”, </li>
+<li>“iat”:”Issued At —— 签发时间”, </li>
+<li>“jti”:”JWT ID —— 编号”</li>
+</ul>
+<p>除了以上的JWT官方标准属性，你还可以在这个部分添加自定义字段,以下的例子中<code>admin</code>即自定义字段。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"sub"</span>: <span class="string">"1234567890"</span>,</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"John Doe"</span>,</span><br><span class="line">  <span class="attr">"admin"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Signature</li>
+</ol>
+<p>Signature 是由Header和Payload组合而成，将Header和Claim这两个Json分别使用Base64方式进行编码，生成字符串Header和Payload，然后将Header和Payload以Header.Payload的格式组合在一起形成一个字符串，然后使用Header里指定的签名算法和一个密匙（这个secret存放在服务器上，用于进行验证）对这个字符串进行加密，形成一个新的字符串，公式如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(header) + <span class="string">"."</span> +</span><br><span class="line">  base64UrlEncode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
+<h1 id="SpringBoot使用JWT"><a href="#SpringBoot使用JWT" class="headerlink" title="SpringBoot使用JWT"></a>SpringBoot使用JWT</h1><p>SpringBoot整合JWT的方式有很多，也有第三方的库，比如auth0，但是我们不使用。我们最终需要实现两个功能，一个是实现用户登录(Authentication)，另一个是用户授权(Authenrization)。工程目录结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   │       └── bababadboy</span><br><span class="line">    │   │           ├── dealermng</span><br><span class="line">    │   │           │   ├── Application.java</span><br><span class="line">    │   │           │   ├── config</span><br><span class="line">    │   │           │   │   ├── SecurityConfig.java</span><br><span class="line">    │   │           │   │   └── WebMvcConfigurer.java</span><br><span class="line">    │   │           │   ├── controller</span><br><span class="line">    │   │           │   │   ├── ProductController.java</span><br><span class="line">    │   │           │   │   └── UserController.java</span><br><span class="line">    │   │           │   ├── dto</span><br><span class="line">    │   │           │   │   └── UserDataDTO.java</span><br><span class="line">    │   │           │   ├── entity</span><br><span class="line">    │   │           │   │   ├── Product.java</span><br><span class="line">    │   │           │   │   └── user</span><br><span class="line">    │   │           │   │       ├── Role.java</span><br><span class="line">    │   │           │   │       └── User.java</span><br><span class="line">    │   │           │   ├── repository</span><br><span class="line">    │   │           │   │   ├── ProductRepository.java</span><br><span class="line">    │   │           │   │   └── UserRepository.java</span><br><span class="line">    │   │           │   ├── security</span><br><span class="line">    │   │           │   │   ├── JwtCfg.java</span><br><span class="line">    │   │           │   │   ├── JwtFilter.java</span><br><span class="line">    │   │           │   │   ├── JwtTokenFilterConfigurer.java</span><br><span class="line">    │   │           │   │   ├── JwtTokenProvider.java</span><br><span class="line">    │   │           │   └── service</span><br><span class="line">    │   │           │       ├── ProductService.java</span><br><span class="line">    │   │           │       └── impl</span><br><span class="line">    │   │           │           ├── ProductServiceImpl.java</span><br><span class="line">    │   │           │           └── UserService.java</span><br><span class="line">    │   │           └── springboot1</span><br><span class="line">    │   └── resources</span><br><span class="line">	  ——...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JwtCfg类<br>这个类中声明了一个@Bean ，用于生成一个过滤器类，对/api 链接下的所有资源访问进行JWT的验证</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangxiaobin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtCfg</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;JwtFilter&gt; <span class="title">jwtFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;JwtFilter&gt; registrationBean;</span><br><span class="line">        registrationBean = <span class="keyword">new</span> FilterRegistrationBean&lt;JwtFilter&gt;();</span><br><span class="line">        registrationBean.setFilter(<span class="keyword">new</span> JwtFilter());</span><br><span class="line">        registrationBean.addUrlPatterns(<span class="string">"/api/*"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JwtFilter类<br>这个类声明了一个JWT过滤器类，从Http请求中提取JWT的信息，并使用了”secretkey”这个密匙对JWT进行验证</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从Http请求中提取JWT的信息，并使用了”secretkey”这个密匙对JWT进行验证</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangxiaobin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtFilter</span> <span class="keyword">extends</span> <span class="title">GenericFilterBean</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(<span class="keyword">final</span> ServletRequest req, <span class="keyword">final</span> ServletResponse res, <span class="keyword">final</span> FilterChain chain)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Change the req and res to HttpServletRequest and HttpServletResponse</span></span><br><span class="line">        <span class="keyword">final</span> HttpServletRequest request = (HttpServletRequest) req;</span><br><span class="line">        <span class="keyword">final</span> HttpServletResponse response = (HttpServletResponse) res;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Get authorization from Http request</span></span><br><span class="line">        <span class="keyword">final</span> String authHeader = request.getHeader(<span class="string">"authorization"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If the Http request is OPTIONS then just return the status code 200</span></span><br><span class="line">        <span class="comment">// which is HttpServletResponse.SC_OK in this code</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"OPTIONS"</span>.equals(request.getMethod())) &#123;</span><br><span class="line">            response.setStatus(HttpServletResponse.SC_OK);</span><br><span class="line"></span><br><span class="line">            chain.doFilter(req, res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Except OPTIONS, other request should be checked by JWT</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Check the authorization, check if the token is started by "Bearer "</span></span><br><span class="line">            <span class="keyword">if</span> (authHeader == <span class="keyword">null</span> || !authHeader.startsWith(<span class="string">"Bearer "</span>)) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ServletException(<span class="string">"Missing or invalid Authorization header"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Then get the JWT token from authorization</span></span><br><span class="line">            <span class="keyword">final</span> String token = authHeader.substring(<span class="number">7</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// Use JWT parser to check if the signature is valid with the Key "secretkey"</span></span><br><span class="line">                <span class="comment">// 使用了”secretkey”这个密匙对JWT进行验证</span></span><br><span class="line">                <span class="keyword">final</span> Claims claims = Jwts.parser().setSigningKey(<span class="string">"secretkey"</span>).parseClaimsJws(token).getBody();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Add the claim to request header</span></span><br><span class="line">                request.setAttribute(<span class="string">"claims"</span>, claims);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (<span class="keyword">final</span> SignatureException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ServletException(<span class="string">"Invalid token"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            chain.doFilter(req, res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserController类，用户的注册和登录。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangxiaobin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserService userService;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ModelMapper modelMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserController</span><span class="params">(UserService userService, ModelMapper modelMapper)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userService = userService;</span><br><span class="line">        <span class="keyword">this</span>.modelMapper = modelMapper;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/signup"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">signUp</span><span class="params">(@RequestBody User user)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userService.signUp(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">logIn</span><span class="params">(@RequestParam String username,@RequestParam String password)</span></span>&#123;</span><br><span class="line">        String token = userService.logIn(username,password);</span><br><span class="line">        UserDataDTO info = modelMapper.map(userService.search(username),UserDataDTO.class);</span><br><span class="line">        JSONObject result = <span class="keyword">new</span> JSONObject();</span><br><span class="line">        result.put(<span class="string">"userMsg"</span>,info);</span><br><span class="line">        result.put(<span class="string">"accessToken"</span>,token);</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSON(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>jwt工具类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangxiaobin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtTokenProvider</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a</span></span><br><span class="line"><span class="comment">     * microservices environment, this key would be kept on a config-server.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;security.jrwt.token.secret-key:secret-key&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String secretKey;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;security.jwt.token.expire-length:3600000&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> validityInMilliseconds = <span class="number">3600000</span>; <span class="comment">// 1h</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyUserDetails myUserDetails;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成jwt</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createToken</span><span class="params">(String username, List&lt;Role&gt; roles)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Claims claims = Jwts.claims().setSubject(username);</span><br><span class="line">        claims.put(<span class="string">"auth"</span>, roles.stream().map(s -&gt; <span class="keyword">new</span> SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull).collect(Collectors.toList()));</span><br><span class="line"></span><br><span class="line">        Date now = <span class="keyword">new</span> Date();</span><br><span class="line">        Date validity = <span class="keyword">new</span> Date(now.getTime() + validityInMilliseconds);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Jwts.builder()<span class="comment">//</span></span><br><span class="line">                .setClaims(claims)<span class="comment">//</span></span><br><span class="line">                .setIssuedAt(now)<span class="comment">//</span></span><br><span class="line">                .setExpiration(validity)<span class="comment">//</span></span><br><span class="line">                .signWith(SignatureAlgorithm.HS256, <span class="string">"secretkey"</span>)<span class="comment">//</span></span><br><span class="line">                .compact();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">getAuthentication</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> UsernamePasswordAuthenticationToken(userDetails, <span class="string">""</span>, userDetails.getAuthorities());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分解request，获取token</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">resolveToken</span><span class="params">(HttpServletRequest req)</span> </span>&#123;</span><br><span class="line">        String bearerToken = req.getHeader(<span class="string">"Authorization"</span>);</span><br><span class="line">        <span class="keyword">if</span> (bearerToken != <span class="keyword">null</span> &amp;&amp; bearerToken.startsWith(<span class="string">"Bearer "</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> bearerToken.substring(<span class="number">7</span>, bearerToken.length());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">validateToken</span><span class="params">(String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JwtException | IllegalArgumentException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> CustomException(<span class="string">"Expired or invalid JWT token"</span>, HttpStatus.INTERNAL_SERVER_ERROR);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ProductController类，测试JWT功能，只有当用户认证成功之后，<code>/api</code>下的资源才能被访问。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 描述:</span></span><br><span class="line"><span class="comment"> * Product控制器</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wangxiaobin</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/api"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductController</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ProductRepository productRepository;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ProductServiceImpl productService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProductController</span><span class="params">(ProductRepository productRepository, ProductServiceImpl productService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.productRepository = productRepository;</span><br><span class="line">        <span class="keyword">this</span>.productService = productService;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 产品列表分页查询</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/products"</span>,method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">retrieveAllProducts</span><span class="params">(@RequestParam(value = <span class="string">"page"</span>, defaultValue = <span class="string">"0"</span>)</span> Integer page ,</span></span><br><span class="line"><span class="function">                                             @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"size"</span>, defaultValue = <span class="string">"15"</span>)</span> Integer size)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSON(productService.findProductNoCriteria(page,size).getContent());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据产品编号"no"查询商品详情</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/products/&#123;no&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">retrieveProduct</span><span class="params">(@PathVariable(<span class="string">"no"</span>)</span> String no) </span>&#123;</span><br><span class="line">        Optional&lt;Product&gt; product = productService.retrieveProduct(no);</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSON(product);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码功能测试"><a href="#代码功能测试" class="headerlink" title="代码功能测试"></a>代码功能测试</h1><ol start="0">
+<li>首先直接访问<code>/api</code>下的product资源，毫无疑问是不能访问的。<br><img src="/2018/12/19/SpringBoot整合JWT实现用户认证授权/500.png" alt="500"></li>
+<li>然后进行一个新的测试用户的注册，可以看到注册成功的提示返回</li>
+</ol>
+<p><img src="/2018/12/19/SpringBoot整合JWT实现用户认证授权/signup.png" alt="signup"></p>
+<ol start="2">
+<li>再让该用户进行登录，可以看到登录成功之后返回的JWT字符串 </li>
+</ol>
+<p><img src="/2018/12/19/SpringBoot整合JWT实现用户认证授权/login.png" alt="login"></p>
+<ol start="3">
+<li>最后用获取到的JWT作为访问令牌，申请访问/api/products，可以访问成功。</li>
+</ol>
+<p><img src="/2018/12/19/SpringBoot整合JWT实现用户认证授权/get.png" alt="get"></p>
+<p>参考链接：<br><a href="https://jwt.io/" target="_blank" rel="noopener">https://jwt.io/</a><br><a href="http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html</a><br><a href="https://blog.csdn.net/ltl112358/article/details/79507148" target="_blank" rel="noopener">https://blog.csdn.net/ltl112358/article/details/79507148</a></p>
+
+	
+	</div>
+  <a type="button" href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/11/24/SKU和SPU/" >SKU和SPU</a>
 		</h3>
 		</div>
@@ -391,54 +486,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/10/13/django建站/" >django建站</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-10-13  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><a href="https://docs.djangoproject.com/en/2.1/intro/tutorial01/" target="_blank" rel="noopener">参考网址</a></p>
-<ol>
-<li>conda创建新虚拟环境</li>
-</ol>
-<p>source activate myDjangoApp</p>
-<ol start="2">
-<li>下载安装django<br>pip install django</li>
-<li><p>创建新工程目录 django-admin startproject mysite<br>工程目录结构：<br>mysite/<br> manage.py<br> mysite/</p>
-<pre><code>__init__.py
-settings.py
-urls.py
-wsgi.py
-</code></pre><p>【note】修改文件后得apply（应用） python manage.py migrate</p>
-</li>
-<li><p>启动工程 python manage.py runserver</p>
-</li>
-<li><p>App和Project之间的关系<br> 一个Project里头可以有多个App,一个App可以被包含在多个Projectzhong</p>
-</li>
-<li><p>•    更改模型（in models.py）。<br>•    运行以创建这些更改的迁移python manage.py makemigrations<br>•    运行以将这些更改应用于数据库。python manage.py migrate</p>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/2018/10/13/django建站/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -485,6 +532,8 @@ wsgi.py
 		<h4>Categories</h4>
 		<ul class="tag_box inline list-unstyled">
 		
+			<li><a href="/categories/SpringBoot/">SpringBoot<span>1</span></a></li>
+		
 			<li><a href="/categories/hexo/">hexo<span>1</span></a></li>
 		
 		</ul>
@@ -496,48 +545,48 @@ wsgi.py
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/SpringBoot/">SpringBoot<span>1</span></a></li>
-		
-			<li><a href="/tags/java/">java<span>3</span></a></li>
-		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
-		
-			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
-		
-			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
-		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
-		
-			<li><a href="/tags/html/">html<span>1</span></a></li>
-		
-			<li><a href="/tags/svm/">svm<span>1</span></a></li>
-		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
 			<li><a href="/tags/linux/">linux<span>7</span></a></li>
 		
-			<li><a href="/tags/shell/">shell<span>3</span></a></li>
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
 		
 			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
 		
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+		
+			<li><a href="/tags/电商/">电商<span>1</span></a></li>
+		
+			<li><a href="/tags/数据库/">数据库<span>1</span></a></li>
+		
 			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>3</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/ml/">ml<span>1</span></a></li>
+		
+			<li><a href="/tags/zsh/">zsh<span>1</span></a></li>
+		
+			<li><a href="/tags/股票/">股票<span>1</span></a></li>
+		
+			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
+		
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
 		
 			<li><a href="/tags/CMMI/">CMMI<span>1</span></a></li>
 		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
-		
-			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>56</span></a></li>
+		   <li><a href="/tags">...<span>58</span></a></li>
 		 
 		</ul>
 	</div>
@@ -548,6 +597,10 @@ wsgi.py
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/"  title="为了提高网站的api的安全性，一般都会实现认证(Autentication)和授权(Authenrization)，分别对应用户的登录、控制用户可以访问的资源。" ><i class="fa fa-file-o"></i>SpringBoot整合JWT实现接口认证授权</a>
+      </li>
     
       <li>
         <a href="/2018/11/24/SKU和SPU/" ><i class="fa fa-file-o"></i>SKU和SPU</a>
@@ -563,10 +616,6 @@ wsgi.py
     
       <li>
         <a href="/2018/11/17/SpringBoot初始化数据库和导入数据库/" ><i class="fa fa-file-o"></i>SpringBoot初始化数据库和导入数据库</a>
-      </li>
-    
-      <li>
-        <a href="/2018/11/17/zsh最强配置/"  title="利用 antigen 配置史上最强zsh:)" ><i class="fa fa-file-o"></i>zsh最强配置</a>
       </li>
     
   </ul>

@@ -138,6 +138,38 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/07/23/认识AIML/" title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。">认识AIML</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-23  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>和XML文件一样，AIML文件开始也需要定义编码方式，如下：&lt;?xml version=”1.0” encoding=”ISO-8859-1”?&gt; 常用的编码方式有：encoding=”ISO-8859-1”、encoding=”UTF-8”、encoding=”GB2312”等。</p>
+<h2 id="1-基本标签"><a href="#1-基本标签" class="headerlink" title="1. 基本标签"></a>1. 基本标签</h2><ul>
+<li>&lt;aiml&gt;:一个aiml文件的标志</li>
+<li>&lt;category>：定义unit ofknowledge中Alicebot的知识库。每个类别包含在一个句子的形式，用户输入可以是一个断言，问题和感叹号等用户的输入可以包含通配符的字符，如*和_。用       &lt;category>标签必须有&lt;pattern>和&lt;template>标记。</li>
+<li>&lt;pattern>：定义模式匹配的输入，通俗的讲就是用户输入的内容。你问它答里头的‘问’。里面的内容必须大写，可以有星号* 或下划线_，但必须空格隔开，星号表示匹配所有，任意情况；下划线的意义跟星号一样，除了不能匹配字典里面Z后面的字母。</li>
+<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li></ul>
+	
+	</div>
+  <a type="button" href="/2018/07/23/认识AIML/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/07/23/MacOS安装TensorFlow/" title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。">在macOS上安装TensorFlow</a>
 		</h3>
 		</div>
@@ -436,46 +468,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/05/ubuntu安装自定义字体/" >ubuntu安装自定义字体</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-05  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
-<li>下载好的字体–.ttf</li>
-<li>设置桌面的工具–Unity Tweak Tool<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1></li>
-</ul>
-<ol start="0">
-<li>字体文件位于/usr/share/fonts/,在这里新建文件夹并且将.ttf移入</li>
-<li>修改字体权限,确保root以外的普通用户也可以正常使用该字体</li>
-<li><p>建立字体缓存:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> mkfontscale</span><br><span class="line"><span class="variable">$sudo</span> mkfontdir</span><br><span class="line"><span class="variable">$sudo</span> fcache -fv</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用Unity Tweak Tool:预览-&gt;外观-&gt;字体,选择该字体</p>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/2017/09/05/ubuntu安装自定义字体/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -522,6 +514,8 @@ var _hmt = _hmt || [];
 		<h4>Categories</h4>
 		<ul class="tag_box inline list-unstyled">
 		
+			<li><a href="/categories/SpringBoot/">SpringBoot<span>1</span></a></li>
+		
 			<li><a href="/categories/hexo/">hexo<span>1</span></a></li>
 		
 		</ul>
@@ -533,48 +527,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/linux/">linux<span>7</span></a></li>
+			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
 		
-			<li><a href="/tags/django/">django<span>1</span></a></li>
+			<li><a href="/tags/shell/">shell<span>3</span></a></li>
 		
-			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+			<li><a href="/tags/Hibernate/">Hibernate<span>1</span></a></li>
 		
-			<li><a href="/tags/股票/">股票<span>1</span></a></li>
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
 		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+			<li><a href="/tags/svm/">svm<span>1</span></a></li>
 		
-			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
 		
-			<li><a href="/tags/VSCode/">VSCode<span>1</span></a></li>
+			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
 		
-			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
 		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
+			<li><a href="/tags/tty/">tty<span>1</span></a></li>
 		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
 		
-			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
 		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+			<li><a href="/tags/system/">system<span>3</span></a></li>
 		
 			<li><a href="/tags/数据库/">数据库<span>1</span></a></li>
 		
+			<li><a href="/tags/Mac/">Mac<span>4</span></a></li>
+		
+			<li><a href="/tags/CMMI/">CMMI<span>1</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
 			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
 		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+			<li><a href="/tags/Eclipse/">Eclipse<span>1</span></a></li>
 		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
-		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
-		
-			<li><a href="/tags/量化/">量化<span>1</span></a></li>
+			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>56</span></a></li>
+		   <li><a href="/tags">...<span>58</span></a></li>
 		 
 		</ul>
 	</div>
@@ -585,6 +579,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/"  title="为了提高网站的api的安全性，一般都会实现认证(Autentication)和授权(Authenrization)，分别对应用户的登录、控制用户可以访问的资源。" ><i class="fa fa-file-o"></i>SpringBoot整合JWT实现接口认证授权</a>
+      </li>
     
       <li>
         <a href="/2018/11/24/SKU和SPU/" ><i class="fa fa-file-o"></i>SKU和SPU</a>
@@ -600,10 +598,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/11/17/SpringBoot初始化数据库和导入数据库/" ><i class="fa fa-file-o"></i>SpringBoot初始化数据库和导入数据库</a>
-      </li>
-    
-      <li>
-        <a href="/2018/11/17/zsh最强配置/"  title="利用 antigen 配置史上最强zsh:)" ><i class="fa fa-file-o"></i>zsh最强配置</a>
       </li>
     
   </ul>
