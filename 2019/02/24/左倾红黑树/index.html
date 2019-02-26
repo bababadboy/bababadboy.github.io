@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>左倾红黑树 | Don&#39;t Be A Programmer</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="阅读完《算法》(第4版)的查找部分，初步了解了左倾红黑树的原理和部分实现,包括树的建立、删除最大节点和删除最小节点。这里默认你掌握了BST和2-3-4树的基本操作。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="左倾红黑树"/>
+  <meta property="og:site_name" content="Don&#39;t Be A Programmer"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Don&#39;t Be A Programmer</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 左倾红黑树</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> 阅读完《算法》(第4版)的查找部分，初步了解了左倾红黑树的原理和部分实现,包括树的建立、删除最大节点和删除最小节点。这里默认你掌握了BST和2-3-4树的基本操作。
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="左倾红黑树的渊源"><a href="#左倾红黑树的渊源" class="headerlink" title="左倾红黑树的渊源"></a>左倾红黑树的渊源</h1><p>  我们都知道，对于BST来说，最致命的缺点莫过于，当插入的键有序时，BST的树高是线性增长的，此时他的get(),put()操作的时间复杂度都是N，为了解决这个问题，就有了AVL（平衡二叉树，不在此篇讨论范围）的平衡操作（左旋，右旋）来保证树左右子树的平衡。那么，明明AVL看上去已经完美的结构，为什么还会冒出红黑树呢？因为，AVL也还是有缺点：插入时太多的平衡操作也会影响插入时的性能。我只是定性的提了提，定量的分析可以参考其他文献资料。而红黑树的插入操作所带来的平衡操作相对更少，从而更加高性能的插入，但是带来的负面结果便是树的高度有所增加：叶子节点到根节点的最长路径&lt;=2*叶子节点到根节点的最短路径。可以说红黑树是更加折策略中的结果。</p>
+<p>  在《算法》（第4版）中，红黑树的实现直接采用了左倾红黑树的方法，左倾红黑树可以用更少的代码量实现红黑树，我也便使用他的方法理解。</p>
+<h1 id="2-3-4树和左倾红黑树的等价转换"><a href="#2-3-4树和左倾红黑树的等价转换" class="headerlink" title="2-3-4树和左倾红黑树的等价转换"></a>2-3-4树和左倾红黑树的等价转换</h1><p>  我们把树中的链分为3种类型：</p>
+<ol>
+<li><p><em>红链接</em>连接两个2-节点构成一个3-节点</p>
+<p><img src="/2019/02/24/左倾红黑树/3node.png" alt=""></p>
+</li>
+<li><p><em>黑链接</em>则是2-3树中的普通连接。</p>
+</li>
+<li><p>第三种，类型会临时出现，稳定的2-3树不会出现，2-3-4中会出现，它是4-节点<br><img src="/2019/02/24/左倾红黑树/4node.png" alt=""></p>
+<p>这么一来，我们便可以用一棵BST来代表2-3-4树了。<br><img src="/2019/02/24/左倾红黑树/2-3-4toRB.png" alt=""><br>但是有个问题，对于三节点的表示，有两种表示方法，一种是红链左倾，另一种是红链右倾，所以要考虑很多种情况，但是我们只考虑左倾的情况，也就是对于3-节点，我们只有下图一种转换关系：<br><img src="/2019/02/24/左倾红黑树/left3node.png" alt=""><br>构成的树也称左倾红黑树（Left-Leaning Red-Black Trees）,如下图：<br><img src="/2019/02/24/左倾红黑树/left2-3-4toRB.png" alt=""></p>
+</li>
+</ol>
+<h2 id="不允许出现的情况"><a href="#不允许出现的情况" class="headerlink" title="不允许出现的情况"></a>不允许出现的情况</h2><ul>
+<li><p>右倾的3-节点<br><img src="/2019/02/24/左倾红黑树/right3node.png" alt=""></p>
+</li>
+<li><p>两个红链接首尾相连<br><img src="/2019/02/24/左倾红黑树/inarow.png" alt=""></p>
+</li>
+</ul>
+<h1 id="Java左倾红黑树的数据结构"><a href="#Java左倾红黑树的数据结构" class="headerlink" title="Java左倾红黑树的数据结构"></a>Java左倾红黑树的数据结构</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BST</span>&lt;<span class="title">Key</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">Key</span>&gt;, <span class="title">Value</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> RED   = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> BLACK = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">private</span> Node root;</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    Key key;</span><br><span class="line">    Value val;</span><br><span class="line">    Node left, right;</span><br><span class="line">    <span class="keyword">boolean</span> color;</span><br><span class="line">    Node(Key key, Value val, <span class="keyword">boolean</span> color)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.key   = key;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125; </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Value <span class="title">get</span><span class="params">(Key key)</span></span></span><br><span class="line"><span class="function">   <span class="comment">// Search method.</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Key key, Value val)</span></span></span><br><span class="line"><span class="function">   <span class="comment">// Insert method.</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delMax</span><span class="params">(Key key)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isRed</span><span class="params">(Node x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x == <span class="keyword">null</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">return</span> (x.color == RED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了红黑树的put(),delete(),delMax(),delMin()这些涉及到节点颜色的操作之外，如get(),rank<br>(),max(),min(),floor(),ceiling()都是和BST一样的，一行都不用改，原因是红黑树本质上是一棵BST，所以说红黑树的确是个伟大的发明👍。</p>
+<h1 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h1><p>红黑树的插入是一个比较复杂的操作，使用递归实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">put</span><span class="params">(Node x, Key key, Value val)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 从Node x 开始put</span></span><br><span class="line">    <span class="comment">// 如果存在key,在更新key所在节点的val</span></span><br><span class="line">    <span class="comment">// 否则新建一个叶子节点</span></span><br><span class="line">    <span class="keyword">if</span> (x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">new</span> Node(key,val,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> cmp = key.compareTo(x.key);</span><br><span class="line">    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> put(x.left,key,val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> put(x.right,key,val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        x.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 更新子树的节点个数</span></span><br><span class="line">    x.N = x.left.N + x.right.N + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="平衡红黑树操作"><a href="#平衡红黑树操作" class="headerlink" title="平衡红黑树操作"></a>平衡红黑树操作</h1><p>在红黑树中只需要维护黑链接的平衡，只需要对红色的链接进行旋转操作，这俩是基本的工具方法，很多地方都要用到，所以封装成两个私有的内部方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">rotateLeft</span><span class="params">(Node h)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 向左旋转</span></span><br><span class="line">    Node x = h.right;</span><br><span class="line">    h.right = x.left;</span><br><span class="line">    x.left = h;</span><br><span class="line">    x.color = h.color;</span><br><span class="line">    h.color = RED;</span><br><span class="line">    <span class="comment">// 更新节点计数器 todo 此处略有不熟</span></span><br><span class="line">    x.N = h.N;</span><br><span class="line">    h.N = <span class="number">1</span> + size(h.left) + size(h.right);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/02/24/左倾红黑树/lrotate.png" alt=""><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">rotateRight</span><span class="params">(Node h)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 向右旋转,与向左相反</span></span><br><span class="line">    Node x = h.left;</span><br><span class="line">    h.left = x.right;</span><br><span class="line">    x.right = h;</span><br><span class="line">    x.color = h.color;</span><br><span class="line">    h.color = RED;</span><br><span class="line">    <span class="comment">// 更新节点计数器 todo 此处略有不熟</span></span><br><span class="line">    x.N = h.N;</span><br><span class="line">    h.N = <span class="number">1</span> + size(h.left) + size(h.right);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/02/24/左倾红黑树/rrotate.png" alt=""></p>
+<h1 id="在LLRBtree底部插入一个新的节点"><a href="#在LLRBtree底部插入一个新的节点" class="headerlink" title="在LLRBtree底部插入一个新的节点"></a>在LLRBtree底部插入一个新的节点</h1><ol>
+<li>把添加的新节点的color设为红色。</li>
+<li>如果<em>有必要</em>的话，执行旋转操作。其中的<em>有必要</em>是指哪些情况呢？就是上文<code>不允许出现的情况</code>。转换关系如下图：<br><img src="/2019/02/24/左倾红黑树/transfer.png" alt=""></li>
+</ol>
+<h1 id="把4-节点分解"><a href="#把4-节点分解" class="headerlink" title="把4-节点分解"></a>把4-节点分解</h1><p>这个很好实现，把两个子节点的颜色改为黑，父节点的颜色改成红色即可。<br>  <img src="/2019/02/24/左倾红黑树/flipcolors.png" alt=""><br>书上的实现是这样的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">flipColors</span><span class="params">(Node h)</span></span>&#123;</span><br><span class="line">    h.left.color = BLACK;</span><br><span class="line">    h.right.color = BLACK;</span><br><span class="line">    h.color = RED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是论文上的实现更加统一，也避免了再添加一个逆操作函数(在删除节点操作中，子节点颜色改为红，父节点颜色改为黑),<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">colorFlip</span><span class="params">(Node h)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	x.color = !x.color;</span><br><span class="line">	x.left.color = !x.left.color;</span><br><span class="line">	x.right.color = !x.right.color;</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="在LLRB中分解4-节点"><a href="#在LLRB中分解4-节点" class="headerlink" title="在LLRB中分解4-节点"></a>在LLRB中分解4-节点</h1><ol>
+<li>分解4-节点,红链接会上升一个level</li>
+<li>如果有必要，则rotate。</li>
+</ol>
+<ul>
+<li>当父节点是2-节点时<br><img src="/2019/02/24/左倾红黑树/flip.png" alt=""></li>
+<li>当父节点是3-节点时<br><img src="/2019/02/24/左倾红黑树/father3.png" alt=""></li>
+</ul>
+<h1 id="LLRT的插入算法"><a href="#LLRT的插入算法" class="headerlink" title="LLRT的插入算法"></a>LLRT的插入算法</h1><p>  <img src="/2019/02/24/左倾红黑树/steps.png" alt=""><br>这里代码的执行顺序是很重要的。<br>比如如果我们把colorfilp移到最后，那么会出现什么情况？<br>由于每次在最后都将4-node 进行color flip了，那么自然红黑树中不存在4-node了，所以就变成了2-3树的红黑树，这也是书本上的结果。</p>
+<h1 id="LLBT节点的删除"><a href="#LLBT节点的删除" class="headerlink" title="LLBT节点的删除"></a>LLBT节点的删除</h1><h2 id="删除最大节点"><a href="#删除最大节点" class="headerlink" title="删除最大节点"></a>删除最大节点</h2><h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="https://blog.csdn.net/bytxl/article/details/40920165" target="_blank" rel="noopener">https://blog.csdn.net/bytxl/article/details/40920165</a><br><a href="http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf" target="_blank" rel="noopener">http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf</a><br><a href="https://cloud.tencent.com/developer/article/1193097" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1193097</a><br><a id="more"></a></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '73f43497bb12a025bad7',
+            clientSecret: '35e3869097d64f9d11faebb262b8766b391c377b',
+            id: window.location.pathname,
+            repo: 'comment',
+            owner: 'bababadboy',
+            admin: 'bababadboy'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+    
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2019-02-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/java/">java<span>4</span></a></li> <li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li> <li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#左倾红黑树的渊源"><span class="toc-article-text">左倾红黑树的渊源</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#2-3-4树和左倾红黑树的等价转换"><span class="toc-article-text">2-3-4树和左倾红黑树的等价转换</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#不允许出现的情况"><span class="toc-article-text">不允许出现的情况</span></a></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Java左倾红黑树的数据结构"><span class="toc-article-text">Java左倾红黑树的数据结构</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#红黑树的插入"><span class="toc-article-text">红黑树的插入</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#平衡红黑树操作"><span class="toc-article-text">平衡红黑树操作</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#在LLRBtree底部插入一个新的节点"><span class="toc-article-text">在LLRBtree底部插入一个新的节点</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#把4-节点分解"><span class="toc-article-text">把4-节点分解</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#在LLRB中分解4-节点"><span class="toc-article-text">在LLRB中分解4-节点</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#LLRT的插入算法"><span class="toc-article-text">LLRT的插入算法</span></a></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#LLBT节点的删除"><span class="toc-article-text">LLBT节点的删除</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#删除最大节点"><span class="toc-article-text">删除最大节点</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#参考链接："><span class="toc-article-text">参考链接：</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2019 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>

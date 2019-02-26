@@ -138,6 +138,57 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2017/09/07/Vim配置及使用/" title="作为一个程序员,vim不会?不存在的.">Vim配置及使用</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-07  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>vim作为轻量级的文本编辑器拥有众多特性:</p>
+<ul>
+<li>跨平台及统一环境<br>无论是在<code>windows</code>还是在*nix，vim是一个很完美的跨平台文本编辑器，甚至可以直接在服务器平台CentOS，Ubuntu等直接配置使用，配置文件大同小异，操作习惯基本相同。</li>
+<li>定制化及可扩展性<br>vim提供一个<code>.vimrc</code>的配置文件来配置vim，并且自己可以定制一些插件可实现高效编辑</li>
+<li>高效命令行<br>使用Vim,无需用到鼠标,键盘足矣<h1 id="配置-vimrc"><a href="#配置-vimrc" class="headerlink" title="配置 .vimrc"></a>配置 .vimrc</h1>配置vim,需要在home/目录下新建<code>.vimrc</code>文档,那在这里面什么呢?–外观,插件,缩进,键盘映射等;在这里,你可以先参考我的<a href="https://github.com/bababadboy/.vimrc/blob/master/.vimrc" target="_blank" rel="noopener">配置文件</a>根据注释,也能大概知道是干什么的.<h1 id="安装插件管理工具vundle-vim-bundle"><a href="#安装插件管理工具vundle-vim-bundle" class="headerlink" title="安装插件管理工具vundle [vim bundle]"></a>安装插件管理工具vundle [vim bundle]</h1></li>
+</ul>
+<ol>
+<li><p>下载vundle</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">clone</span> https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在.vimrc中添加/对vundle的支持</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">filetype</span> off</span><br><span class="line"><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/vundle/</span><br><span class="line"><span class="keyword">call</span> vundle#rc()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><h2 id="在-vimrc-中安装插件有三种方法"><a href="#在-vimrc-中安装插件有三种方法" class="headerlink" title="在.vimrc 中安装插件有三种方法:"></a>在.vimrc 中安装插件有三种方法:</h2><ul>
+<li>在Github vim-scripts 用户下的repos,只需要写出repos名称</li>
+<li>Github其他用户下的repos, 需要写出”用户名/repos名”(常用)</li>
+<li>不在Github上的插件，需要写出git全路径<h2 id="将安装的插件在-vimrc配置"><a href="#将安装的插件在-vimrc配置" class="headerlink" title="将安装的插件在~/.vimrc配置"></a>将安装的插件在~/.vimrc配置</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Define bundles via Github repos</span></span><br><span class="line">Bundle <span class="string">'christoomey/vim-run-interactive'</span></span><br><span class="line">Bundle <span class="string">'Valloric/YouCompleteMe'</span></span><br><span class="line">Bundle <span class="string">'croaky/vim-colors-github'</span></span><br><span class="line">Bundle <span class="string">'danro/rename.vim'</span></span><br><span class="line">Bundle <span class="string">'majutsushi/tagbar'</span></span><br><span class="line">Bundle <span class="string">'kchmck/vim-coffee-script'</span></span><br><span class="line">Bundle <span class="string">'kien/ctrlp.vim'</span></span><br><span class="line">Bundle <span class="string">'pbrisbin/vim-mkdir'</span></span><br><span class="line">Bundle <span class="string">'scrooloose/syntastic'</span></span><br><span class="line">Bundle <span class="string">'slim-template/vim-slim'</span></span><br><span class="line">Bundle <span class="string">'thoughtbot/vim-rspec'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-bundler'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-endwise'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-fugitive'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-rails'</span></span><br><span class="line">Bundle <span class="string">'tpope/vim-surround'</span></span><br><span class="line">Bundle <span class="string">'vim-ruby/vim-ruby'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/ctags.vim'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/matchit.zip'</span></span><br><span class="line">Bundle <span class="string">'vim-scripts/tComment'</span></span><br><span class="line">Bundle <span class="string">"mattn/emmet-vim"</span></span><br><span class="line">Bundle <span class="string">"scrooloose/nerdtree"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-powerline"</span></span><br><span class="line">Bundle <span class="string">"godlygeek/tabular"</span></span><br><span class="line">Bundle <span class="string">"msanders/snipmate.vim"</span></span><br><span class="line">Bundle <span class="string">"jelera/vim-javascript-syntax"</span></span><br><span class="line">Bundle <span class="string">"altercation/vim-colors-solarized"</span></span><br><span class="line">Bundle <span class="string">"othree/html5.vim"</span></span><br><span class="line">Bundle <span class="string">"xsbeats/vim-blade"</span></span><br><span class="line">Bundle <span class="string">"jiangmiao/auto-pairs"</span></span><br><span class="line">Bundle <span class="string">"evanmiller/nginx-vim-syntax"</span></span><br><span class="line">Bundle <span class="string">"Lokaltog/vim-easymotion"</span></span><br><span class="line">Bundle <span class="string">"tomasr/molokai"</span></span><br><span class="line">Bundle <span class="string">"klen/python-mode"</span></span><br><span class="line">Bundle <span class="string">'Raimondi/delimitMate'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>打开vim,运行<code>:BundleInstall</code>或者直接在<code>bash</code>中敲入<code>vim +BundleInstall +qall</code><br>以上是我的插件配置,若还有什么需要,也可自己添加,然后运行<code>:BundleInstall</code>即可</p>
+<h1 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h1><h2 id="Nerd-Tree"><a href="#Nerd-Tree" class="headerlink" title="Nerd Tree"></a>Nerd Tree</h2><p><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">NERD Tree</a>(是一个树形目录插件，方便浏览当前目录有哪些目录和文件。<br><img src="https://s1.ax1x.com/2017/10/28/UOi01.png" alt="UOi01.png"><br>我在~/.vimrc文件中配置NERD Tree，设置一个启用或禁用NERD Tree的键映射<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;F5&gt;</span> :NERDTreeToggle<span class="symbol">&lt;cr&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>所以你只需按F5键就能启用或禁用NERD Tree,按?可以浏览其使用方法.</p>
+<h2 id="auto-pairs"><a href="#auto-pairs" class="headerlink" title="auto-pairs"></a>auto-pairs</h2><p>安装的Raimondi/delimitMate,没有用,就转而使用<code>auto-pairs</code>了,作用:对括号之间回车，自动分为3行并调整缩进.在写函数时hin方便的.</p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/07/Vim配置及使用/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2017/09/05/ubuntu安装自定义字体/" >ubuntu安装自定义字体</a>
 		</h3>
 		</div>
@@ -432,38 +483,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/07/15/进退两难-用户权限与段错误/" title="本文是本人ubuntu配置hexo,ssh各种入坑的过程">进退两难-用户权限与段错误</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-07-15  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-           
-  	      <div class="thumbnail"><a href="/2017/07/15/进退两难-用户权限与段错误/"><img src="2017/07/15/进退两难-用户权限与段错误/http:blackshow.me/favicon.png" alt="进退两难-用户权限与段错误"  class="nofancybox"></a>
-           
-		</div>
-	
-	
-		<p>把这个静态博客发布到github上还是花了我不少时间的,[捂脸],总之,一个个问题总会不期而遇,网上教程虽然很多,但不会有一个教程会很全面的覆盖到任何你碰到的问题.就像我一样,查了一个又一个的博客,仍然一无所获…那我究竟是遇见了什么奇葩的问题呢~<br></p>
-	
-	</div>
-  <a type="button" href="/2017/07/15/进退两难-用户权限与段错误/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -523,48 +542,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+			<li><a href="/tags/VSCode/">VSCode<span>1</span></a></li>
 		
-			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+			<li><a href="/tags/Hibernate/">Hibernate<span>1</span></a></li>
+		
+			<li><a href="/tags/Mac/">Mac<span>4</span></a></li>
+		
+			<li><a href="/tags/quant/">quant<span>1</span></a></li>
+		
+			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
 		
 			<li><a href="/tags/电商/">电商<span>1</span></a></li>
 		
-			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
 		
 			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
 		
-			<li><a href="/tags/CMMI/">CMMI<span>1</span></a></li>
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
 		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
 		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
-			<li><a href="/tags/shell/">shell<span>3</span></a></li>
-		
-			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
-		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
-		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+			<li><a href="/tags/MacOS/">MacOS<span>1</span></a></li>
 		
 			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
 		
-			<li><a href="/tags/VSCode/">VSCode<span>1</span></a></li>
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+			<li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li>
 		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>7</span></a></li>
-		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>58</span></a></li>
+		   <li><a href="/tags">...<span>60</span></a></li>
 		 
 		</ul>
 	</div>
@@ -575,6 +594,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2019/02/24/左倾红黑树/"  title="阅读完《算法》(第4版)的查找部分，初步了解了左倾红黑树的原理和部分实现,包括树的建立、删除最大节点和删除最小节点。这里默认你掌握了BST和2-3-4树的基本操作。" ><i class="fa fa-file-o"></i>左倾红黑树</a>
+      </li>
     
       <li>
         <a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/"  title="为了提高网站的api的安全性，一般都会实现认证(Autentication)和授权(Authenrization)，分别对应用户的登录、控制用户可以访问的资源。" ><i class="fa fa-file-o"></i>SpringBoot整合JWT实现接口认证授权</a>
@@ -590,10 +613,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/11/18/git日记/"  title="git接触已有时日，**怎奈记性太差**(重点)，隔几日不去用它，很多命令就记不住了，况且在多人协作分支管理那块地方，还有较多的问题没搞透，索性写个git日记，记录自己的使用心得和疑惑吧。" ><i class="fa fa-file-o"></i>git日记</a>
-      </li>
-    
-      <li>
-        <a href="/2018/11/17/SpringBoot初始化数据库和导入数据库/" ><i class="fa fa-file-o"></i>SpringBoot初始化数据库和导入数据库</a>
       </li>
     
   </ul>
