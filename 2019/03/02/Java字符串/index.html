@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Java字符串 | Don&#39;t Be A Programmer</title>
+  <meta name="author" content="Richard Wx">
+  
+  <meta name="description" content="Too lazy to decribe">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Java字符串"/>
+  <meta property="og:site_name" content="Don&#39;t Be A Programmer"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Don&#39;t Be A Programmer</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Java字符串</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Java-String类"><a href="#Java-String类" class="headerlink" title="Java String类"></a>Java String类</h1><p>字符串在java编程中应用广泛，有必要深入的了解一下。</p>
+<h2 id="创建字符串"><a href="#创建字符串" class="headerlink" title="创建字符串"></a>创建字符串</h2><p>java的String对象有2种创建方式：</p>
+<ul>
+<li>字面值对象</li>
+<li>构造方法创建对象。</li>
+</ul>
+<p>第一种方式你可能没听说过，但你一定用过：<code>String s = &quot;Hello World&quot;;</code>，而用<code>构造方法</code>创建则是不太常用：<code>String s = new String(&quot;Hello World&quot;);</code></p>
+<p>这两种方式有何异同？我们有必要深究这两者之间的区别吗？两者有优劣之分吗？如果其一有绝对优势，劣势方是否有存在的必要？<br>我觉得这些问题都需要被解答。</p>
+<h3 id="对象问题"><a href="#对象问题" class="headerlink" title="对象问题"></a>对象问题</h3><p>我们先做个Demo程序比较：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s2 = <span class="string">"Hello World"</span>;</span><br><span class="line">    	  String s1 = <span class="keyword">new</span> String(<span class="string">"Hello World"</span>); <span class="comment">// idea⚠️，不常用，会有性能问题.</span></span><br><span class="line">        System.out.println(s1 == s2);       <span class="comment">// false</span></span><br><span class="line">        System.out.println(s1.equals(s2));  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为什么<code>s1==s2</code>结果是<code>false</code>,而<code>s1.equals(s2)</code>结果是<code>true</code>呢？<br>其中涉及到了jvm（java virtual machine，java虚拟机）的构造原理。。根据JVM规范，JVM内存共分为虚拟机栈、堆、方法区、程序计数器、本地方法栈5个部分，感兴趣或者想进阶的还是找本JVM的书来看看，资历有限，就不展开了，如图：<br><img src="/2019/03/02/Java字符串/jvm.png" alt=""><br>看了图应该很好理解，<code>s2</code>在常量池中开辟内存，地址为<code>0x001</code>,而<code>s1</code>在堆中开辟了新的空间<code>0x002</code>，由于发现在常量池中存在相同内容的”Hello World”，于是在其中存储了指向常量池的地址<code>0x001</code>,因为<code>==</code>符号比较的是操作数的地址，因此为<code>false</code>,而<code>equals</code>比较的是操作数的内容，因此为<code>true</code>。</p>
+<p>此时我们便可以解释另一个问题：<code>String s = &quot;Hello World&quot;</code>和<code>String s = new String(&quot;Hello World&quot;)</code>两者分别产生了几个对象？在上述代码中（注意s1和s2的顺序），<code>String s2 = &quot;Hello World&quot;;</code>产生了1个对象，<code>String s1 = new String(&quot;Hello World&quot;);</code>也产生了一个对象，而如果这两行代码位置互换，那么结果便不一样了(指的是对象个数)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(<span class="string">"Hello World"</span>);</span><br><span class="line">    	  String s2 =  <span class="string">"Hello World"</span>;<span class="comment">// idea⚠️，不常用，会有性能问题.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，<code>String s1 = new String(&quot;Hello World&quot;);</code>在”堆”中开辟了地址的同时，为了性能考虑，也会在”常量池”中开辟新地址，也就是产生了2个对象，而在运行<code>String s2 =  &quot;Hello World&quot;;</code>是，jvm扫描了常量池后发现有相同内容的常量，于是<code>s2</code>直接指向该地址，从而没有产生新对象。</p>
+<h3 id="String类不可变性质"><a href="#String类不可变性质" class="headerlink" title="String类不可变性质"></a>String类不可变性质</h3><p><strong>注意：</strong>String 类是不可改变的，所以你一旦创建了 String 对象，那它的值就无法改变了，所有的拼接，都会 产生新的对象，毫无疑问，如果需要对字符串做很多修改，性能会很成问题，那么应该选择使用 StringBuffer &amp; StringBuilder 类，如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"Google"</span>;</span><br><span class="line">System.out.println(<span class="string">"s = "</span> + s);</span><br><span class="line"></span><br><span class="line">s = <span class="string">"Runoob"</span>;</span><br><span class="line">System.out.println(<span class="string">"s = "</span> + s);</span><br></pre></td></tr></table></figure>
+<p>输出结果为<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Google</span><br><span class="line">Runoob</span><br></pre></td></tr></table></figure></p>
+<p>从结果上看是改变了，但为什么门说String对象是不可变的呢？<br>原因在于实例中的 s 只是一个 String 对象的引用，并不是对象本身，当执行 s = “Runoob”; 创建了一个新的对象 “Runoob”，而原来的 “Google” 还存在于内存中。</p>
+<p><img src="/2019/03/02/Java字符串/string-no-modify.png" alt="string-no-modify"><br>那么问题是，为什么要保证String的”不可变性“，它有什么优点？明知道开发者大量使用String的拼接会造成性能问题？查阅相关资料后，有以下三个原因:</p>
+<ol>
+<li>字符串池（String pool）的需求。之前已经说过，通过字面量发初始化一个Java字符串时，会将这个字符串保存在常量池中。如果定义了另外一个相同值的字符串变量，则直接指向之前初始化的那个对象。如果字符串是可变的，改变另一个字符串变量，就会使另一个字符串变量指向错误的值。</li>
+<li>缓存字符串hashcode码的需要。字符串的hashcode是经常被使用的，字符串的不变性确保了hashcode的值一直是一样的，在需要hashcode时，就不需要每次都计算，这样会很高效。</li>
+<li>出于安全性考虑。字符串经常作为网络连接、数据库连接等参数，不可变就可以保证连接的安全性。</li>
+</ol>
+<h2 id="字符串修改"><a href="#字符串修改" class="headerlink" title="字符串修改"></a>字符串修改</h2><p>你可以用符号”+”合并，或者String对象的<code>concat()</code>方法，但是在大量使用”+“或者<code>concat()</code>会大大增加编译的消耗，所以我们应该无脑使用StringBuilder或者StringBuffer。。。吗？</p>
+<h3 id="编译时优化"><a href="#编译时优化" class="headerlink" title="编译时优化"></a>编译时优化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 由于常量的值在编译的时候就被确定(优化)了。 </span></span><br><span class="line"><span class="comment"> * 在这里，"ab"和"cd"都是常量，因此变量str3的值在编译时就可以确定。 </span></span><br><span class="line"><span class="comment"> * 这行代码编译后的效果等同于： String str3 = "abcd"; </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">String str1 = <span class="string">"ab"</span> + <span class="string">"cd"</span>;   </span><br><span class="line">String str11 = <span class="string">"abcd"</span>;   </span><br><span class="line">System.out.println(<span class="string">"str1 = str11 : "</span>+ (str1 == str11));  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>为了提高效率和减少内存占用，Java编译器会在编译时做一些其力所能及的事情。上面的代码，从jdk1.5开始，由于在编译时即可以确定str1的值为”abcd”，所以编译时，直接将”abcd”字符串对象赋予str1，所以str1和str11引用的是常量池中的同一个对象。</p>
+<h3 id="隐式转换StringBuilder"><a href="#隐式转换StringBuilder" class="headerlink" title="隐式转换StringBuilder"></a>隐式转换StringBuilder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="string">"aaa"</span>;</span><br><span class="line">        String s2 = <span class="string">"bbb"</span>;</span><br><span class="line">        String s3 = s1 + s2;</span><br><span class="line">        String s4 = <span class="string">"aaabbb"</span>;</span><br><span class="line">        System.out.println(s3 == s4); <span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，main函数的第三行s3会隐式调用StringBuilder来进行优化，也就是等价于<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String s1 = <span class="string">"aaa"</span>;</span><br><span class="line">      String s2 = <span class="string">"bbb"</span>;</span><br><span class="line">      StringBuilder sb = <span class="keyword">new</span> StringBuilder(s1);</span><br><span class="line">      sb.append(s2);</span><br><span class="line">      String s4 = <span class="string">"aaabbb"</span>;</span><br><span class="line">      System.out.println(s3 == s4); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>好家伙，原来编译器对字符串的”+”操作有优化啊。那还折腾什么StringBuilder，直接上”+“，没毛病。。。吗？</p>
+<h3 id="循环拼接"><a href="#循环拼接" class="headerlink" title="循环拼接"></a>循环拼接</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> ss = <span class="keyword">new</span> Random().nextInt();</span><br><span class="line">            s += ss;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，循环内的拼接每次都会new一个新的S<code>tringBuilder</code>对象来隐式append(ss)，所以循环多次，每次产生一个<code>StringBuilder</code>对象也会造成性能负担，我们应当在循环外显示的申明。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StringBuilder s = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> ss = <span class="keyword">new</span> Random().nextInt();</span><br><span class="line">            s.append(ss);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(s);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="StringBuilder和StringBuffer"><a href="#StringBuilder和StringBuffer" class="headerlink" title="StringBuilder和StringBuffer"></a>StringBuilder和StringBuffer</h1><p>聊了那么多的String，也应当搞清楚了什么时候使用StringBuilder了，那么StringBuilder和StringBuffer又有什么区别呢？简单区分：</p>
+<ul>
+<li>StringBuffer 线程安全/StringBuilder 线程不安全</li>
+<li>StringBuilder 速度快</li>
+</ul>
+<h5 id="参考网址："><a href="#参考网址：" class="headerlink" title="参考网址："></a>参考网址：</h5><p><a href="https://blog.csdn.net/xialei199023/article/details/63251366#commentBox" target="_blank" rel="noopener">https://blog.csdn.net/xialei199023/article/details/63251366#commentBox</a><br><a href="http://www.runoob.com/java/java-string.html" target="_blank" rel="noopener">http://www.runoob.com/java/java-string.html</a><br><a href="https://segmentfault.com/a/1190000009888357" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009888357</a><br><a href="https://blog.csdn.net/u012110719/article/details/45671557" target="_blank" rel="noopener">https://blog.csdn.net/u012110719/article/details/45671557</a></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2019/02/24/左倾红黑树/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <div id="gitalk-container"></div>
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '73f43497bb12a025bad7',
+            clientSecret: '35e3869097d64f9d11faebb262b8766b391c377b',
+            id: window.location.pathname,
+            repo: 'comment',
+            owner: 'bababadboy',
+            admin: 'bababadboy'
+        })
+        gitalk.render('gitalk-container')
+    </script>
+    
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2019-03-02 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/java/">java<span>4</span></a></li> <li><a href="/tags/String/">String<span>1</span></a></li> <li><a href="/tags/StringBuffer/">StringBuffer<span>1</span></a></li> <li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Java-String类"><span class="toc-article-text">Java String类</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#创建字符串"><span class="toc-article-text">创建字符串</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#对象问题"><span class="toc-article-text">对象问题</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#String类不可变性质"><span class="toc-article-text">String类不可变性质</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#字符串修改"><span class="toc-article-text">字符串修改</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#编译时优化"><span class="toc-article-text">编译时优化</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#隐式转换StringBuilder"><span class="toc-article-text">隐式转换StringBuilder</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#循环拼接"><span class="toc-article-text">循环拼接</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#StringBuilder和StringBuffer"><span class="toc-article-text">StringBuilder和StringBuffer</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#参考网址："><span class="toc-article-text">参考网址：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2019 Richard Wx
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZP2ZSuHgipSZfRyU8uTR','2.0.0');
+  </script>
+
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+</body>
+   </html>
