@@ -6,15 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Mac升级vim8.x | Don&#39;t Be A Programmer</title>
+  <title>Java反射机制 | Don&#39;t Be A Programmer</title>
   <meta name="author" content="Richard Wx">
   
-  <meta name="description" content="mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x">
+  <meta name="description" content="Too lazy to decribe">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Mac升级vim8.x"/>
+  <meta property="og:title" content="Java反射机制"/>
   <meta property="og:site_name" content="Don&#39;t Be A Programmer"/>
 
   
@@ -118,7 +118,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> Mac升级vim8.x</h1>
+			<h1> Java反射机制</h1>
 		</div>
 	
 
@@ -133,30 +133,24 @@ var _hmt = _hmt || [];
 
 	<!-- content -->
 	<div class="mypage">		
-	  
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> mac中，vim默认版本号是7.x，hin多插件老版本无法使用，所以很有必要升级到vim8.x
-		 </div> <!-- alert -->
 	  		
 
-	  <ol>
-<li>先去<a href="https://github.com/vim/vim/releases" target="_blank" rel="noopener">GitHub</a>下载源码.</li>
-</ol>
-<p><img src="https://s1.ax1x.com/2017/10/28/UOFTx.png" alt="UOFTx.png"></p>
-<ol start="2">
-<li>将下载好的压缩包解压</li>
-<li><p>进行环境的检测和安装路径的设置（在解压后的文件内使用终端）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$./configure --prefix=/opt/<span class="built_in">local</span> --with-features=huge --<span class="built_in">enable</span>-pythoninterp=yes --<span class="built_in">enable</span>-multibyte --with-vim-name=vim --with-python-config-dir=/usr/lib/python2.7/config</span><br></pre></td></tr></table></figure>
-<a id="more"></a></li>
-<li>检测是否有出现异常的情况<code>echo $?</code>如果是0表示上一条没有问题，如果其他数字就可能有问题<br><img src="https://s1.ax1x.com/2017/10/28/UOAk6.png" alt="UOAk6.png"></li>
-<li>输入<code>make</code> 编译</li>
-<li><p>安装编译软件，使用命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> make install</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最后进行用命令进行链接</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> ln -s /opt/<span class="built_in">local</span>/bin/vim /usr/bin/vim</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+	  <p><img src="/2019/03/11/Java反射机制/JavaReflect.png" alt="mind"><br><a id="more"></a></p>
+<h1 id="Java-反射的应用"><a href="#Java-反射的应用" class="headerlink" title="Java 反射的应用"></a>Java 反射的应用</h1><ul>
+<li>可以通过配置文件来动态配置和加载类。比如说spring框架。</li>
+<li>当我们在使用 IDE(如 Eclipse，IDEA)时，当我们输入一个对象或类并想调用它的属性或方法时，一按点号，编译器就会自动列出它的属性或方法，这里就会用到反射。</li>
+</ul>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>反射简单来说，就是动态加载对象，并对对象进行剖析。在Java中的反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法;</p>
+<h1 id="为什么要用反射"><a href="#为什么要用反射" class="headerlink" title="为什么要用反射"></a>为什么要用反射</h1><p>对一个初学者，你问他怎么产生一个对象，他会毫不犹豫的回答：<code>new</code>一个对象！没错，但是Java产生对象的方式可不止<code>new</code>一种，另外还有一种就是’反射机制’。你考虑一下入下场景，用<code>new</code>肯定不合适：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>一个服务器上突然遇到某个请求哦要用到某个类，但没加载进jvm，是不是要停下来自己写段代码，new一下，然后再启动一下服务器呢？实际情况当然不是，也不合理。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>而这恰恰是反射存在的理由。我们的程序在运行时，需要动态的加载一些类这些类可能之前用不到所以不用加载到jvm，而是在运行时根据需要才加载，这样的好处对于服务器来说不言而喻，举个例子我们的项目底层有时是用mysql，有时用oracle，需要动态地根据实际情况加载驱动类，这个时候反射就有用了，假设 <code>com.java.dbtest.myqlConnection</code>，<code>com.java.dbtest.oracleConnection</code>这两个类我们要用，这时候我们的程序就写得比较动态化，通过Class tc = Class.forName(“com.java.dbtest.TestConnection”);通过类的全类名让jvm在服务器中找到并加载这个类，而如果是oracle则传入的参数就变成另一个了。</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://www.zhihu.com/question/24304289/answer/147529485" target="_blank" rel="noopener">https://www.zhihu.com/question/24304289/answer/147529485</a><br><a href="https://www.sczyh30.com/posts/Java/java-reflection-1/#comments" target="_blank" rel="noopener">https://www.sczyh30.com/posts/Java/java-reflection-1/#comments</a><br><a href="http://www.voidcn.com/article/p-gzwqvfth-w.html" target="_blank" rel="noopener">http://www.voidcn.com/article/p-gzwqvfth-w.html</a><br><a href="https://blog.csdn.net/liujiahan629629/article/details/18013523" target="_blank" rel="noopener">https://blog.csdn.net/liujiahan629629/article/details/18013523</a></p>
 	  
 	</div>
 
@@ -166,13 +160,12 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2017/10/12/kali-grub修复/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2017/09/15/hexo迁移/" type="button" class="btn btn-default ">Next<i
+    <a href="/2019/03/02/Java字符串/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -240,7 +233,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2017-09-16 
+	2019-03-11 
 	</div>
 	
 
@@ -253,19 +246,13 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li> <li><a href="/tags/Mac/">Mac<span>4</span></a></li>
+  <li><a href="/tags/Java/">Java<span>2</span></a></li> <li><a href="/tags/Java反射/">Java反射<span>1</span></a></li>
     </ul>
 	</div>
 		
 
 	<!-- toc -->
 	<div class="meta-widget">
-	
-	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
-	   <div id="toc" class="toc collapse in">
-		   <span class="toc-title">Contents</span>
-			
-		</div>
 	
 	</div>
 	

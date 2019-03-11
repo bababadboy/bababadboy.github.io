@@ -138,6 +138,43 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2017/09/15/hexo迁移/" title="把原先在linux上的部分hexo文件到了我的hackintosh上，这篇文章的目的：如果下次自己还要换系统，换电脑，自己只要看自己这篇博客就够了= =">hexo迁移</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-15  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>参考了知乎的文章<a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">使用hexo,换了电脑怎么怎么更新博客</a>，    </p>
+<h2 id="装nodejs-npm-hexo-unix自带git"><a href="#装nodejs-npm-hexo-unix自带git" class="headerlink" title="装nodejs,npm,hexo(unix自带git)"></a>装nodejs,npm,hexo(unix自带git)</h2><ul>
+<li><p>下载安装<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a></p>
+</li>
+<li><p>安装hexo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$npm</span> i -g hexo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在适当文件夹，初始化hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$hexo</span> init</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+	
+	</div>
+  <a type="button" href="/2017/09/15/hexo迁移/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2017/09/07/Vim配置及使用/" title="作为一个程序员,vim不会?不存在的.">Vim配置及使用</a>
 		</h3>
 		</div>
@@ -456,33 +493,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/08/01/php名称解析规则/" >php名称解析规则</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-08-01  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="php名称规则解析遵循如下规则"><a href="#php名称规则解析遵循如下规则" class="headerlink" title="php名称规则解析遵循如下规则"></a>php名称规则解析遵循如下规则</h1><p>1.对完全限定名称的函数，类和常量的调用在编译时解析。例如 new \A\B 解析为类 A\B。<br>2.所有的非限定名称和限定名称（非完全限定名称）根据当前的导入规则在编译时进行转换。例如，如果命名空间 A\B\C 被导入为 C，那么对 C\D\e() 的调用就会被转换为 A\B\C\D\e()。<br>3.在命名空间内部，所有的没有根据导入规则转换的限定名称均会在其前面加上当前的命名空间名称。例如，在命名空间 A\B 内部调用 C\D\e()，则 C\D\e() 会被转换为 A\B\C\D\e() 。<br>4.非限定类名根据当前的导入规则在编译时转换（用全名代替短的导入名称）。例如，如果命名空间 A\B\C 导入为C，则 new C() 被转换为 new A\B\C() 。<br></p>
-	
-	</div>
-  <a type="button" href="/2017/08/01/php名称解析规则/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -542,48 +552,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
+			<li><a href="/tags/svm/">svm<span>1</span></a></li>
 		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+			<li><a href="/tags/php/">php<span>1</span></a></li>
 		
-			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
 		
 			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
 		
-			<li><a href="/tags/zsh/">zsh<span>1</span></a></li>
-		
-			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
-		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/MacOS/">MacOS<span>1</span></a></li>
-		
 			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
 		
-			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
+			<li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
 		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
+			<li><a href="/tags/ml/">ml<span>1</span></a></li>
 		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/Hibernate/">Hibernate<span>1</span></a></li>
+			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
 		
 			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
 		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/java/">java<span>4</span></a></li>
+		
+			<li><a href="/tags/CMMI/">CMMI<span>1</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+		
+			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+		
+			<li><a href="/tags/String/">String<span>1</span></a></li>
+		
+			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
+		
+			<li><a href="/tags/VSCode/">VSCode<span>1</span></a></li>
 		
 			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
 		
-			<li><a href="/tags/R/">R<span>1</span></a></li>
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>63</span></a></li>
+		   <li><a href="/tags">...<span>64</span></a></li>
 		 
 		</ul>
 	</div>
@@ -594,6 +604,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2019/03/11/Java反射机制/" ><i class="fa fa-file-o"></i>Java反射机制</a>
+      </li>
     
       <li>
         <a href="/2019/03/02/Java字符串/" ><i class="fa fa-file-o"></i>Java字符串</a>
@@ -609,10 +623,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2018/11/24/SKU和SPU/" ><i class="fa fa-file-o"></i>SKU和SPU</a>
-      </li>
-    
-      <li>
-        <a href="/2018/11/24/CMMI/"  title="捋一捋CMMI，但求不挂科罢。" ><i class="fa fa-file-o"></i>CMMI</a>
       </li>
     
   </ul>
