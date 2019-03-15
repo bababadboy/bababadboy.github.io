@@ -169,8 +169,9 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Set&lt;String&gt; stringSet = <span class="keyword">new</span> HashSet&lt;&gt;()&#123;&#123;</span><br><span class="line">       add(<span class="string">"I"</span>);</span><br><span class="line">       add(<span class="string">"am"</span>);</span><br><span class="line">       add(<span class="string">"stringSet"</span>);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">    <span class="comment">// ...others</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是比较特殊的用法。一般在做题的时候会遇到，考你的知识点，笔试时见到了不会自闭就够了。但是不建议使用，它可能会出现“内存溢出”的bug。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Map source = <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">    put(<span class="string">"firstName"</span>, <span class="string">"John"</span>);</span><br><span class="line">    put(<span class="string">"lastName"</span>, <span class="string">"Smith"</span>);</span><br><span class="line">    put(<span class="string">"organizations"</span>, <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">        put(<span class="string">"0"</span>, <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">            put(<span class="string">"id"</span>, <span class="string">"1234"</span>);</span><br><span class="line">        &#125;&#125;);</span><br><span class="line">        put(<span class="string">"abc"</span>, <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">            put(<span class="string">"id"</span>, <span class="string">"5678"</span>);</span><br><span class="line">        &#125;&#125;);</span><br><span class="line">    &#125;&#125;);</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
-<p>你可以试一试运行上述代码，表面上简洁的初始化代码，但是，编译器在为每个”双括号“实例化类型都创建了一个类：<br><img src="/2019/03/15/Java花括号/TwoBraces.png" alt="TwoBraces.png"></p>
-<p>如此的话，你运行一次没毛病，但是但是如果类似这样的代码存在于一个大型的应用中，这将增加 ClassLoader 一些不必要的负担。</p>
+<p>你可以试一试运行上述代码，表面上简洁的初始化代码，但是，编译器在为每个”双括号“实例化类型都创建了一个类，我们可以查看目录下的<code>.class</code>文件：<br><img src="/2019/03/15/Java花括号/TwoBraces.png" alt="TwoBraces.png"></p>
+<p>其中带有<code>$</code>符号的文件,如<code>Main$2$1.class</code>是什么意思呢？ 是<code>Main</code>下有个匿名类，它管这个匿名类叫”2“，而”2“的下面还有一个匿名类，它管这个匿名类叫”1“。</p>
+<p>如此的话，你运行一次没毛病，但是但是如果类似这样的代码存在于一个大型的应用中，这将增加 ClassLoader 一些不必要的负担。所以我们尽量不要为了省事儿，去写双括号的形式。</p>
 <h5 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h5><p><a href="http://www.importnew.com/15087.html" target="_blank" rel="noopener">http://www.importnew.com/15087.html</a></p>
 
 	
@@ -635,45 +636,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/String/">String<span>1</span></a></li>
-		
-			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
-		
-			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
 			<li><a href="/tags/system/">system<span>3</span></a></li>
 		
-			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
 		
-			<li><a href="/tags/量化/">量化<span>1</span></a></li>
+			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
 		
-			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+			<li><a href="/tags/ml/">ml<span>1</span></a></li>
 		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+			<li><a href="/tags/MacOS/">MacOS<span>1</span></a></li>
 		
-			<li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li>
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
 		
-			<li><a href="/tags/linux/">linux<span>7</span></a></li>
+			<li><a href="/tags/svm/">svm<span>1</span></a></li>
 		
-			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
+			<li><a href="/tags/StringBuffer/">StringBuffer<span>1</span></a></li>
 		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
+			<li><a href="/tags/Java/">Java<span>8</span></a></li>
 		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
 		
-			<li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/R/">R<span>1</span></a></li>
+			<li><a href="/tags/log/">log<span>1</span></a></li>
 		
 			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
 		
-			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
 		
-			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+			<li><a href="/tags/电商/">电商<span>1</span></a></li>
+		
+			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
+		
+			<li><a href="/tags/统计/">统计<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>66</span></a></li>
