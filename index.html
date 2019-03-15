@@ -138,6 +138,53 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2019/03/15/Java花括号/" title="在Java后端笔试中发现了从来没有遇到过的双括号语法，由此引发了对&#34;{}&#34;的归纳。">Java花括号</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2019-03-15  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="1-作用域"><a href="#1-作用域" class="headerlink" title="1. 作用域"></a>1. 作用域</h1><p>“作用域”很常用，所以不用再讲了。。。吗？<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">extends</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    &#123;	<span class="comment">// 局部作用域</span></span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">233</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"The initial value of a is "</span> + a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span>&#123;</span><br><span class="line">    	  System.out.println(<span class="string">"The is a function from A."</span>);</span><br><span class="line">	 &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">A</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"This is A, over."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a1 = <span class="keyword">new</span> A();</span><br><span class="line">        B b1 = <span class="keyword">new</span> A();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, I am B"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">    B() &#123;</span><br><span class="line">        System.out.println(<span class="string">"This is B, over."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你能正确写出上述代码执行后的结果，那么确实不用看了。反之，你没有掌握。至于结果是什么，自己跑一跑便知。在这串代码中，在A类中有个局部作用域，在A，B中各自含有一个<code>static</code>静态区域。</p>
+<p>其中，局部作用域中的代码是不会影响局部作用域外的<code>private static int a</code>的，而在类加载后，会将<code>a</code>初始化成0。</p>
+<p><code>static</code>静态区，类会在加载时编译，因此在实例化之前，就会输出。</p>
+<h1 id="2-初始化数组"><a href="#2-初始化数组" class="headerlink" title="2. 初始化数组"></a>2. 初始化数组</h1><p>没什么的好讲的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[]   s = &#123;<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>&#125;;</span><br><span class="line">String[][] s = &#123;&#123;<span class="string">"1"</span>,<span class="string">"2"</span>&#125;,&#123;<span class="string">"3"</span>,<span class="string">"4"</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="3-匿名类"><a href="#3-匿名类" class="headerlink" title="3. 匿名类"></a>3. 匿名类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;.start();</span><br></pre></td></tr></table></figure>
+<h1 id="4-双括号"><a href="#4-双括号" class="headerlink" title="4. 双括号"></a>4. 双括号</h1><p>通常情况下，初始化Java集合并向其中添加几个元素的步骤如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">set.add(<span class="number">1</span>);</span><br><span class="line">set.add(<span class="number">2</span>);</span><br><span class="line">set.add(<span class="number">3</span>);</span><br></pre></td></tr></table></figure></p>
+<p>我们也可以在静态区域中向作为静态变量的集合中添加元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    set.add(<span class="number">1</span>);</span><br><span class="line">    set.add(<span class="number">2</span>);</span><br><span class="line">    set.add(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此方法从语法上来看，这样的初始化方法虽然格式清晰明了，但语法上略显冗余。况且只能向“静态变量集合”中添加的约束，而“静态变量集合”只能作为一个类的内部私有属性，如果在”main”方法中便不能用了。</p>
+<p>那么，双括号就出现了，也叫<code>反模式</code>。你可以在”main”中使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;Integer&gt;() &#123;&#123;</span><br><span class="line">    add(<span class="number">1</span>);</span><br><span class="line">    add(<span class="number">2</span>);</span><br><span class="line">    add(<span class="number">3</span>);</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p>也可以在类中，给类集合属性初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Set&lt;String&gt; stringSet = <span class="keyword">new</span> HashSet&lt;&gt;()&#123;&#123;</span><br><span class="line">       add(<span class="string">"I"</span>);</span><br><span class="line">       add(<span class="string">"am"</span>);</span><br><span class="line">       add(<span class="string">"stringSet"</span>);</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">    <span class="comment">// ...others</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是比较特殊的用法。一般在做题的时候会遇到，考你的知识点，笔试时见到了不会自闭就够了。但是不建议使用，它可能会出现“内存溢出”的bug。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Map source = <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">    put(<span class="string">"firstName"</span>, <span class="string">"John"</span>);</span><br><span class="line">    put(<span class="string">"lastName"</span>, <span class="string">"Smith"</span>);</span><br><span class="line">    put(<span class="string">"organizations"</span>, <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">        put(<span class="string">"0"</span>, <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">            put(<span class="string">"id"</span>, <span class="string">"1234"</span>);</span><br><span class="line">        &#125;&#125;);</span><br><span class="line">        put(<span class="string">"abc"</span>, <span class="keyword">new</span> HashMap()&#123;&#123;</span><br><span class="line">            put(<span class="string">"id"</span>, <span class="string">"5678"</span>);</span><br><span class="line">        &#125;&#125;);</span><br><span class="line">    &#125;&#125;);</span><br><span class="line">&#125;&#125;;</span><br></pre></td></tr></table></figure>
+<p>你可以试一试运行上述代码，表面上简洁的初始化代码，但是，编译器在为每个”双括号“实例化类型都创建了一个类：<br><img src="/2019/03/15/Java花括号/TwoBraces.png" alt="TwoBraces.png"></p>
+<p>如此的话，你运行一次没毛病，但是但是如果类似这样的代码存在于一个大型的应用中，这将增加 ClassLoader 一些不必要的负担。</p>
+<h5 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h5><p><a href="http://www.importnew.com/15087.html" target="_blank" rel="noopener">http://www.importnew.com/15087.html</a></p>
+
+	
+	</div>
+  <a type="button" href="/2019/03/15/Java花括号/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2019/03/12/Java枚举/" title="怎么去理解枚举类，试着把它当做普通的类，不同之处在于：普通类想new几个就new几个，而枚举类是限定的，比如一个事物所处的状态，它往往是有限的。">Java枚举</a>
 		</h3>
 		</div>
@@ -217,7 +264,7 @@ var _hmt = _hmt || [];
 <h3 id="对象问题"><a href="#对象问题" class="headerlink" title="对象问题"></a>对象问题</h3><p>我们先做个Demo程序比较：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s2 = <span class="string">"Hello World"</span>;</span><br><span class="line">    	  String s1 = <span class="keyword">new</span> String(<span class="string">"Hello World"</span>); <span class="comment">// idea⚠️，不常用，会有性能问题.</span></span><br><span class="line">        System.out.println(s1 == s2);       <span class="comment">// false</span></span><br><span class="line">        System.out.println(s1.equals(s2));  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>为什么<code>s1==s2</code>结果是<code>false</code>,而<code>s1.equals(s2)</code>结果是<code>true</code>呢？<br>其中涉及到了jvm（java virtual machine，java虚拟机）的构造原理。。根据JVM规范，JVM内存共分为虚拟机栈、堆、方法区、程序计数器、本地方法栈5个部分，感兴趣或者想进阶的还是找本JVM的书来看看，资历有限，就不展开了，如图：<br><img src="/2019/03/02/Java字符串/jvm.png" alt=""><br>看了图应该很好理解，<code>s2</code>在常量池中开辟内存，地址为<code>0x001</code>,而<code>s1</code>在堆中开辟了新的空间<code>0x002</code>，由于发现在常量池中存在相同内容的”Hello World”，于是在其中存储了指向常量池的地址<code>0x001</code>,因为<code>==</code>符号比较的是操作数的地址，因此为<code>false</code>,而<code>equals</code>比较的是操作数的内容，因此为<code>true</code>。</p>
 <p>此时我们便可以解释另一个问题：<code>String s = &quot;Hello World&quot;</code>和<code>String s = new String(&quot;Hello World&quot;)</code>两者分别产生了几个对象？在上述代码中（注意s1和s2的顺序），<code>String s2 = &quot;Hello World&quot;;</code>产生了1个对象，<code>String s1 = new String(&quot;Hello World&quot;);</code>也产生了一个对象，而如果这两行代码位置互换，那么结果便不一样了(指的是对象个数)：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(<span class="string">"Hello World"</span>);</span><br><span class="line">    	  String s2 =  <span class="string">"Hello World"</span>;<span class="comment">// idea⚠️，不常用，会有性能问题.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(<span class="string">"Hello World"</span>);</span><br><span class="line">    	  String s2 =  <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>此时，<code>String s1 = new String(&quot;Hello World&quot;);</code>在”堆”中开辟了地址的同时，为了性能考虑，也会在”常量池”中开辟新地址，也就是产生了2个对象，而在运行<code>String s2 =  &quot;Hello World&quot;;</code>是，jvm扫描了常量池后发现有相同内容的常量，于是<code>s2</code>直接指向该地址，从而没有产生新对象。</p>
 <h3 id="String类不可变性质"><a href="#String类不可变性质" class="headerlink" title="String类不可变性质"></a>String类不可变性质</h3><p><strong>注意：</strong>String 类是不可改变的，所以你一旦创建了 String 对象，那它的值就无法改变了，所有的拼接，都会 产生新的对象，毫无疑问，如果需要对字符串做很多修改，性能会很成问题，那么应该选择使用 StringBuffer &amp; StringBuilder 类，如下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"Google"</span>;</span><br><span class="line">System.out.println(<span class="string">"s = "</span> + s);</span><br><span class="line"></span><br><span class="line">s = <span class="string">"Runoob"</span>;</span><br><span class="line">System.out.println(<span class="string">"s = "</span> + s);</span><br></pre></td></tr></table></figure>
@@ -529,33 +576,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/11/17/zsh最强配置/" title="利用 antigen 配置史上最强zsh:)">zsh最强配置</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-11-17  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>Antigen 是zsh插件管理工具，就和vim的插件管理工具Vundle一样，正如其<a href="https://github.com/zsh-users/antigen" target="_blank" rel="noopener">Github</a>主页上说的‘Antigen is to zsh, what Vundle is to vim.’<br></p>
-	
-	</div>
-  <a type="button" href="/2018/11/17/zsh最强配置/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -615,48 +635,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+			<li><a href="/tags/String/">String<span>1</span></a></li>
 		
-			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
+			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
 		
-			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
+			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
 			<li><a href="/tags/量化/">量化<span>1</span></a></li>
 		
-			<li><a href="/tags/MacOS/">MacOS<span>1</span></a></li>
+			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
 		
-			<li><a href="/tags/svm/">svm<span>1</span></a></li>
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
 		
-			<li><a href="/tags/Java反射/">Java反射<span>1</span></a></li>
+			<li><a href="/tags/php/">php<span>1</span></a></li>
 		
-			<li><a href="/tags/Eclipse/">Eclipse<span>1</span></a></li>
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
 		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+			<li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li>
 		
-			<li><a href="/tags/java/">java<span>4</span></a></li>
+			<li><a href="/tags/linux/">linux<span>7</span></a></li>
 		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
 		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
+			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
 		
-			<li><a href="/tags/Enum/">Enum<span>1</span></a></li>
+			<li><a href="/tags/tty/">tty<span>1</span></a></li>
 		
-			<li><a href="/tags/股票/">股票<span>1</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
-		
-			<li><a href="/tags/shell/">shell<span>3</span></a></li>
-		
-			<li><a href="/tags/电商/">电商<span>1</span></a></li>
-		
-			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
+			<li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
 		
 			<li><a href="/tags/R/">R<span>1</span></a></li>
 		
+			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
 		
-		   <li><a href="/tags">...<span>65</span></a></li>
+			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+		
+			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>66</span></a></li>
 		 
 		</ul>
 	</div>
@@ -667,6 +687,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2019/03/15/Java花括号/"  title="在Java后端笔试中发现了从来没有遇到过的双括号语法，由此引发了对&#34;{}&#34;的归纳。" ><i class="fa fa-file-o"></i>Java花括号</a>
+      </li>
     
       <li>
         <a href="/2019/03/12/Java枚举/"  title="怎么去理解枚举类，试着把它当做普通的类，不同之处在于：普通类想new几个就new几个，而枚举类是限定的，比如一个事物所处的状态，它往往是有限的。" ><i class="fa fa-file-o"></i>Java枚举</a>
@@ -682,10 +706,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2019/02/24/左倾红黑树/"  title="阅读完《算法》(第4版)的查找部分，初步了解了左倾红黑树的原理和部分实现,包括树的建立、删除最大节点和删除最小节点。这里默认你掌握了BST和2-3-4树的基本操作。" ><i class="fa fa-file-o"></i>左倾红黑树</a>
-      </li>
-    
-      <li>
-        <a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/"  title="为了提高网站的api的安全性，一般都会实现认证(Autentication)和授权(Authenrization)，分别对应用户的登录、控制用户可以访问的资源。" ><i class="fa fa-file-o"></i>SpringBoot整合JWT实现接口认证授权</a>
       </li>
     
   </ul>
