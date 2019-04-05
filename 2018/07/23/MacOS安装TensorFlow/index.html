@@ -215,7 +215,7 @@ Consider using the</code>–user<code>option or check the permissions.</code>这
         var gitalk = new Gitalk({
             clientID: '73f43497bb12a025bad7',
             clientSecret: '35e3869097d64f9d11faebb262b8766b391c377b',
-            id: window.location.pathname,
+            id: decodeURI(window.location.pathname),
             repo: 'comment',
             owner: 'bababadboy',
             admin: 'bababadboy'
