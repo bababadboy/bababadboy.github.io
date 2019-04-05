@@ -143,11 +143,7 @@ var _hmt = _hmt || [];
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>反射简单来说，就是动态加载对象，并对对象进行剖析。在Java中的反射机制是指在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法;</p>
 <h1 id="为什么要用反射"><a href="#为什么要用反射" class="headerlink" title="为什么要用反射"></a>为什么要用反射</h1><p>对一个初学者，你问他怎么产生一个对象，他会毫不犹豫的回答：<code>new</code>一个对象！没错，但是Java产生对象的方式可不止<code>new</code>一种，另外还有一种就是’反射机制’。你考虑一下入下场景，用<code>new</code>肯定不合适：</p>
 <blockquote>
-<blockquote>
-<blockquote>
 <p>一个服务器上突然遇到某个请求哦要用到某个类，但没加载进jvm，是不是要停下来自己写段代码，new一下，然后再启动一下服务器呢？实际情况当然不是，也不合理。</p>
-</blockquote>
-</blockquote>
 </blockquote>
 <p>而这恰恰是反射存在的理由。我们的程序在运行时，需要动态的加载一些类这些类可能之前用不到所以不用加载到jvm，而是在运行时根据需要才加载，这样的好处对于服务器来说不言而喻，举个例子我们的项目底层有时是用mysql，有时用oracle，需要动态地根据实际情况加载驱动类，这个时候反射就有用了，假设 <code>com.java.dbtest.myqlConnection</code>，<code>com.java.dbtest.oracleConnection</code>这两个类我们要用，这时候我们的程序就写得比较动态化，通过Class tc = Class.forName(“com.java.dbtest.TestConnection”);通过类的全类名让jvm在服务器中找到并加载这个类，而如果是oracle则传入的参数就变成另一个了。</p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://www.zhihu.com/question/24304289/answer/147529485" target="_blank" rel="noopener">https://www.zhihu.com/question/24304289/answer/147529485</a><br><a href="https://www.sczyh30.com/posts/Java/java-reflection-1/#comments" target="_blank" rel="noopener">https://www.sczyh30.com/posts/Java/java-reflection-1/#comments</a><br><a href="http://www.voidcn.com/article/p-gzwqvfth-w.html" target="_blank" rel="noopener">http://www.voidcn.com/article/p-gzwqvfth-w.html</a><br><a href="https://blog.csdn.net/liujiahan629629/article/details/18013523" target="_blank" rel="noopener">https://blog.csdn.net/liujiahan629629/article/details/18013523</a></p>
