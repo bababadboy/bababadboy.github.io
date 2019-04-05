@@ -138,6 +138,91 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2019/04/05/MySQL事务隔离级别/" title="一直没有搞清楚数据库事务隔离级别到底是怎么回事，看了《高性能MySQL》后还是一脸懵逼，自己动手实验后才算粗浅的解了。">MySQL事务隔离级别</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2019-04-05  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>‘事务’是具有‘原子性’操作的一组SQL语句，可以看做是一个工作单元。要么里面的SQL语句全部执行，要么里面的SQL语句全部不执行。</p>
+<p>我们举个“银行转账”的经典例子: 账户A_account转账到账户B_account 1000CNY,那么转账系统需要至少三步操作：</p>
+<ol>
+<li>检查A_account 的余额是否大于1000CNY</li>
+<li>从A_account 的账户余额中减去 1000CNY</li>
+<li>在 B_account 的账户中加上 1000CNY</li>
+</ol>
+<p>将3步打包在一个事物里面，当3步骤中的任何一步出现了错误，就应该回滚所有已完成的操作。我们可以上述3步转换成SQL语句,首先我们，用<code>start transation</code>开启一个事物:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">select</span> balance <span class="keyword">from</span> A_account <span class="keyword">where</span> customer_id = <span class="number">16058521</span>;</span><br><span class="line"><span class="keyword">update</span> A_account <span class="keyword">set</span> balance = balance - <span class="number">1000</span> <span class="keyword">where</span> customer_id = <span class="number">16058521</span>; </span><br><span class="line"><span class="keyword">update</span> B_account <span class="keyword">set</span> balance = balance + <span class="number">1000</span> <span class="keyword">where</span> customer_id = <span class="number">16058522</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="事务的ACID"><a href="#事务的ACID" class="headerlink" title="事务的ACID"></a>事务的ACID</h2><ul>
+<li>A(Atomicity)原子性</li>
+<li>C(Consistency)一致性</li>
+<li>I(Isolation)隔离性</li>
+<li>D(Durability)持久性</li>
+</ul>
+<p><strong>原子性</strong>很好理解，要么执行，要么不执行。<strong>持久性</strong>也好理解，事物一旦提交，那么数据的改变是永久的。而<strong>一致性</strong>是啥意思呢？下面这句话是原话，各位客官自己理解吧= =</p>
+<blockquote>
+<p>一种一致性状态转移到另一种一致性转态。<br><strong>隔离性</strong>也就是今天的正题了，不同的隔离级别隔离强度不同，咱们下面细讲。</p>
+</blockquote>
+<h1 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h1><p>SQL标准定义了4种隔离级别，用来限定事务内外的哪些变化是可见的，哪些是不可见的。为了下面四个隔离级别实现的正常进行，我们先来看看怎么设置这四个级别：</p>
+<ul>
+<li>查看隔离级别</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolation;	// 当前会话隔离级别</span><br><span class="line"><span class="keyword">select</span> @@global.tx_isolation;	// 全局隔离级别</span><br></pre></td></tr></table></figure>
+<p>MySQL的InnoDB引擎默认隔离级别是<strong>REPEATABLE READ</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@tx_isolation;</span><br><span class="line">+<span class="comment">-----------------+</span></span><br><span class="line">| @@tx_isolation  |</span><br><span class="line">+<span class="comment">-----------------+</span></span><br><span class="line">| REPEATABLE-READ |</span><br><span class="line">+<span class="comment">-----------------+</span></span><br><span class="line">1 row in <span class="keyword">set</span>, <span class="number">1</span> <span class="keyword">warning</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置隔离级别</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">READ</span> UNCOMMITTED;	// 设置当前会话隔离级别为 未提交读</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">READ</span> UNCOMMITTED;	// 设置全局隔离级别为 未提交读</span><br></pre></td></tr></table></figure>
+<ul>
+<li>取消自动提交事务</li>
+<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'AUTOCOMMIT'</span>;</span><br><span class="line"><span class="keyword">set</span> autocommit=<span class="number">0</span>;  // 取消自动提交事务</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建实验表<br>最后实验表结果如下所示：</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; desc customer;</span><br><span class="line">+<span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| Field | Type        | Null | Key | Default | Extra |</span><br><span class="line">+<span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">| id    | int(11)     | NO   | PRI | NULL    |       |</span><br><span class="line">| name  | varchar(20) | NO   | MUL | NULL    |       |</span><br><span class="line">+<span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line">2 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">select</span> * <span class="keyword">from</span> customer;</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| id | name        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| 15 | Dasx        |</span><br><span class="line">| 19 | GapLockTest |</span><br><span class="line">|  5 | Heikki      |</span><br><span class="line">| 20 | John        |</span><br><span class="line">| 21 | John        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<p>我们会使用两个<strong>session</strong>链接模拟两个用户多数据库操作，分别为session A 和 session B。</p>
+<h2 id="READ-UNCOMMITTED（未提交读）"><a href="#READ-UNCOMMITTED（未提交读）" class="headerlink" title="READ UNCOMMITTED（未提交读）"></a>READ UNCOMMITTED（未提交读）</h2><p>首先我们在两个会话的<strong>isolation level</strong>均设置为<strong>READ UNCOMMITTED</strong>，或者你也可以在全局设置。<br>A:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction;</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from customer;</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| id | name        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| 15 | Dasx        |</span><br><span class="line">| 19 | GapLockTest |</span><br><span class="line">|  5 | Heikki      |</span><br><span class="line">| 20 | John        |</span><br><span class="line">| 21 | John        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></p>
+<p>然后再B：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction;</span><br><span class="line"></span><br><span class="line">mysql&gt; update customer set name='Johnson' where id=21;</span><br></pre></td></tr></table></figure>
+<p>此时，B的事务尚未结束(使用commit提交事务),我们在A中再次查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from customer;</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| id | name        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| 15 | Dasx        |</span><br><span class="line">| 19 | GapLockTest |</span><br><span class="line">|  5 | Heikki      |</span><br><span class="line">| 20 | John        |</span><br><span class="line">| 21 | Johnson     |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br></pre></td></tr></table></figure>
+<p>我们发现，在A中，已经能读取在B中未提交事务的变化。它会有个问题！当B的事务rollback了（John的名字没有修改），那么A读取的数据就是<strong>脏数据</strong>，也就是出现<strong>脏读（Dirty Read）</strong></p>
+<h2 id="READ-COMMITTED（已提交读）"><a href="#READ-COMMITTED（已提交读）" class="headerlink" title="READ COMMITTED（已提交读）"></a>READ COMMITTED（已提交读）</h2><p>在此级别，上述<strong>脏读</strong>问题就没有了，因为B只能读取到A的事务提交了之后数据。但是还是有个问题= =</p>
+<p>首先我们将<strong>isolation level</strong>设置为<strong>READ COMMITTED</strong><br><code>set session transaction isolation level READ COMMITTED;</code></p>
+<p>A:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from customer;</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| id | name        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| 15 | Dasx        |</span><br><span class="line">| 19 | GapLockTest |</span><br><span class="line">|  5 | Heikki      |</span><br><span class="line">| 20 | John        |</span><br><span class="line">| 21 | Johnson     |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<p>B:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; start transaction;update customer set name='Dashi' where id=15;</span><br><span class="line"></span><br><span class="line">mysql&gt; commit;</span><br></pre></td></tr></table></figure></p>
+<p>此时B的事务已经提交，所以当A再去查询时，就会出现与第一次查询不同的结果（在我们看来感觉是合理的= =，B事务都提交之后A再查询当然会看到已经被B修改过的数据 = =），这就是<strong>不可重复读</strong><br>A:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from customer;	// Dasx变成了Dashi</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| id | name        |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br><span class="line">| 15 | Dashi       |</span><br><span class="line">| 19 | GapLockTest |</span><br><span class="line">|  5 | Heikki      |</span><br><span class="line">| 20 | John        |</span><br><span class="line">| 21 | Johnson     |</span><br><span class="line">+<span class="comment">----+-------------+</span></span><br></pre></td></tr></table></figure></p>
+<p>这貌似很合乎逻辑啊。但它也会有问题，因为在A两次查询出现的结果是不同的。</p>
+<h2 id="REPEATABLE-READ（可重复读）"><a href="#REPEATABLE-READ（可重复读）" class="headerlink" title="REPEATABLE READ（可重复读）"></a>REPEATABLE READ（可重复读）</h2><p>此级别，也是MySQL默认的事务隔离级别，上述<strong>不可重复读</strong>问题就没有了，但理论上还是会有<strong>幻读(Phantom Read)</strong>的可能性。什么是<strong>幻读(Phantom Read)</strong>，即:<br><img src="/2019/04/05/MySQL事务隔离级别/PhantomRead.png" alt="PhantomRead.png"></p>
+<p>但是innodb的RR级别，使用GAP锁是解决了幻读的问题的（这个问题超出范围，下次再解释）。</p>
+<h2 id="SERIALIZATION（可串行化）"><a href="#SERIALIZATION（可串行化）" class="headerlink" title="SERIALIZATION（可串行化）"></a>SERIALIZATION（可串行化）</h2><p><strong>SERIALIZATION</strong>是最高的隔离级别，它通过强制事务排序，解决幻读问题。它会在每个读的数据上加排斥锁，让其他事务等待，但是这样做势必对性能造成影响。</p>
+<p>同样，我们将A会话的事务隔离级别设置为serializable并开启事务。<br>A:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">serializable</span>;</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> customer;</span><br></pre></td></tr></table></figure></p>
+<p>B:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; begin;insert into customer(id,name) values(25,'Wangxb');</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">ERROR 1205 (HY000): <span class="keyword">Lock</span> <span class="keyword">wait</span> <span class="keyword">timeout</span> exceeded; try restarting transaction</span><br></pre></td></tr></table></figure>
+<p>很明显，B事务出现了超时，只有当A在timeout时间内提交事务，B才会成功。</p>
+
+	
+	</div>
+  <a type="button" href="/2019/04/05/MySQL事务隔离级别/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2019/03/15/Java花括号/" title="在Java后端笔试中发现了从来没有遇到过的双括号语法，由此引发了对&#34;{}&#34;的归纳。">Java花括号</a>
 		</h3>
 		</div>
@@ -549,34 +634,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/11/17/SpringBoot初始化数据库和导入数据库/" >SpringBoot初始化数据库和导入数据库</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-11-17  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>链接<a href="https://www.jianshu.com/p/743894b9e2fe" target="_blank" rel="noopener"></a></p>
-
-	
-	</div>
-  <a type="button" href="/2018/11/17/SpringBoot初始化数据库和导入数据库/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -636,48 +693,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
-		
-			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
-		
-			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/ml/">ml<span>1</span></a></li>
-		
 			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
-			<li><a href="/tags/MacOS/">MacOS<span>1</span></a></li>
+			<li><a href="/tags/gitalk/">gitalk<span>1</span></a></li>
 		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+			<li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
 		
-			<li><a href="/tags/svm/">svm<span>1</span></a></li>
-		
-			<li><a href="/tags/StringBuffer/">StringBuffer<span>1</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>8</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
+			<li><a href="/tags/量化/">量化<span>1</span></a></li>
 		
 			<li><a href="/tags/log/">log<span>1</span></a></li>
 		
-			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
+			<li><a href="/tags/CMMI/">CMMI<span>1</span></a></li>
 		
-			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+			<li><a href="/tags/StringBuffer/">StringBuffer<span>1</span></a></li>
 		
-			<li><a href="/tags/电商/">电商<span>1</span></a></li>
+			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
-			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
+			<li><a href="/tags/c/">c++<span>1</span></a></li>
 		
-			<li><a href="/tags/统计/">统计<span>1</span></a></li>
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+		
+			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
+		
+			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+		
+			<li><a href="/tags/Eclipse/">Eclipse<span>1</span></a></li>
+		
+			<li><a href="/tags/Hibernate/">Hibernate<span>1</span></a></li>
+		
+			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li>
+		
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/isolation-level/">isolation level<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>66</span></a></li>
+		   <li><a href="/tags">...<span>70</span></a></li>
 		 
 		</ul>
 	</div>
@@ -688,6 +745,10 @@ var _hmt = _hmt || [];
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2019/04/05/MySQL事务隔离级别/"  title="一直没有搞清楚数据库事务隔离级别到底是怎么回事，看了《高性能MySQL》后还是一脸懵逼，自己动手实验后才算粗浅的解了。" ><i class="fa fa-file-o"></i>MySQL事务隔离级别</a>
+      </li>
     
       <li>
         <a href="/2019/03/15/Java花括号/"  title="在Java后端笔试中发现了从来没有遇到过的双括号语法，由此引发了对&#34;{}&#34;的归纳。" ><i class="fa fa-file-o"></i>Java花括号</a>
@@ -703,10 +764,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2019/03/02/Java字符串/" ><i class="fa fa-file-o"></i>Java字符串</a>
-      </li>
-    
-      <li>
-        <a href="/2019/02/24/左倾红黑树/"  title="阅读完《算法》(第4版)的查找部分，初步了解了左倾红黑树的原理和部分实现,包括树的建立、删除最大节点和删除最小节点。这里默认你掌握了BST和2-3-4树的基本操作。" ><i class="fa fa-file-o"></i>左倾红黑树</a>
       </li>
     
   </ul>
