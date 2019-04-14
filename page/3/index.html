@@ -138,6 +138,97 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/10/06/Linux作业了解/" title="了解一下Linux作业相关知识。">Linux作业了解</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-10-06  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>在了解Linux作业之前我们先来了解一下一些Linux的文件描述符和标准输入输出错误。</p>
+<h2 id="1-Linux-shell标准输入、输出和错"><a href="#1-Linux-shell标准输入、输出和错" class="headerlink" title="1. Linux shell标准输入、输出和错"></a>1. Linux shell标准输入、输出和错</h2><h3 id="1-1-文件描述符"><a href="#1-1-文件描述符" class="headerlink" title="1.1 文件描述符"></a>1.1 文件描述符</h3><p>在linux shell执行命令时，每个进程都和三个打开的文件相联系，并使用文件描述符来引用这些文件。由于文件描述符不容易记忆，shell同时也给出了相应的文件名：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>文件描述符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准输入</td>
+<td>0（缺省是键盘,为0时是文件或者其他命令的输出）</td>
+</tr>
+<tr>
+<td>标准输出</td>
+<td>1（缺省是屏幕，为1时是文件）</td>
+</tr>
+<tr>
+<td>标准错误</td>
+<td>2（缺省是屏幕，为2时是文件）</td>
+</tr>
+</tbody>
+</table>
+	
+	</div>
+  <a type="button" href="/2018/10/06/Linux作业了解/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/09/27/ubuntu配置ssh/" title="服务器没有续费，却还想要拥有一个服务器的感觉，所以我就用ssh连接虚拟机，✧(≖ ◡ ≖✿)嘿嘿。">ubuntu配置ssh</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-09-27  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<ol>
+<li><p>首先在虚拟机用<code>ifconfig</code>命令查看ip地址，在主机用<code>ping</code>命令其ip地址，看看能否ping通过。</p>
+</li>
+<li><p>在虚拟机安装openssh-server，如果是服务器，它是默认安装的，不然你怎么用ssh远程连接服务器嘛。但是自己的安装的linux，默认没有安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openssh-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启ssh服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">richie@ubuntu:~$ service sshd start <span class="comment">#/restart：重启/stop：停止 /status：状态</span></span><br><span class="line">richie@ubuntu:~$ service sshd status</span><br><span class="line">● ssh.service - OpenBSD Secure Shell server</span><br><span class="line">   Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Wed 2018-09-26 08:46:31 PDT; 1min 59s ago</span><br><span class="line"> Main PID: 3121 (sshd)</span><br><span class="line">   CGroup: /system.slice/ssh.service</span><br><span class="line">           └─3121 /usr/sbin/sshd -D</span><br><span class="line"></span><br><span class="line">Sep 26 08:46:31 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...</span><br><span class="line">Sep 26 08:46:31 ubuntu sshd[3121]: Server listening on 0.0.0.0 port 22.</span><br><span class="line">Sep 26 08:46:31 ubuntu sshd[3121]: Server listening on :: port 22.</span><br><span class="line">Sep 26 08:46:31 ubuntu systemd[1]: Started OpenBSD Secure Shell server.</span><br><span class="line">Sep 26 08:48:25 ubuntu systemd[1]: Started OpenBSD Secure Shell server.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>ssh服务开启后，端口22也会默认跟着打开，我们为了确认端口22打开状态可以：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">richie@ubuntu:~$ netstat -ntpl | grep 22</span><br><span class="line">(Not all processes could be identified, non-owned process info</span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               </span><br><span class="line">tcp6       0      0 :::22                   :::*                    LISTEN      -</span><br></pre></td></tr></table></figure></p>
+<ol start="4">
+<li>恭喜你，你已经完成虚拟机的配置了！主机在终端用ssh便可连接。并欺骗自己拥有一台服务器了（狗头）</li>
+</ol>
+
+	
+	</div>
+  <a type="button" href="/2018/09/27/ubuntu配置ssh/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/09/06/可视化决策树/" title="机器学习之决策树小试牛刀。决策树是{ml}中用来分类和回归的重要方法。决策树有ID3,C45,C50,CART等不同的类型。咱们今天先不搞原理，直接上手python3实现决策树的可视化。">可视化决策树</a>
 		</h3>
 		</div>
@@ -374,70 +465,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/07/12/Linux高效开发/" title="使用Linux经常会使用到终端，一些使用终端的小技巧，可以减少浪费不必要的时间，更高效，多多使用方能得心应手。">Linux高效开发</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-07-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="1-终端快捷键节省时间"><a href="#1-终端快捷键节省时间" class="headerlink" title="1. 终端快捷键节省时间"></a>1. 终端快捷键节省时间</h1><ul>
-<li>打开终端(这个大家应该都十分熟悉了)<br><code>Ctrl + Alt + t</code></li>
-<li>对行操作(大部分人可能不晓得，也确实方便许多)<br>在终端，如果你使用 → 或 ← 是相当浪费时间的，相反，你应该：<ul>
-<li>跳过一个单词：<code>Ctrl + →</code> 或者 <code>Ctrl + ←</code></li>
-<li>直到行末：<code>Ctrl + a</code> ， 回到开头：<code>Ctrl + e</code></li>
-<li>删除整行：<code>Ctrl + u</code></li>
-<li>命令查找：通过在终端键入 <code>Ctrl + R</code> 来查找你以前输入过的命令类型。循环多次地键入这个快捷键你会找到所有你输入过的匹配的命令。</li></ul></li></ul>
-	
-	</div>
-  <a type="button" href="/2018/07/12/Linux高效开发/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/01/09/sql语言类型/" >sql语言类型</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-01-09  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>学了这么久的数据库了，连DML,DDL,DCL都搞不清楚是不是太不专业了(￣.￣)，今天，就大概的解释一下好了。</p>
-<h1 id="DML-Data-Manipulation-Language"><a href="#DML-Data-Manipulation-Language" class="headerlink" title="DML (Data Manipulation Language)"></a>DML (Data Manipulation Language)</h1><p>它包含了<code>SELECT</code>,<code>UPDATE</code>,<code>INSERT</code>,<code>DELETE</code>,这四种耳熟能详的增删改查de‘操纵数据‘的语句</p>
-<h1 id="DDL-Data-Definition-Language"><a href="#DDL-Data-Definition-Language" class="headerlink" title="DDL (Data Definition Language)"></a>DDL (Data Definition Language)</h1><p>即‘数据定义语句‘，主要有<code>CREATE</code>,<code>ALTER</code>,<code>DROP</code>等主要用于改变表（TABLE）的结构，数据类型，表之间的链接和约束等初始化工作上</p>
-<h1 id="DCL-Data-Control-Language"><a href="#DCL-Data-Control-Language" class="headerlink" title="DCL (Data Control Language)"></a>DCL (Data Control Language)</h1><p>即‘数据控制语句’。是用来设置或更改数据库用户或角色权限的语句，包括（GRANT, DENY, REVOKE等）语句。在默认状态下，只有sysadmin,dbcreator,db_owner或db_securityadmin等人员才有权力执行DCL.<br>:p<br>参考博客：<a href="http://blog.csdn.net/level_level/article/details/4248685" target="_blank" rel="noopener">http://blog.csdn.net/level_level/article/details/4248685</a></p>
-
-	
-	</div>
-  <a type="button" href="/2018/01/09/sql语言类型/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -497,48 +524,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
-			<li><a href="/tags/assert/">assert<span>1</span></a></li>
-		
-			<li><a href="/tags/Mac/">Mac<span>4</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>9</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
+			<li><a href="/tags/BFS/">BFS<span>1</span></a></li>
 		
 			<li><a href="/tags/log/">log<span>1</span></a></li>
 		
-			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
 		
-			<li><a href="/tags/freemind-386/">freemind.386<span>1</span></a></li>
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
-			<li><a href="/tags/无向图/">无向图<span>1</span></a></li>
+			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>3</span></a></li>
+		
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+		
+			<li><a href="/tags/transaction/">transaction<span>1</span></a></li>
+		
+			<li><a href="/tags/B-Tree/">B+Tree<span>1</span></a></li>
+		
+			<li><a href="/tags/kali/">kali<span>1</span></a></li>
 		
 			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
 		
-			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
+			<li><a href="/tags/股票/">股票<span>1</span></a></li>
 		
-			<li><a href="/tags/svm/">svm<span>1</span></a></li>
-		
-			<li><a href="/tags/Java反射/">Java反射<span>1</span></a></li>
-		
-			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+			<li><a href="/tags/html/">html<span>1</span></a></li>
 		
 			<li><a href="/tags/windows/">windows<span>1</span></a></li>
 		
-			<li><a href="/tags/DFS/">DFS<span>1</span></a></li>
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+		
+			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
 		
 			<li><a href="/tags/电商/">电商<span>1</span></a></li>
 		
-			<li><a href="/tags/Eclipse/">Eclipse<span>1</span></a></li>
-		
-			<li><a href="/tags/system/">system<span>3</span></a></li>
+			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>73</span></a></li>
+		   <li><a href="/tags">...<span>76</span></a></li>
 		 
 		</ul>
 	</div>
@@ -551,6 +578,14 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2019/04/14/远程连接MySQL/"  title="本地使用Navicat或者终端连接远程MySQL服务器，遇到些小坑，最终还是解决了。" ><i class="fa fa-file-o"></i>远程连接MySQL</a>
+      </li>
+    
+      <li>
+        <a href="/2019/04/14/MySQL索引/" ><i class="fa fa-file-o"></i>MySQL索引</a>
+      </li>
+    
+      <li>
         <a href="/2019/04/08/Java实现DFS和BFS/"  title="包括了无向无权图的邻接表构造，和对图的深度优先遍历以及广度优先遍历。讲真，Java是真心不方便啊，python多快鸭。" ><i class="fa fa-file-o"></i>Java实现DFS和BFS</a>
       </li>
     
@@ -560,14 +595,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2019/04/04/配置gitalk/"  title="博客评论插件有很多又很少，gitalk在目前来看是比较适合hexo主题的一款评论系统。" ><i class="fa fa-file-o"></i>配置gitalk</a>
-      </li>
-    
-      <li>
-        <a href="/2019/03/15/Java花括号/"  title="在Java后端笔试中发现了从来没有遇到过的双括号语法，由此引发了对&#34;{}&#34;的归纳。" ><i class="fa fa-file-o"></i>Java花括号</a>
-      </li>
-    
-      <li>
-        <a href="/2019/03/12/Java枚举/"  title="怎么去理解枚举类，试着把它当做普通的类，不同之处在于：普通类想new几个就new几个，而枚举类是限定的，比如一个事物所处的状态，它往往是有限的。" ><i class="fa fa-file-o"></i>Java枚举</a>
       </li>
     
   </ul>

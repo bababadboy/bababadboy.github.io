@@ -138,6 +138,74 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2017/09/01/ubuntu下sublime无法输入中文/" title="hin腻害的一个方法(摘录下来以免忘了)sublime终于能输中文了(⊙o⊙)">ubuntu下sublime无法输入中文解决方案</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-01  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>此方法不适合由<a href="https://bababadboy.github.io/2017/09/01/ubuntu16-04%E5%AE%89%E8%A3%85sublime%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">Ubuntu16.04安装sublime解决方案</a>中 #方案一# 提供的安装sublime_text_3的方法.</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="保存下述代码为sublime-imfix-c文件"><a href="#保存下述代码为sublime-imfix-c文件" class="headerlink" title="保存下述代码为sublime-imfix.c文件"></a>保存下述代码为sublime-imfix.c文件</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">sublime-imfix.c</span></span><br><span class="line"><span class="comment">Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.</span></span><br><span class="line"><span class="comment">By Cjacker Huang</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">gcc -shared -o libsublime-imfix.so sublime-imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC</span></span><br><span class="line"><span class="comment">LD_PRELOAD=./libsublime-imfix.so subl</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtk/gtk.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gdk/gdkx.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> GdkSegment GdkRegionBox;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">GdkRegion</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">long</span> size;</span><br><span class="line">  <span class="keyword">long</span> numRects;</span><br><span class="line">  GdkRegionBox *rects;</span><br><span class="line">  GdkRegionBox extents;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">GtkIMContext *local_context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">gdk_region_get_clipbox (<span class="keyword">const</span> GdkRegion *region,</span><br><span class="line">            GdkRectangle    *rectangle)</span><br><span class="line">&#123;</span><br><span class="line">  g_return_if_fail (region != <span class="literal">NULL</span>);</span><br><span class="line">  g_return_if_fail (rectangle != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">  rectangle-&gt;x = region-&gt;extents.x1;</span><br><span class="line">  rectangle-&gt;y = region-&gt;extents.y1;</span><br><span class="line">  rectangle-&gt;width = region-&gt;extents.x2 - region-&gt;extents.x1;</span><br><span class="line">  rectangle-&gt;height = region-&gt;extents.y2 - region-&gt;extents.y1;</span><br><span class="line">  GdkRectangle rect;</span><br><span class="line">  rect.x = rectangle-&gt;x;</span><br><span class="line">  rect.y = rectangle-&gt;y;</span><br><span class="line">  rect.width = <span class="number">0</span>;</span><br><span class="line">  rect.height = rectangle-&gt;height;</span><br><span class="line">  <span class="comment">//The caret width is 2;</span></span><br><span class="line">  <span class="comment">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span></span><br><span class="line">  <span class="keyword">if</span>(rectangle-&gt;width == <span class="number">2</span> &amp;&amp; GTK_IS_IM_CONTEXT(local_context)) &#123;</span><br><span class="line">        gtk_im_context_set_cursor_location(local_context, rectangle);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//this is needed, for example, if you input something in file dialog and return back the edit area</span></span><br><span class="line"><span class="comment">//context will lost, so here we set it again.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> GdkFilterReturn <span class="title">event_filter</span> <span class="params">(GdkXEvent *xevent, GdkEvent *event, gpointer im_context)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    XEvent *xev = (XEvent *)xevent;</span><br><span class="line">    <span class="keyword">if</span>(xev-&gt;type == KeyRelease &amp;&amp; GTK_IS_IM_CONTEXT(im_context)) &#123;</span><br><span class="line">       GdkWindow * win = g_object_get_data(G_OBJECT(im_context),<span class="string">"window"</span>);</span><br><span class="line">       <span class="keyword">if</span>(GDK_IS_WINDOW(win))</span><br><span class="line">         gtk_im_context_set_client_window(im_context, win);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> GDK_FILTER_CONTINUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gtk_im_context_set_client_window</span> <span class="params">(GtkIMContext *context,</span></span></span><br><span class="line"><span class="function"><span class="params">          GdkWindow    *window)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  GtkIMContextClass *klass;</span><br><span class="line">  g_return_if_fail (GTK_IS_IM_CONTEXT (context));</span><br><span class="line">  klass = GTK_IM_CONTEXT_GET_CLASS (context);</span><br><span class="line">  <span class="keyword">if</span> (klass-&gt;set_client_window)</span><br><span class="line">    klass-&gt;set_client_window (context, window);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  g_object_set_data(G_OBJECT(context),<span class="string">"window"</span>,window);</span><br><span class="line">  <span class="keyword">int</span> width = gdk_window_get_width(window);</span><br><span class="line">  <span class="keyword">int</span> height = gdk_window_get_height(window);</span><br><span class="line">  <span class="keyword">if</span>(width != <span class="number">0</span> &amp;&amp; height !=<span class="number">0</span>) &#123;</span><br><span class="line">    gtk_im_context_focus_in(context);</span><br><span class="line">    local_context = context;</span><br><span class="line">  &#125;</span><br><span class="line">  gdk_window_add_filter (window, event_filter, context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="安装C-C-的编译环境和-gtk-libgtk2-0-dev"><a href="#安装C-C-的编译环境和-gtk-libgtk2-0-dev" class="headerlink" title="安装C/C++的编译环境和 gtk libgtk2.0-dev"></a>安装C/C++的编译环境和 gtk libgtk2.0-dev</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> apt-get install build-essential</span><br><span class="line"><span class="variable">$sudo</span> apt-get install libgtk2.0-dev</span><br></pre></td></tr></table></figure>
+<h2 id="编译共享内库"><a href="#编译共享内库" class="headerlink" title="编译共享内库"></a>编译共享内库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gcc</span> -shared -o libsublime-imfix.so sublime-imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC</span><br></pre></td></tr></table></figure>
+<h2 id="将libsublime-imfix-so-拷贝到sublime-text所在文件夹"><a href="#将libsublime-imfix-so-拷贝到sublime-text所在文件夹" class="headerlink" title="将libsublime-imfix.so 拷贝到sublime_text所在文件夹"></a>将libsublime-imfix.so 拷贝到sublime_text所在文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> cp libsublime-imfix.so /opt/sublime_text/</span><br></pre></td></tr></table></figure>
+<h2 id="修改文件-usr-bin-sublime"><a href="#修改文件-usr-bin-sublime" class="headerlink" title="修改文件/usr/bin/sublime"></a>修改文件/usr/bin/sublime</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> vim /usr/bin/subl</span><br></pre></td></tr></table></figure>
+<p>将<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">exec</span> /opt/sublime_text/sublime_text <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so <span class="built_in">exec</span> /opt/sublime_text/sublime_text <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="后续问题"><a href="#后续问题" class="headerlink" title="后续问题"></a>后续问题</h1><p>你会发现通过终端打开的sublimeText3，preferences-&gt;packages browse…无法打开了…我…真是天灭Ubuntu</p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/01/ubuntu下sublime无法输入中文/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2017/09/01/ubuntu16-04安装sublime解决方案/" >ubuntu16.04安装sublime</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2017-09-01  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><a href="http://www.sublimetext.com/" target="_blank" rel="noopener">sublime</a>是一款非常流行的代码编辑器,它拥有漂亮的用户界面和强大的功能,支持迷你地图,多选择,python插件,代码高亮,收起等等.Sublime是收费软件，一个license 70美元，但是不购买license也可以用。它提供了无限期试用，并且试用版和注册版的功能相同，无任何限制，只是偶尔在保存的时候会弹出注册提示框。</p>
+<h1 id="方案一-类似于绿色软件"><a href="#方案一-类似于绿色软件" class="headerlink" title="方案一(类似于绿色软件)"></a>方案一(类似于绿色软件)</h1><p>下载tar包:<a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">https://www.sublimetext.com/3</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$wget</span> https://www.sublimetext.com/sublime_text_3_build_3114_x64.tar.bz2</span><br></pre></td></tr></table></figure></p>
+<p>解压即可用:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$tar</span> xvf sublime_text_3_build_3114_x64.tar.bz2</span><br><span class="line"><span class="variable">$cd</span> sublime_text_3/</span><br><span class="line">$./sublime_text</span><br></pre></td></tr></table></figure></p>
+<h1 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h1><p>使用第三方源安装:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> add-apt-repository ppa:webupd8team/sublime-text-3</span><br><span class="line"><span class="variable">$sudo</span> apt-get update</span><br><span class="line"><span class="variable">$sudo</span> apt-get install sublime-text-installer</span><br><span class="line"><span class="variable">$subl</span></span><br></pre></td></tr></table></figure></p>
+<p>如果你还要按照<a href="https://bababadboy.github.io/2017/09/01/ubuntu%E4%B8%8Bsublime%E6%97%A0%E6%B3%95%E8%BE%93-%E5%85%A5%E4%B8%AD%E6%96%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">这个教程</a>解决sublime-text-3中文输入问题,个人建议使用方案二</p>
+
+	
+	</div>
+  <a type="button" href="/2017/09/01/ubuntu16-04安装sublime解决方案/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2017/08/31/atom无法安装插件的解决方案/" >atom无法安装插件的解决方案</a>
 		</h3>
 		</div>
@@ -427,48 +495,48 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/量化/">量化<span>1</span></a></li>
-		
-			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
-		
-			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
-		
-			<li><a href="/tags/R/">R<span>1</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/电商/">电商<span>1</span></a></li>
-		
-			<li><a href="/tags/AIML/">AIML<span>1</span></a></li>
-		
-			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
-		
-			<li><a href="/tags/事务隔离级别/">事务隔离级别<span>1</span></a></li>
-		
-			<li><a href="/tags/transaction/">transaction<span>1</span></a></li>
-		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
-		
-			<li><a href="/tags/php/">php<span>1</span></a></li>
-		
 			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
 		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
 		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
 		
 			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+			<li><a href="/tags/CMMI/">CMMI<span>1</span></a></li>
 		
-			<li><a href="/tags/vim8-x/">vim8.x<span>1</span></a></li>
+			<li><a href="/tags/linux/">linux<span>7</span></a></li>
 		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+			<li><a href="/tags/log/">log<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
+		
+			<li><a href="/tags/MySQL/">MySQL<span>3</span></a></li>
+		
+			<li><a href="/tags/String/">String<span>1</span></a></li>
+		
+			<li><a href="/tags/tips/">tips<span>1</span></a></li>
+		
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
+		
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/tty/">tty<span>1</span></a></li>
+		
+			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
+		
+			<li><a href="/tags/php/">php<span>1</span></a></li>
+		
+			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
+		
+			<li><a href="/tags/quant/">quant<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>73</span></a></li>
+		   <li><a href="/tags">...<span>76</span></a></li>
 		 
 		</ul>
 	</div>
@@ -481,6 +549,14 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2019/04/14/远程连接MySQL/"  title="本地使用Navicat或者终端连接远程MySQL服务器，遇到些小坑，最终还是解决了。" ><i class="fa fa-file-o"></i>远程连接MySQL</a>
+      </li>
+    
+      <li>
+        <a href="/2019/04/14/MySQL索引/" ><i class="fa fa-file-o"></i>MySQL索引</a>
+      </li>
+    
+      <li>
         <a href="/2019/04/08/Java实现DFS和BFS/"  title="包括了无向无权图的邻接表构造，和对图的深度优先遍历以及广度优先遍历。讲真，Java是真心不方便啊，python多快鸭。" ><i class="fa fa-file-o"></i>Java实现DFS和BFS</a>
       </li>
     
@@ -490,14 +566,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2019/04/04/配置gitalk/"  title="博客评论插件有很多又很少，gitalk在目前来看是比较适合hexo主题的一款评论系统。" ><i class="fa fa-file-o"></i>配置gitalk</a>
-      </li>
-    
-      <li>
-        <a href="/2019/03/15/Java花括号/"  title="在Java后端笔试中发现了从来没有遇到过的双括号语法，由此引发了对&#34;{}&#34;的归纳。" ><i class="fa fa-file-o"></i>Java花括号</a>
-      </li>
-    
-      <li>
-        <a href="/2019/03/12/Java枚举/"  title="怎么去理解枚举类，试着把它当做普通的类，不同之处在于：普通类想new几个就new几个，而枚举类是限定的，比如一个事物所处的状态，它往往是有限的。" ><i class="fa fa-file-o"></i>Java枚举</a>
       </li>
     
   </ul>
