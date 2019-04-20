@@ -138,6 +138,73 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2019/02/24/左倾红黑树/" title="阅读完《算法》(第4版)的查找部分，初步了解了左倾红黑树的原理和部分实现,包括树的建立、删除最大节点和删除最小节点。这里默认你掌握了BST和2-3-4树的基本操作。">左倾红黑树</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2019-02-24  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="左倾红黑树的渊源"><a href="#左倾红黑树的渊源" class="headerlink" title="左倾红黑树的渊源"></a>左倾红黑树的渊源</h1><p>  我们都知道，对于BST来说，最致命的缺点莫过于，当插入的键有序时，BST的树高是线性增长的，此时他的get(),put()操作的时间复杂度都是N，为了解决这个问题，就有了AVL（平衡二叉树，不在此篇讨论范围）的平衡操作（左旋，右旋）来保证树左右子树的平衡。那么，明明AVL看上去已经完美的结构，为什么还会冒出红黑树呢？因为，AVL也还是有缺点：插入时太多的平衡操作也会影响插入时的性能。我只是定性的提了提，定量的分析可以参考其他文献资料。而红黑树的插入操作所带来的平衡操作相对更少，从而更加高性能的插入，但是带来的负面结果便是树的高度有所增加：叶子节点到根节点的最长路径&lt;=2*叶子节点到根节点的最短路径。可以说红黑树是更加折策略中的结果。</p>
+<p>  在《算法》（第4版）中，红黑树的实现直接采用了左倾红黑树的方法，左倾红黑树可以用更少的代码量实现红黑树，我也便使用他的方法理解。</p>
+<h1 id="2-3-4树和左倾红黑树的等价转换"><a href="#2-3-4树和左倾红黑树的等价转换" class="headerlink" title="2-3-4树和左倾红黑树的等价转换"></a>2-3-4树和左倾红黑树的等价转换</h1><p>  我们把树中的链分为3种类型：</p>
+<ol>
+<li><p><em>红链接</em>连接两个2-节点构成一个3-节点</p>
+<p><img src="/2019/02/24/左倾红黑树/3node.png" alt=""></p>
+</li>
+<li><p><em>黑链接</em>则是2-3树中的普通连接。</p>
+</li>
+<li><p>第三种，类型会临时出现，稳定的2-3树不会出现，2-3-4中会出现，它是4-节点<br><img src="/2019/02/24/左倾红黑树/4node.png" alt=""></p>
+<p>这么一来，我们便可以用一棵BST来代表2-3-4树了。<br><img src="/2019/02/24/左倾红黑树/2-3-4toRB.png" alt=""><br>但是有个问题，对于三节点的表示，有两种表示方法，一种是红链左倾，另一种是红链右倾，所以要考虑很多种情况，但是我们只考虑左倾的情况，也就是对于3-节点，我们只有下图一种转换关系：<br><img src="/2019/02/24/左倾红黑树/left3node.png" alt=""><br>构成的树也称左倾红黑树（Left-Leaning Red-Black Trees）,如下图：<br><img src="/2019/02/24/左倾红黑树/left2-3-4toRB.png" alt=""></p>
+</li>
+</ol>
+<h2 id="不允许出现的情况"><a href="#不允许出现的情况" class="headerlink" title="不允许出现的情况"></a>不允许出现的情况</h2><ul>
+<li><p>右倾的3-节点<br><img src="/2019/02/24/左倾红黑树/right3node.png" alt=""></p>
+</li>
+<li><p>两个红链接首尾相连<br><img src="/2019/02/24/左倾红黑树/inarow.png" alt=""></p>
+</li>
+</ul>
+<h1 id="Java左倾红黑树的数据结构"><a href="#Java左倾红黑树的数据结构" class="headerlink" title="Java左倾红黑树的数据结构"></a>Java左倾红黑树的数据结构</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BST</span>&lt;<span class="title">Key</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">Key</span>&gt;, <span class="title">Value</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> RED   = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> BLACK = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">private</span> Node root;</span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    Key key;</span><br><span class="line">    Value val;</span><br><span class="line">    Node left, right;</span><br><span class="line">    <span class="keyword">boolean</span> color;</span><br><span class="line">    Node(Key key, Value val, <span class="keyword">boolean</span> color)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.key   = key;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.color = color;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125; </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Value <span class="title">get</span><span class="params">(Key key)</span></span></span><br><span class="line"><span class="function">   <span class="comment">// Search method.</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Key key, Value val)</span></span></span><br><span class="line"><span class="function">   <span class="comment">// Insert method.</span></span></span><br><span class="line"><span class="function">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delMax</span><span class="params">(Key key)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isRed</span><span class="params">(Node x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x == <span class="keyword">null</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">return</span> (x.color == RED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了红黑树的put(),delete(),delMax(),delMin()这些涉及到节点颜色的操作之外，如get(),rank<br>(),max(),min(),floor(),ceiling()都是和BST一样的，一行都不用改，原因是红黑树本质上是一棵BST，所以说红黑树的确是个伟大的发明👍。</p>
+<h1 id="红黑树的插入"><a href="#红黑树的插入" class="headerlink" title="红黑树的插入"></a>红黑树的插入</h1><p>红黑树的插入是一个比较复杂的操作，使用递归实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">put</span><span class="params">(Node x, Key key, Value val)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 从Node x 开始put</span></span><br><span class="line">    <span class="comment">// 如果存在key,在更新key所在节点的val</span></span><br><span class="line">    <span class="comment">// 否则新建一个叶子节点</span></span><br><span class="line">    <span class="keyword">if</span> (x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">new</span> Node(key,val,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> cmp = key.compareTo(x.key);</span><br><span class="line">    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> put(x.left,key,val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> put(x.right,key,val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        x.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 更新子树的节点个数</span></span><br><span class="line">    x.N = x.left.N + x.right.N + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="平衡红黑树操作"><a href="#平衡红黑树操作" class="headerlink" title="平衡红黑树操作"></a>平衡红黑树操作</h1><p>在红黑树中只需要维护黑链接的平衡，只需要对红色的链接进行旋转操作，这俩是基本的工具方法，很多地方都要用到，所以封装成两个私有的内部方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">rotateLeft</span><span class="params">(Node h)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 向左旋转</span></span><br><span class="line">    Node x = h.right;</span><br><span class="line">    h.right = x.left;</span><br><span class="line">    x.left = h;</span><br><span class="line">    x.color = h.color;</span><br><span class="line">    h.color = RED;</span><br><span class="line">    <span class="comment">// 更新节点计数器 todo 此处略有不熟</span></span><br><span class="line">    x.N = h.N;</span><br><span class="line">    h.N = <span class="number">1</span> + size(h.left) + size(h.right);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/02/24/左倾红黑树/lrotate.png" alt=""><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">rotateRight</span><span class="params">(Node h)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 向右旋转,与向左相反</span></span><br><span class="line">    Node x = h.left;</span><br><span class="line">    h.left = x.right;</span><br><span class="line">    x.right = h;</span><br><span class="line">    x.color = h.color;</span><br><span class="line">    h.color = RED;</span><br><span class="line">    <span class="comment">// 更新节点计数器 todo 此处略有不熟</span></span><br><span class="line">    x.N = h.N;</span><br><span class="line">    h.N = <span class="number">1</span> + size(h.left) + size(h.right);</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/02/24/左倾红黑树/rrotate.png" alt=""></p>
+<h1 id="在LLRBtree底部插入一个新的节点"><a href="#在LLRBtree底部插入一个新的节点" class="headerlink" title="在LLRBtree底部插入一个新的节点"></a>在LLRBtree底部插入一个新的节点</h1><ol>
+<li>把添加的新节点的color设为红色。</li>
+<li>如果<em>有必要</em>的话，执行旋转操作。其中的<em>有必要</em>是指哪些情况呢？就是上文<code>不允许出现的情况</code>。转换关系如下图：<br><img src="/2019/02/24/左倾红黑树/transfer.png" alt=""></li>
+</ol>
+<h1 id="把4-节点分解"><a href="#把4-节点分解" class="headerlink" title="把4-节点分解"></a>把4-节点分解</h1><p>这个很好实现，把两个子节点的颜色改为黑，父节点的颜色改成红色即可。<br>  <img src="/2019/02/24/左倾红黑树/flipcolors.png" alt=""><br>书上的实现是这样的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">flipColors</span><span class="params">(Node h)</span></span>&#123;</span><br><span class="line">    h.left.color = BLACK;</span><br><span class="line">    h.right.color = BLACK;</span><br><span class="line">    h.color = RED;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是论文上的实现更加统一，也避免了再添加一个逆操作函数(在删除节点操作中，子节点颜色改为红，父节点颜色改为黑),<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Node <span class="title">colorFlip</span><span class="params">(Node h)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	x.color = !x.color;</span><br><span class="line">	x.left.color = !x.left.color;</span><br><span class="line">	x.right.color = !x.right.color;</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="在LLRB中分解4-节点"><a href="#在LLRB中分解4-节点" class="headerlink" title="在LLRB中分解4-节点"></a>在LLRB中分解4-节点</h1><ol>
+<li>分解4-节点,红链接会上升一个level</li>
+<li>如果有必要，则rotate。</li>
+</ol>
+<ul>
+<li>当父节点是2-节点时<br><img src="/2019/02/24/左倾红黑树/flip.png" alt=""></li>
+<li>当父节点是3-节点时<br><img src="/2019/02/24/左倾红黑树/father3.png" alt=""></li>
+</ul>
+<h1 id="LLRT的插入算法"><a href="#LLRT的插入算法" class="headerlink" title="LLRT的插入算法"></a>LLRT的插入算法</h1><p>  <img src="/2019/02/24/左倾红黑树/steps.png" alt=""><br>这里代码的执行顺序是很重要的。<br>比如如果我们把colorfilp移到最后，那么会出现什么情况？<br>由于每次在最后都将4-node 进行color flip了，那么自然红黑树中不存在4-node了，所以就变成了2-3树的红黑树，这也是书本上的结果。</p>
+<h1 id="LLBT节点的删除"><a href="#LLBT节点的删除" class="headerlink" title="LLBT节点的删除"></a>LLBT节点的删除</h1><h2 id="删除最大节点"><a href="#删除最大节点" class="headerlink" title="删除最大节点"></a>删除最大节点</h2><h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="https://blog.csdn.net/bytxl/article/details/40920165" target="_blank" rel="noopener">https://blog.csdn.net/bytxl/article/details/40920165</a><br><a href="http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf" target="_blank" rel="noopener">http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf</a><br><a href="https://cloud.tencent.com/developer/article/1193097" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1193097</a><br></p>
+	
+	</div>
+  <a type="button" href="/2019/02/24/左倾红黑树/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/12/19/SpringBoot整合JWT实现用户认证授权/" title="为了提高网站的api的安全性，一般都会实现认证(Autentication)和授权(Authenrization)，分别对应用户的登录、控制用户可以访问的资源。">SpringBoot整合JWT实现接口认证授权</a>
 		</h3>
 		</div>
@@ -456,54 +523,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2018/10/13/django建站/" >django建站</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-10-13  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><a href="https://docs.djangoproject.com/en/2.1/intro/tutorial01/" target="_blank" rel="noopener">参考网址</a></p>
-<ol>
-<li>conda创建新虚拟环境</li>
-</ol>
-<p>source activate myDjangoApp</p>
-<ol start="2">
-<li>下载安装django<br>pip install django</li>
-<li><p>创建新工程目录 django-admin startproject mysite<br>工程目录结构：<br>mysite/<br> manage.py<br> mysite/</p>
-<pre><code>__init__.py
-settings.py
-urls.py
-wsgi.py
-</code></pre><p>【note】修改文件后得apply（应用） python manage.py migrate</p>
-</li>
-<li><p>启动工程 python manage.py runserver</p>
-</li>
-<li><p>App和Project之间的关系<br> 一个Project里头可以有多个App,一个App可以被包含在多个Projectzhong</p>
-</li>
-<li><p>•    更改模型（in models.py）。<br>•    运行以创建这些更改的迁移python manage.py makemigrations<br>•    运行以将这些更改应用于数据库。python manage.py migrate</p>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/2018/10/13/django建站/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -563,48 +582,48 @@ wsgi.py
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/阿里云/">阿里云<span>1</span></a></li>
+			<li><a href="/tags/VSCode/">VSCode<span>1</span></a></li>
 		
-			<li><a href="/tags/Java/">Java<span>9</span></a></li>
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
-			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+			<li><a href="/tags/ml/">ml<span>1</span></a></li>
 		
-			<li><a href="/tags/quant/">quant<span>1</span></a></li>
+			<li><a href="/tags/数据库/">数据库<span>3</span></a></li>
 		
-			<li><a href="/tags/R/">R<span>1</span></a></li>
+			<li><a href="/tags/量化/">量化<span>1</span></a></li>
 		
-			<li><a href="/tags/django/">django<span>1</span></a></li>
-		
-			<li><a href="/tags/String/">String<span>1</span></a></li>
-		
-			<li><a href="/tags/grub/">grub<span>1</span></a></li>
-		
-			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
-		
-			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
-		
-			<li><a href="/tags/Java反射/">Java反射<span>1</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
-		
-			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
-		
-			<li><a href="/tags/html/">html<span>1</span></a></li>
-		
-			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+			<li><a href="/tags/python/">python<span>3</span></a></li>
 		
 			<li><a href="/tags/Eclipse/">Eclipse<span>1</span></a></li>
 		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
+			<li><a href="/tags/grub/">grub<span>1</span></a></li>
 		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+			<li><a href="/tags/tcp/">tcp<span>1</span></a></li>
 		
-			<li><a href="/tags/kali/">kali<span>1</span></a></li>
+			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+		
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/Enum/">Enum<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
+		
+			<li><a href="/tags/事务隔离级别/">事务隔离级别<span>1</span></a></li>
+		
+			<li><a href="/tags/Java/">Java<span>10</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
+		
+			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
+		
+			<li><a href="/tags/语法/">语法<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>76</span></a></li>
+		   <li><a href="/tags">...<span>77</span></a></li>
 		 
 		</ul>
 	</div>
@@ -615,6 +634,10 @@ wsgi.py
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2019/04/20/Spring装配Bean/"  title="Spring有两个特性，DI(依赖注入)和AOP(面向切面编程)，而想要实现DI，首先得学会如何把Bean装配到容器中,以实现应用对象间保持松散耦合。" ><i class="fa fa-file-o"></i>Spring装配Bean</a>
+      </li>
     
       <li>
         <a href="/2019/04/14/远程连接MySQL/"  title="本地使用Navicat或者终端连接远程MySQL服务器，遇到些小坑，最终还是解决了。" ><i class="fa fa-file-o"></i>远程连接MySQL</a>
@@ -630,10 +653,6 @@ wsgi.py
     
       <li>
         <a href="/2019/04/05/MySQL事务隔离级别/"  title="一直没有搞清楚数据库事务隔离级别到底是怎么回事，看了《高性能MySQL》后还是一脸懵逼，自己动手实验后才算粗浅的解了。" ><i class="fa fa-file-o"></i>MySQL事务隔离级别</a>
-      </li>
-    
-      <li>
-        <a href="/2019/04/04/配置gitalk/"  title="博客评论插件有很多又很少，gitalk在目前来看是比较适合hexo主题的一款评论系统。" ><i class="fa fa-file-o"></i>配置gitalk</a>
       </li>
     
   </ul>
