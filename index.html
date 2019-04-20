@@ -138,6 +138,54 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2019/04/20/Spring装配Bean/" title="Spring有三种方式装配Bean,有xml文件，有JavaConfig，还有最方便的自动装配。">Spring装配Bean</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2019-04-20  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>上一篇<a href="https://bababadboy.github.io/2019/04/20/Spring依赖注入/" target="_blank" rel="noopener">SpringBoot依赖注入</a>中依赖注入的例子使用的是JavaConfig显示配置的方法。</p>
+<p>回想一下，<code>Config</code>类，他显示地配置了很多的bean，每次都要自己配置不嫌麻烦？能不能省略显示配置的内容,让让Spring自动去发现类—–可以，这便是Spring自动装配。</p>
+<h1 id="Spring自动装配"><a href="#Spring自动装配" class="headerlink" title="Spring自动装配"></a>Spring自动装配</h1><p>ABC过于抽象，咱们这次换个生动的例子（《Spring实战》）,我们为其取名为”音乐播放器和他的CD”。uml类图建模如下图所示：<br><img src="/2019/04/20/Spring装配Bean/beans.png" alt="beans"></p>
+<p>解释一下：CompactDisc有个play()方法，Fantasy(范特西)实现了CompactDisc接口，CDplayer使用Fantasy播放音乐。代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CompactDisc</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fantasy</span> <span class="keyword">implements</span> <span class="title">CompactDisc</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String title = <span class="string">"范特西"</span>;</span><br><span class="line">    <span class="keyword">private</span> String artist = <span class="string">"周杰伦"</span>;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; songs;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"正在播放"</span>+artist+<span class="string">"的"</span>+title);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Fantasy</span><span class="params">(List&lt;String&gt; songs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.songs = songs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CDPlayer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CompactDisc cd;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CDPlayer</span><span class="params">(CompactDisc cd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cd = cd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cd.play();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类比一下上一篇的ABC，其实是一样的模子。按照上篇的思维，即显示配置Bean，接下来我们就需要写个<code>Config</code>类，然后在里面显示返回<code>CDPlayer</code>,<code>Fantasy</code>实例对象。你可以停下来想一想。周杰伦14张专辑都实现了<code>CompactDisc</code>接口，你都需要手动写，岂不是很麻烦，时间复杂度为O(n) = =。</p>
+<p>好在Spring支持自动配置，解放了我们的双手！那我们该怎么改呢？<code>CompactDisc</code>接口不需要改动;<code>Fantasy</code>只需要在类之前使用<code>@Component</code>注解告诉Spring它是个组件，需要被扫描然后装入容器中，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>							<span class="comment">// --------------&gt; 改动</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fantasy</span> <span class="keyword">implements</span> <span class="title">CompactDisc</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String title = <span class="string">"范特西"</span>;</span><br><span class="line">    <span class="keyword">private</span> String artist = <span class="string">"周杰伦"</span>;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; songs;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"正在播放"</span>+artist+<span class="string">"的"</span>+title);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Fantasy</span><span class="params">(List&lt;String&gt; songs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.songs = songs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而<code>CDPlayer</code>也需要添加<code>@Component</code>注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>							<span class="comment">// --------------&gt; 改动</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CDPlayer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CompactDisc cd;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span>						<span class="comment">// --------------&gt; 改动，自动把cd装入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CDPlayer</span><span class="params">(CompactDisc cd)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cd = cd;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cd.play();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@Autowired</code>注解相当于告诉Spring,如果容器中存在<code>CompactDisc</code>的实例，那么在生成<code>CDPlayer</code>Bean是，把<code>CompactDisc</code>实例依赖自动装入。最后我们需要一个<code>CDPlayerConfig</code>告诉Spring需要扫描哪些<code>Component</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(basePackageClasses = CompactDisc.class)<span class="comment">// --------------&gt;扫描CompactDisc.class所在包</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CDPlayerConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你会发现只要在组件上方添加<code>@Component</code>注解，并且使用<code>@ComponentScan</code>告诉Spring哪些组件需要被装入容器，你就能省略上篇冗杂在<code>Config</code>显示配置Bean。</p>
+<h1 id="SpringBoot简化操作"><a href="#SpringBoot简化操作" class="headerlink" title="SpringBoot简化操作"></a>SpringBoot简化操作</h1><p>如果用过SpringBoot的同鞋可能发现，上述的两步走</p>
+<ol>
+<li>在组件上方添加<code>@Component</code>注解</li>
+<li>使用<code>@ComponentScan</code>告诉Spring哪些组件需要被装入容器</li>
+</ol>
+<p>中的第二步是不需要开发人员做的，没错，SpringBoot简化了配置操作，但是不代表它没有做，它只是在幕后帮你完成了第二步。</p>
+
+	
+	</div>
+  <a type="button" href="/2019/04/20/Spring装配Bean/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2019/04/20/Spring依赖注入/" title="Spring有两个特性，DI(依赖注入)和AOP(面向切面编程)，而想要实现DI，首先得学会如何把Bean装配到容器中,以实现应用对象间保持松散耦合。">Spring依赖注入</a>
 		</h3>
 		</div>
@@ -504,37 +552,6 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2019/03/02/Java字符串/" >Java字符串</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2019-03-02  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="Java-String类"><a href="#Java-String类" class="headerlink" title="Java String类"></a>Java String类</h1><p>字符串在java编程中应用广泛，有必要深入的了解一下。</p>
-<h2 id="创建字符串"><a href="#创建字符串" class="headerlink" title="创建字符串"></a>创建字符串</h2><p>java的String对象有2种创建方式：</p>
-<ul>
-<li>字面值对象</li>
-<li>构造方法创建对象。</li></ul>
-	
-	</div>
-  <a type="button" href="/2019/03/02/Java字符串/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -594,45 +611,45 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
+			<li><a href="/tags/StringBuffer/">StringBuffer<span>1</span></a></li>
 		
-			<li><a href="/tags/isolation-level/">isolation level<span>1</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>1</span></a></li>
-		
-			<li><a href="/tags/Mac/">Mac<span>4</span></a></li>
+			<li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li>
 		
 			<li><a href="/tags/gitalk/">gitalk<span>1</span></a></li>
 		
-			<li><a href="/tags/antigen/">antigen<span>1</span></a></li>
+			<li><a href="/tags/DFS/">DFS<span>1</span></a></li>
 		
-			<li><a href="/tags/Hibernate/">Hibernate<span>1</span></a></li>
-		
-			<li><a href="/tags/html/">html<span>1</span></a></li>
-		
-			<li><a href="/tags/索引/">索引<span>1</span></a></li>
-		
-			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>10</span></a></li>
-		
-			<li><a href="/tags/python/">python<span>3</span></a></li>
-		
-			<li><a href="/tags/git/">git<span>1</span></a></li>
-		
-			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
-		
-			<li><a href="/tags/transaction/">transaction<span>1</span></a></li>
-		
-			<li><a href="/tags/Eclipse/">Eclipse<span>1</span></a></li>
-		
-			<li><a href="/tags/MySQL/">MySQL<span>3</span></a></li>
-		
-			<li><a href="/tags/svm/">svm<span>1</span></a></li>
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
 			<li><a href="/tags/Java反射/">Java反射<span>1</span></a></li>
 		
+			<li><a href="/tags/VSCode/">VSCode<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
+		
+			<li><a href="/tags/ARIMA/">ARIMA<span>1</span></a></li>
+		
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
+		
+			<li><a href="/tags/时间序列/">时间序列<span>1</span></a></li>
+		
+			<li><a href="/tags/assert/">assert<span>1</span></a></li>
+		
+			<li><a href="/tags/事务隔离级别/">事务隔离级别<span>1</span></a></li>
+		
+			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+		
+			<li><a href="/tags/股票/">股票<span>1</span></a></li>
+		
+			<li><a href="/tags/统计/">统计<span>1</span></a></li>
+		
+			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
+		
 			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/shell/">shell<span>3</span></a></li>
+		
+			<li><a href="/tags/log/">log<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>77</span></a></li>
@@ -648,6 +665,10 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2019/04/20/Spring装配Bean/"  title="Spring有三种方式装配Bean,有xml文件，有JavaConfig，还有最方便的自动装配。" ><i class="fa fa-file-o"></i>Spring装配Bean</a>
+      </li>
+    
+      <li>
         <a href="/2019/04/20/Spring依赖注入/"  title="Spring有两个特性，DI(依赖注入)和AOP(面向切面编程)，而想要实现DI，首先得学会如何把Bean装配到容器中,以实现应用对象间保持松散耦合。" ><i class="fa fa-file-o"></i>Spring依赖注入</a>
       </li>
     
@@ -661,10 +682,6 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
     
       <li>
         <a href="/2019/04/08/Java实现DFS和BFS/"  title="包括了无向无权图的邻接表构造，和对图的深度优先遍历以及广度优先遍历。讲真，Java是真心不方便啊，python多快鸭。" ><i class="fa fa-file-o"></i>Java实现DFS和BFS</a>
-      </li>
-    
-      <li>
-        <a href="/2019/04/05/MySQL事务隔离级别/"  title="一直没有搞清楚数据库事务隔离级别到底是怎么回事，看了《高性能MySQL》后还是一脸懵逼，自己动手实验后才算粗浅的解了。" ><i class="fa fa-file-o"></i>MySQL事务隔离级别</a>
       </li>
     
   </ul>

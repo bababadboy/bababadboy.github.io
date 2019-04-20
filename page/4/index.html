@@ -138,6 +138,38 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2018/07/23/认识AIML/" title="AIML,全名为Artificial Intelligence Markup Language（人工智能标记语言），是一种创建自然语言软件代理的XML语言，和html，xml文件类似。是聊天机器人回答问题的一个模板，机器人只是根据文档内容回答我们输入的问题。这篇文章着重了解AIML的标签和一个.aiml文件的组成。">认识AIML</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-07-23  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>和XML文件一样，AIML文件开始也需要定义编码方式，如下：&lt;?xml version=”1.0” encoding=”ISO-8859-1”?&gt; 常用的编码方式有：encoding=”ISO-8859-1”、encoding=”UTF-8”、encoding=”GB2312”等。</p>
+<h2 id="1-基本标签"><a href="#1-基本标签" class="headerlink" title="1. 基本标签"></a>1. 基本标签</h2><ul>
+<li>&lt;aiml&gt;:一个aiml文件的标志</li>
+<li>&lt;category>：定义unit ofknowledge中Alicebot的知识库。每个类别包含在一个句子的形式，用户输入可以是一个断言，问题和感叹号等用户的输入可以包含通配符的字符，如*和_。用       &lt;category>标签必须有&lt;pattern>和&lt;template>标记。</li>
+<li>&lt;pattern>：定义模式匹配的输入，通俗的讲就是用户输入的内容。你问它答里头的‘问’。里面的内容必须大写，可以有星号* 或下划线_，但必须空格隔开，星号表示匹配所有，任意情况；下划线的意义跟星号一样，除了不能匹配字典里面Z后面的字母。</li>
+<li>&lt;template> ：定义一个用户的输入的响应。就是你问它答里头的‘答’。&lt;template>标签可以保存数据，可以调用另一个程序，能够给条件答案或委托给其他类别。</li></ul>
+	
+	</div>
+  <a type="button" href="/2018/07/23/认识AIML/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2018/07/23/MacOS安装TensorFlow/" title="安装TensorFlow从来就不是个技术活，但你可能还是要花不少的时间，遇到不少的坑，把心得写一写，免得在一个坑上踩两次。">在macOS上安装TensorFlow</a>
 		</h3>
 		</div>
@@ -436,46 +468,6 @@ var _hmt = _hmt || [];
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2017/09/05/ubuntu安装自定义字体/" >ubuntu安装自定义字体</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2017-09-05  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
-<li>下载好的字体–.ttf</li>
-<li>设置桌面的工具–Unity Tweak Tool<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1></li>
-</ul>
-<ol start="0">
-<li>字体文件位于/usr/share/fonts/,在这里新建文件夹并且将.ttf移入</li>
-<li>修改字体权限,确保root以外的普通用户也可以正常使用该字体</li>
-<li><p>建立字体缓存:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> mkfontscale</span><br><span class="line"><span class="variable">$sudo</span> mkfontdir</span><br><span class="line"><span class="variable">$sudo</span> fcache -fv</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用Unity Tweak Tool:预览-&gt;外观-&gt;字体,选择该字体</p>
-</li>
-</ol>
-
-	
-	</div>
-  <a type="button" href="/2017/09/05/ubuntu安装自定义字体/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -535,45 +527,45 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
+			<li><a href="/tags/mac/">mac<span>1</span></a></li>
 		
-			<li><a href="/tags/MacOS/">MacOS<span>1</span></a></li>
+			<li><a href="/tags/svm/">svm<span>1</span></a></li>
 		
-			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+			<li><a href="/tags/Java/">Java<span>11</span></a></li>
 		
-			<li><a href="/tags/事务隔离级别/">事务隔离级别<span>1</span></a></li>
+			<li><a href="/tags/R/">R<span>1</span></a></li>
 		
-			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
-		
-			<li><a href="/tags/Spring/">Spring<span>1</span></a></li>
-		
-			<li><a href="/tags/sql/">sql<span>1</span></a></li>
-		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
-		
-			<li><a href="/tags/阿里云/">阿里云<span>1</span></a></li>
-		
-			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
-		
-			<li><a href="/tags/BFS/">BFS<span>1</span></a></li>
-		
-			<li><a href="/tags/tty/">tty<span>1</span></a></li>
-		
-			<li><a href="/tags/latex/">latex<span>1</span></a></li>
-		
-			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
-		
-			<li><a href="/tags/B-Tree/">B+Tree<span>1</span></a></li>
+			<li><a href="/tags/sublime/">sublime<span>3</span></a></li>
 		
 			<li><a href="/tags/无向图/">无向图<span>1</span></a></li>
 		
-			<li><a href="/tags/索引/">索引<span>1</span></a></li>
+			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
 		
-			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
 		
-			<li><a href="/tags/Java反射/">Java反射<span>1</span></a></li>
+			<li><a href="/tags/决策树/">决策树<span>1</span></a></li>
 		
-			<li><a href="/tags/mac/">mac<span>1</span></a></li>
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
+		
+			<li><a href="/tags/ml/">ml<span>1</span></a></li>
+		
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/gitalk/">gitalk<span>1</span></a></li>
+		
+			<li><a href="/tags/system/">system<span>3</span></a></li>
+		
+			<li><a href="/tags/量化/">量化<span>1</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>3</span></a></li>
+		
+			<li><a href="/tags/git/">git<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>77</span></a></li>
@@ -589,6 +581,10 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2019/04/20/Spring装配Bean/"  title="Spring有三种方式装配Bean,有xml文件，有JavaConfig，还有最方便的自动装配。" ><i class="fa fa-file-o"></i>Spring装配Bean</a>
+      </li>
+    
+      <li>
         <a href="/2019/04/20/Spring依赖注入/"  title="Spring有两个特性，DI(依赖注入)和AOP(面向切面编程)，而想要实现DI，首先得学会如何把Bean装配到容器中,以实现应用对象间保持松散耦合。" ><i class="fa fa-file-o"></i>Spring依赖注入</a>
       </li>
     
@@ -602,10 +598,6 @@ var _hmt = _hmt || [];
     
       <li>
         <a href="/2019/04/08/Java实现DFS和BFS/"  title="包括了无向无权图的邻接表构造，和对图的深度优先遍历以及广度优先遍历。讲真，Java是真心不方便啊，python多快鸭。" ><i class="fa fa-file-o"></i>Java实现DFS和BFS</a>
-      </li>
-    
-      <li>
-        <a href="/2019/04/05/MySQL事务隔离级别/"  title="一直没有搞清楚数据库事务隔离级别到底是怎么回事，看了《高性能MySQL》后还是一脸懵逼，自己动手实验后才算粗浅的解了。" ><i class="fa fa-file-o"></i>MySQL事务隔离级别</a>
       </li>
     
   </ul>
