@@ -138,6 +138,59 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2019/06/13/编写一个servlet/" title="从安装Tomcat容器，到编写servlet、配置web.xml文件。用最原始的方式构建一个网站，从而理解servlet的工作原理。">编写一个servlet</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2019-06-13  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="前言：关于Servlet"><a href="#前言：关于Servlet" class="headerlink" title="前言：关于Servlet"></a>前言：关于Servlet</h1><h2 id="历史发展"><a href="#历史发展" class="headerlink" title="历史发展"></a>历史发展</h2><p><a href="Servlet的历史与规范">https://blog.csdn.net/u010297957/article/details/51498018#commentBox</a></p>
+<p>从CGI –&gt; applet –&gt; servlet(java)  –&gt; servlet1.1(jsp借鉴asp) –&gt; servlet1.2(mvc思想)     –&gt; … –&gt; Servlet3.1(稳定)<br>–&gt; SpringMVC(本质也是Servlet)</p>
+<h2 id="Servlet规范"><a href="#Servlet规范" class="headerlink" title="Servlet规范"></a>Servlet规范</h2><p><a href="https://jcp.org/en/jsr/detail?id=340" target="_blank" rel="noopener">Servlet官方规范文档</a><br><a href="http://zhanjindong.com/assets/pdf/Servlet3.1-Specification.pdf" target="_blank" rel="noopener">Servlet中文翻译</a></p>
+<p>两个链接分别是Servlet官方文档和中文翻译版本。</p>
+<p>狭义的看，Servlet就是一个interface,一个Java的接口，它有五个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig var1)</span> <span class="keyword">throws</span> ServletException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">ServletConfig <span class="title">getServletConfig</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">getServletInfo</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.zhihu.com/question/21416727" target="_blank" rel="noopener">13乎高赞回答</a>,第一、二个回答醍醐灌顶了，爱了爱了。</p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>接受http请求，动态处理并返回结果给客户端。</p>
+<h2 id="Servlet与Tomcat"><a href="#Servlet与Tomcat" class="headerlink" title="Servlet与Tomcat"></a>Servlet与Tomcat</h2><p>Tomcat是Servlet运行的容器。Servlet没有main方法，它受控于另一个Java应用，这个应用就成为容器(Container),而Tomcat就是Servlet的容器。而容器怎么处理用户的请求？我们来复现模拟这个过程：</p>
+<ol>
+<li>客户端发起一个请求。</li>
+<li>容器监听端口发现客户端的请求，创建<code>HttpServletRequest</code>和<code>HttpServletResponse</code>两个对象</li>
+<li>容器根据url判断把请求丢给哪个Servlet处理(根据映射规则)，为这个请求创建一个线程，并把HttpServletRequest<code>和</code>HttpServletResponse`丢给相应Servlet</li>
+<li>线程调用Servlet的service(),service()根据请求调用doGet()或者doPost()方法</li>
+<li>Service()处理完成，通过<code>HttpServletResponse</code>把处理结果返回给Tomcat容器,Tomcat继续封装成http响应返回个客户端。</li>
+</ol>
+<h1 id="部署一个Servlet"><a href="#部署一个Servlet" class="headerlink" title="部署一个Servlet"></a>部署一个Servlet</h1><h2 id="安装Tomcat"><a href="#安装Tomcat" class="headerlink" title="安装Tomcat"></a>安装Tomcat</h2><p>本人在阿里云学生机安装Tomcat8,系统是ubuntu16.04,参考资料：<br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-ubuntu-16-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-ubuntu-16-04</a></p>
+<h2 id="编写和编译servlet"><a href="#编写和编译servlet" class="headerlink" title="编写和编译servlet"></a>编写和编译servlet</h2><ol>
+<li>在<code>/opt/tomcat</code>目录下创建一个<code>myapp</code>目录，接着在<code>myapp</code>下创建<code>images</code>（存放图片）、<code>src</code>（存放java源码）、<code>WEB-INF</code>,在<code>WEB-INF</code>下创建<code>classes</code>（存放字节码文件）和<code>web.xml</code>，目录树如下:</li>
+</ol>
+<p>myapp/<br>├── images<br>│   └── test.JPG<br>├── src<br>│   └── TestingServlet.java<br>└── WEB-INF<br>    ├── classes<br>    │   └── TestingServlet.class<br>    └── web.xml</p>
+<p>写一个helloworld版的servlet，使用vim写java你就会发现ide确实方便了开发。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestingServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, </span></span></span><br><span class="line"><span class="function"><span class="params">  HttpServletResponse response)</span> </span></span><br><span class="line"><span class="function">  <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">  </span><br><span class="line">  PrintWriter out = response.getWriter();</span><br><span class="line">  out.println(<span class="string">"&lt;HTML&gt;"</span>);</span><br><span class="line">  out.println(<span class="string">"&lt;HEAD&gt;"</span>);</span><br><span class="line">  out.println(<span class="string">"&lt;TITLE&gt;Servlet Testing&lt;/TITLE&gt;"</span>);</span><br><span class="line">  out.println(<span class="string">"&lt;/HEAD&gt;"</span>);</span><br><span class="line">  out.println(<span class="string">"&lt;BODY&gt;"</span>);</span><br><span class="line">  out.println(<span class="string">"Welcome to the Servlet Testing Center"</span>);</span><br><span class="line">  out.println(<span class="string">"&lt;/BODY&gt;"</span>);</span><br><span class="line">  out.println(<span class="string">"&lt;/HTML&gt;"</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>编译此文件，字节码文件输出到WEB-INFO/classes下：<br><code>javac -d ../WEB-INF/classes/ TestingServlet.java</code></p>
+<h2 id="配置web-xml"><a href="#配置web-xml" class="headerlink" title="配置web.xml"></a>配置web.xml</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">version</span>=<span class="string">"3.1"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">metadata-complete</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Testing<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>TestingServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Testing<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/test<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当你访问 host:8080/test时，tomcat容器会根据web.xml文件映射，把请求丢给名为Testing的servlet，而Testing会找到/<code>WEB-INFO/classes</code>下的<code>TestingServlet</code>字节码文件，处理完成返回客户端。</p>
+
+	
+	</div>
+  <a type="button" href="/2019/06/13/编写一个servlet/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2019/05/29/idea快捷键/" title="可通过`⌘,`到偏好设置中查看&#39;Keymap&#39;中查看。">idea快捷键(持续更新...)</a>
 		</h3>
 		</div>
@@ -530,33 +583,6 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2019/03/12/Java枚举/" title="怎么去理解枚举类，试着把它当做普通的类，不同之处在于：普通类想new几个就new几个，而枚举类是限定的，比如一个事物所处的状态，它往往是有限的。">Java枚举</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2019-03-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h1><p><img src="/2019/03/12/Java枚举/JavaEnum.png" alt="Java枚举/JavaEnum.png"></p>
-	
-	</div>
-  <a type="button" href="/2019/03/12/Java枚举/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -616,48 +642,48 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/c/">c++<span>1</span></a></li>
+			<li><a href="/tags/vim/">vim<span>1</span></a></li>
 		
-			<li><a href="/tags/libsvm/">libsvm<span>1</span></a></li>
+			<li><a href="/tags/JWT/">JWT<span>1</span></a></li>
 		
-			<li><a href="/tags/gitalk/">gitalk<span>1</span></a></li>
+			<li><a href="/tags/ubuntu/">ubuntu<span>6</span></a></li>
 		
-			<li><a href="/tags/ssh/">ssh<span>1</span></a></li>
+			<li><a href="/tags/Spring/">Spring<span>2</span></a></li>
 		
-			<li><a href="/tags/python/">python<span>3</span></a></li>
+			<li><a href="/tags/Javascript/">Javascript<span>1</span></a></li>
 		
-			<li><a href="/tags/zsh/">zsh<span>1</span></a></li>
+			<li><a href="/tags/Java/">Java<span>12</span></a></li>
+		
+			<li><a href="/tags/Atom/">Atom<span>1</span></a></li>
+		
+			<li><a href="/tags/latex/">latex<span>1</span></a></li>
+		
+			<li><a href="/tags/Hibernate/">Hibernate<span>1</span></a></li>
+		
+			<li><a href="/tags/事务隔离级别/">事务隔离级别<span>1</span></a></li>
 		
 			<li><a href="/tags/django/">django<span>1</span></a></li>
 		
+			<li><a href="/tags/algorithms/">algorithms<span>1</span></a></li>
+		
+			<li><a href="/tags/gitalk/">gitalk<span>1</span></a></li>
+		
+			<li><a href="/tags/语法/">语法<span>1</span></a></li>
+		
 			<li><a href="/tags/DFS/">DFS<span>1</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>7</span></a></li>
-		
-			<li><a href="/tags/TensorFlow/">TensorFlow<span>1</span></a></li>
-		
-			<li><a href="/tags/统计/">统计<span>1</span></a></li>
-		
-			<li><a href="/tags/StringBuffer/">StringBuffer<span>1</span></a></li>
-		
-			<li><a href="/tags/量化/">量化<span>1</span></a></li>
 		
 			<li><a href="/tags/hexo/">hexo<span>5</span></a></li>
 		
-			<li><a href="/tags/log/">log<span>1</span></a></li>
+			<li><a href="/tags/统计/">统计<span>1</span></a></li>
 		
-			<li><a href="/tags/idea/">idea<span>1</span></a></li>
+			<li><a href="/tags/StringBuilder/">StringBuilder<span>1</span></a></li>
 		
-			<li><a href="/tags/SpringBoot/">SpringBoot<span>2</span></a></li>
+			<li><a href="/tags/人工智能/">人工智能<span>1</span></a></li>
 		
-			<li><a href="/tags/Mac/">Mac<span>4</span></a></li>
-		
-			<li><a href="/tags/tips/">tips<span>1</span></a></li>
-		
-			<li><a href="/tags/LLRDBST/">LLRDBST<span>1</span></a></li>
+			<li><a href="/tags/花括号/">花括号<span>1</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>78</span></a></li>
+		   <li><a href="/tags">...<span>80</span></a></li>
 		 
 		</ul>
 	</div>
@@ -668,6 +694,10 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2019/06/13/编写一个servlet/"  title="从安装Tomcat容器，到编写servlet、配置web.xml文件。用最原始的方式构建一个网站，从而理解servlet的工作原理。" ><i class="fa fa-file-o"></i>编写一个servlet</a>
+      </li>
     
       <li>
         <a href="/2019/05/29/idea快捷键/"  title="可通过`⌘,`到偏好设置中查看&#39;Keymap&#39;中查看。" ><i class="fa fa-file-o"></i>idea快捷键(持续更新...)</a>
@@ -683,10 +713,6 @@ mysqld.cnf</code>，不同系统可能不同，不过，前缀路径<code>/etc/m
     
       <li>
         <a href="/2019/04/14/远程连接MySQL/"  title="本地使用Navicat或者终端连接远程MySQL服务器，遇到些小坑，最终还是解决了。" ><i class="fa fa-file-o"></i>远程连接MySQL</a>
-      </li>
-    
-      <li>
-        <a href="/2019/04/14/MySQL索引/" ><i class="fa fa-file-o"></i>MySQL索引</a>
       </li>
     
   </ul>
