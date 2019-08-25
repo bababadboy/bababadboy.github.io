@@ -185,6 +185,11 @@ var _hmt = _hmt || [];
 <li>把数值型变量转成字符串类型</li>
 </ul>
 <p>之前都是傻乎乎的先声明个字符串<code>String s =&quot;&quot;;</code>,然后再使用字符串拼接的方式<code>s += 555</code>，获得555字符串。其实String类本身提供了相应的方法:<code>String.valueOf()</code>。</p>
+<ul>
+<li>获取字符串的每个字符的ASCII码</li>
+</ul>
+<p>char类型的字符是通过编码展示在你面前的，比如:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="string">'a'</span>;	<span class="comment">// a = 97,字符'a'在默认编码(ascii)中对应数值是97</span></span><br></pre></td></tr></table></figure></p>
+<p>而你可以通过<code>str.getBytes(编码方式):byte[]</code>方法得到字符串每个字符的编码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">"abcd"</span>;</span><br><span class="line"><span class="keyword">byte</span>[] <span class="keyword">byte</span> = str.getBytes(StandardCharsets.US_ASCII);  <span class="comment">// UTF-8[97,98,99,100]</span></span><br></pre></td></tr></table></figure></p>
 <h5 id="参考网址："><a href="#参考网址：" class="headerlink" title="参考网址："></a>参考网址：</h5><p><a href="https://blog.csdn.net/xialei199023/article/details/63251366#commentBox" target="_blank" rel="noopener">https://blog.csdn.net/xialei199023/article/details/63251366#commentBox</a><br><a href="http://www.runoob.com/java/java-string.html" target="_blank" rel="noopener">http://www.runoob.com/java/java-string.html</a><br><a href="https://segmentfault.com/a/1190000009888357" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009888357</a><br><a href="https://blog.csdn.net/u012110719/article/details/45671557" target="_blank" rel="noopener">https://blog.csdn.net/u012110719/article/details/45671557</a></p>
 	  
 	</div>
